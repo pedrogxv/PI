@@ -4,9 +4,11 @@
 }
 
 .btn {
+    text-transform: uppercase;
+
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     background-color: transparent;
     border: 1px solid black;
     padding: 5px;
@@ -18,9 +20,19 @@
     transform: scale(1.05);
 }
 
+.btn-opacity:hover {
+    transform: unset;
+    filter: opacity(.8);
+}
+
 .btn-white {
     border: 1px solid white;
     color: white;
+}
+
+.btn-green {
+    border: 1px solid green;
+    color: green;
 }
 
 .btn-borderless {

@@ -10,7 +10,7 @@
     width: 0 !important;
 }
 
-.userCorner > * {
+.userCorner > *:not(.userCorner-userList) {
     padding: 20px;
 }
 
@@ -40,16 +40,45 @@
 
 .userCorner-userList {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
+
+    padding: 10px;
 }
 
 .userCorner-userList-user {
-    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+
     margin: 8px;
-    height: 100px;
+    height: fit-content;
+
+    height: 250px;
+    width: 100px;
+
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-.userCorner-userList-user img {
-    max-width: 100px;
-    object-fit: contain;
+.userCorner-userList-user .btn {
+    padding: 7px;
+    margin: 1px;
+    border-radius: 4px;
+}
+
+.userCorner-userList-user .btn:hover {
+    box-shadow: 0 0 4px grey;
+}
+
+.userCorner-userList-user > img {
+    border-radius: 1rem;
+    box-shadow: 0 0 5px grey;
+
+    height: 120px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.userInfo {
+    padding: 10px;
 }
