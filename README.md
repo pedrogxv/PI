@@ -11,3 +11,7 @@ _Repositório do Projeto Integrado (PI) do curso de Técnico em Informática do 
 *Seletor*: [https://pi.pedrogxv.repl.co/cadastro/](https://pi.pedrogxv.repl.co/cadastro/)
 
 *Seletor*: [https://pi.pedrogxv.repl.co/user-home/](https://pi.pedrogxv.repl.co/user-home/)
+
+## Ideia
+
+_Criar uma espécie de 'Tinder' para os contratantes._
