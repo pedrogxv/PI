@@ -9,6 +9,8 @@
 
 .panel-perfilInfo {
     border: 1px solid grey;
+    border-radius: 1rem;
+
     background-color: #3a3a3a;
     color: white;
     height: 700px;
@@ -17,12 +19,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.panel-perfilInfo .btn {
-    width: 100%;
-    padding: 18px;
-    font-size: 1.3rem;
 }
 
 .panel-perfilInfo:last-of-type {
@@ -45,20 +41,39 @@
     margin-top: 10px;
 }
 
+.panel-perfilInfo .btn {
+    width: 100%;
+    padding: 18px;
+    margin: 10px 0;
+    font-size: 1.3rem;
+}
+
+.panel-perfilInfo .btn img {
+    transform: scale(2);
+}
+
 .panel-perfil {
     border-radius: 30px;
-    border: 2px solid black;
-    background-color: azure;
+    box-shadow: 0 0 15px grey;
+    background-color: blanchedalmond;
     height: 95%;
-    width: fit-content;
-    transform: scale(1.05);
+    width: 110%;
+    transform: scale(1.08);
 
     display: grid;
     grid-template-rows: 2fr 1fr;
     overflow: hidden;
 }
 
+.panel-perfil:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
 .panel-perfil-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-bottom: 1px solid black;
 }
 

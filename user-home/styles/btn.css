@@ -35,6 +35,11 @@
     color: green;
 }
 
+.btn-gold {
+    border: 1px solid goldenrod;
+    color: goldenrod;
+}
+
 .btn-borderless {
     border: none;
 }
