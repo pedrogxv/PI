@@ -108,25 +108,3 @@
 .userInfo {
     padding: 10px;
 }
-
-.userCorner-scrollIcon {
-    position: fixed;
-    left: 170px;
-    bottom: 80px;
-
-    filter: opacity(.7);
-
-    width: 50px;
-    height: 50px;
-
-    animation: 1s fade-in-out infinite;
-}
-
-@keyframes fade-in-out {
-    0%, 100% {
-        filter: opacity(.7);
-    }
-    50% {
-        filter: opacity(.3);
-    }
-}
