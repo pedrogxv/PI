@@ -11,7 +11,7 @@
     justify-content: space-evenly;
     background-color: transparent;
     border: 1px solid black;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .btn:hover {
@@ -56,4 +56,8 @@
 
 .iconBtn-bigger {
     width: 60px;
+}
+
+.btn-remover::after {
+    content: "Remover";
 }

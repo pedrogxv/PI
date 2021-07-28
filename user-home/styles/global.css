@@ -17,3 +17,8 @@ body {
 a {
     color: rgb(35, 150, 69);
 }
+
+a.no-link {
+    text-decoration: none;
+    color: unset;
+}

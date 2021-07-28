@@ -1,5 +1,8 @@
 .userCorner {
     border: 2px solid black;
+    border-radius: 1rem 0;
+    box-shadow: 0 0 100px grey;
+
     margin: 10px 15px;
     max-width: 400px;
     max-height: 80vh;
@@ -15,14 +18,18 @@
 }
 
 .userCorner-head {
+    position: sticky;
+    top: 0;
+    background-color: #e9e9e9;
+
     display: flex;
     align-items: center;
     border-bottom: 1px solid black;
 }
 
-.userCorner-head h2 {
+.userCorner-head-userText {
     margin-left: 12px;
-    font-weight: bold;
+    width: 100%;
 }
 
 .userCorner-img {
@@ -30,6 +37,17 @@
     border-radius: 100%;
     object-fit: contain;
     box-shadow: 0 0 5px black;
+}
+
+.userCorner-head-icon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.userCorner-head-icon:hover {
+    transition: 1s;
+    transform: rotate(360deg);
 }
 
 .userCorner-actions-head {
