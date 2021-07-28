@@ -1,0 +1,55 @@
+.userCorner {
+    border: 2px solid black;
+    margin: 10px 15px;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow: scrolL;
+}
+
+.userCorner::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+.userCorner > * {
+    padding: 20px;
+}
+
+.userCorner-head {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.userCorner-head h2 {
+    margin-left: 12px;
+    font-weight: bold;
+}
+
+.userCorner-img {
+    width: 50px;
+    border-radius: 100%;
+    object-fit: contain;
+    box-shadow: 0 0 5px black;
+}
+
+.userCorner-actions-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userCorner-userList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.userCorner-userList-user {
+    border: 1px solid black;
+    margin: 8px;
+    height: 100px;
+}
+
+.userCorner-userList-user img {
+    max-width: 100px;
+    object-fit: contain;
+}
