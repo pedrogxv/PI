@@ -13,7 +13,7 @@
 
     background-color: #3a3a3a;
     color: white;
-    height: 700px;
+    height: 600px;
     padding: 30px;
     
     display: flex;
@@ -42,7 +42,7 @@
 }
 
 .panel-perfilInfo .btn {
-    width: 100%;
+    width: 90%;
     padding: 18px;
     margin: 10px 0;
     font-size: 1.3rem;
@@ -58,7 +58,7 @@
     background-color: blanchedalmond;
     height: 95%;
     width: 110%;
-    transform: scale(1.08);
+    transform: scale(1.2);
 
     display: grid;
     grid-template-rows: 2fr 1fr;
@@ -67,7 +67,7 @@
 
 .panel-perfil:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.22);
 }
 
 .panel-perfil-pic {
