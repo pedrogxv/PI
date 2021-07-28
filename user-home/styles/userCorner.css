@@ -64,6 +64,10 @@
     align-items: center;
 }
 
+.userCorner-actions-head  img {
+    margin-left: 10px;
+}
+
 .userCorner-userList {
     display: flex;
     justify-content: space-between;
