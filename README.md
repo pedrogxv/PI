@@ -1,6 +1,6 @@
 # Projeto Integrador
 
-_Repositório do Projeto Integrado (PI) do curso de Técnico em Informática do Senac._
+_Repositório do Projeto Integrado (PI) do curso de Técnico em Informática do Senac.._
 
 ## Páginas WEB
 
