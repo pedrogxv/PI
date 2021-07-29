@@ -82,13 +82,36 @@
     flex-direction: column;
 
     margin: 8px;
-    height: fit-content;
 
     height: 250px;
     width: 100px;
 
     border-radius: 5px;
     overflow: hidden;
+}
+
+.userCorner-userList-user > img {
+    cursor: pointer;
+
+    border-radius: 1rem;
+    box-shadow: 0 0 4px grey;
+
+    min-height: 110px;
+    max-height: 110px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.userInfo {
+    padding: 10px;
+}
+
+.userInfo > h4 {
+    padding: 5px 0;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .userCorner-userList-user .btn {
@@ -99,17 +122,4 @@
 
 .userCorner-userList-user .btn:hover {
     box-shadow: 0 0 4px grey;
-}
-
-.userCorner-userList-user > img {
-    border-radius: 1rem;
-    box-shadow: 0 0 5px grey;
-
-    height: 120px;
-    width: 100%;
-    object-fit: cover;
-}
-
-.userInfo {
-    padding: 10px;
 }

@@ -91,7 +91,7 @@
 }
 
 .perfilInfo-bottom {
-    width: 94%;
+    width: 90%;
 }
 
 .perfilInfo-bottom .btn {
@@ -100,5 +100,5 @@
 }
 
 .perfilInfo-bottom:last-of-type {
-    margin-left: 57px;
+    margin-left: 70px;
 }
