@@ -19,6 +19,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    position: relative;
+    /* z-index: -1; */
 }
 
 .panel-perfilInfo:last-of-type {
@@ -42,20 +45,17 @@
 }
 
 .panel-perfilInfo .btn {
-    width: 90%;
     padding: 18px;
-    margin: 10px 0;
+
     font-size: 1.3rem;
 }
 
-.panel-perfilInfo .btn img {
-    transform: scale(2);
-}
-
 .panel-perfil {
+    z-index: 100;
+
     border-radius: 30px;
     box-shadow: 0 0 15px grey;
-    background-color: blanchedalmond;
+    background-color: white;
     height: 95%;
     width: 110%;
     transform: scale(1.2);
@@ -88,4 +88,17 @@
     display: flex;
     justify-content: space-around;
     padding: 10px 0;
+}
+
+.perfilInfo-bottom {
+    width: 94%;
+}
+
+.perfilInfo-bottom .btn {
+    margin: 10px 0;
+    width: inherit;
+}
+
+.perfilInfo-bottom:last-of-type {
+    margin-left: 57px;
 }
