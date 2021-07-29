@@ -60,7 +60,7 @@
     box-shadow: 0 0 15px grey;
     background-color: white;
     height: inherit;
-    transform: scale(1.2);
+    transform: scale(1.15);
 
     display: grid;
     grid-template-rows: 2fr 1fr;
