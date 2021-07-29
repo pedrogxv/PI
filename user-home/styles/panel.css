@@ -9,7 +9,7 @@
     padding: 20px;
 }
 
-.panel-perfilInfo {
+.panel-target {
     border: 1px solid grey;
     border-radius: 1rem;
 
@@ -26,28 +26,28 @@
     /* z-index: -1; */
 }
 
-.panel-perfilInfo:last-of-type {
+.panel-target:last-of-type {
     padding: 30px 20px 30px 50px;
     text-align: right;
 }
 
-.panel-perfilInfo fieldset {
+.panel-target fieldset {
     border: none;
 }
 
-.panel-perfilInfo .field {
+.panel-target .field {
     padding: 10px 0;
 }
 
-.panel-perfilInfo label {
+.panel-target label {
     color: orange;
 }
 
-.panel-perfilInfo p {
+.panel-target p {
     margin-top: 10px;
 }
 
-.panel-perfilInfo .btn {
+.panel-target .btn {
     padding: 18px;
 
     font-size: 1.3rem;
