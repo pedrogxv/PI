@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="refresh" content="1000000000; url=./#userPanel" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/userCorner.css">
     <link rel="stylesheet" href="styles/btn.css">
     <link rel="stylesheet" href="styles/icons.css">
+    <link rel="stylesheet" href="styles/targets.css">
     <link rel="stylesheet" href="styles/bg.css">
     <link rel="stylesheet" href="styles/panel.css">
     <title>User - Home</title>
 </head>
-<body>
+<body id="none">
     
     <aside class="userCorner">
         <header class="userCorner-head">
@@ -196,9 +198,21 @@
                 <button class="btn btn-borderless btn-white btn-opacity bg-red btn-remover">                </button>
             </div>
         </div>
-    </aside>
+				<a class="target" href="#userPanel" target="_self">
+					<button class="btn btn-target">
+							Mostrar Candidatos
+					</button>
+				</a>
 
-    <main class="panel">
+    </aside>
+	
+    <main class="panel" id="userPanel">
+					<a class="target panelBackTarget" href="https://pi.pedrogxv.repl.co/user-home/#" target="_self">
+						<button class="btn btn-target">
+								Esconder painel
+						</button>
+					</a>
+
         <aside class="panel-target">
             <fieldset>
                 <div class="field">

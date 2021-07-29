@@ -1,0 +1,38 @@
+.btn-target {
+	border: none;
+
+
+	transition: .5s;
+}
+
+.target {
+
+	text-align: center;
+	background-color: inherit;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+
+.userCorner .btn-target {
+	position: sticky;
+}
+
+.btn-target:hover {
+	transform: scale(1) !important;
+}
+
+.panelBackTarget {
+	top: 0;
+	left: 0;
+	width: 200px;
+	bottom: unset;
+}
+
+#userPanel {
+	display: none;
+}
+
+#userPanel:target {
+	display: grid;
+}
