@@ -16,6 +16,7 @@ body {
 
 a {
     color: rgb(35, 150, 69);
+		text-underline-offset: 1px;
 }
 
 a.no-link {
