@@ -12,6 +12,6 @@ _Repositório do Projeto Integrado (PI) do curso de Técnico em Informática do 
 
 *User Home*: [https://pi.pedrogxv.repl.co/user-home/](https://pi.pedrogxv.repl.co/user-home/)
 
-## Ideia
+## Conceito
 
 _Criar uma espécie de 'Tinder' para os contratantes._
