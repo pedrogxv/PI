@@ -66,6 +66,7 @@
 
 .userCorner-actions-head  img {
     margin-left: 10px;
+    content: "";
 }
 
 .userCorner-userList {
