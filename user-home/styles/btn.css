@@ -60,16 +60,9 @@
 	content: "Chat";
 }
 
-.btn-remover::before {
-	content: url("imgs/icons/remove_user.svg");
-	color: white;
-	object-fit: contain;
-	width: 25%;
-	height: 100%;
-}
-
 .btn-remover::after {
     content: "Remover";
+    margin-left: 5px;
 }
 
 .btn-opacity:hover {
