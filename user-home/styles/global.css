@@ -45,8 +45,34 @@ a.no-link {
     color: unset;
 }
 
-input[type="checkbox"] {
-	border-radius: 100%;
+select {
+	color: black;
+	background-color: transparent;
+	padding: 10px;
+	font-size: 1.2rem;
+	border-radius: 10px;
+}
+
+option {
+	background-color: rgb(65, 65, 65);
+	color: white;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #999; 
 }
 
 .checkbox-toggle::after {

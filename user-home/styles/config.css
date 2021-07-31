@@ -30,11 +30,7 @@
 .config-body {
 	height: 100%;
 	width: 100%;
-	overflow: scroll;
-}
-
-.config-body::-webkit-scrollbar {
-    width: 0 !important;
+	overflow-y: scroll;
 }
 
 .config-field {
