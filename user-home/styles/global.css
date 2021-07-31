@@ -10,7 +10,8 @@ body {
     height: 100vh;
     display: flex;
     align-items: center;
-    background-color: wheat;
+    background-color: black;
+	color: white;
     overflow-y: hidden;
 }
 
@@ -31,12 +32,12 @@ button {
 }
 
 a {
-		display: flex;
-		align-items: baseline;
-		font-size: .9rem;
+	display: flex;
+	align-items: baseline;
+	font-size: .9rem;
 
-    color: rgb(35, 150, 69);
-		text-underline-offset: 1px;
+    color: mediumseagreen;
+	text-underline-offset: 1px;
 }
 
 a.no-link {

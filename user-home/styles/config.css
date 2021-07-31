@@ -7,7 +7,7 @@
 	background-color: rgb(65, 65, 65);
 	color: white;
 	border-radius: 20px;
-	box-shadow: 0 0 20px white;
+	box-shadow: 0 0 10px white;
 
 	display: flex;
 	flex-direction: column;

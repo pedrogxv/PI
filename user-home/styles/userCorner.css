@@ -1,7 +1,7 @@
 .userCorner {
     border: 2px solid black;
     border-radius: 1rem 0;
-    box-shadow: 0 0 100px grey;
+    box-shadow: 0 0 10px grey;
     background-color: rgb(65, 65, 65);
     color: wheat;
 
