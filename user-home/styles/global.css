@@ -40,7 +40,7 @@ a {
 }
 
 a.no-link {
-		display: unset;
+	display: inherit;
     text-decoration: none;
     color: unset;
 }

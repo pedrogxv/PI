@@ -16,19 +16,10 @@
 }
 
 .config-head {
-	height: 10%;
+	height: 20%;
 	display: flex;
 	align-items: center;
 	width: 100%;
-}
-
-.config-head svg {
-	padding: 5px;
-}
-
-.config-head svg:hover {
-	border-radius: 10px;
-	background-color: rgba(128, 128, 128, 0.411);
 }
 
 .config-head .title {
@@ -52,6 +43,11 @@
 
 .config-field > * {
 	margin: 15px 10px;
+	color: whitesmoke;
+}
+
+.config-field-title {
+	color: rgb(194, 190, 190);
 }
 
 .config-field:last-of-type {
@@ -65,5 +61,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	width: 30%;
+}
+
+.field-div-title {
 	width: 30%;
 }

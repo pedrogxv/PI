@@ -20,6 +20,10 @@
     transform: scale(1.05);
 }
 
+.btn:active {
+    filter: opacity(.5);
+}
+
 .btn-white {
     background-color: rgba(255, 255, 255, 0.733);
     color: black;
@@ -33,6 +37,14 @@
 
     border-bottom-color: red;
 }
+
+.btn-red-reverse {
+    background-color: red;
+    color: black;
+
+    border-bottom-color: tomato;
+}
+
 
 .btn-green {
     background-color: chartreuse;
@@ -75,4 +87,8 @@
 
 .btn-translatey:hover {
     transform: translateY(-3px);
+}
+
+.btn-background-grey:hover {
+	background-color: rgba(128, 128, 128, 0.411);
 }
