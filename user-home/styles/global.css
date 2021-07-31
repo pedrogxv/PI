@@ -45,6 +45,10 @@ a.no-link {
     color: unset;
 }
 
+input[type="checkbox"] {
+	border-radius: 100%;
+}
+
 .checkbox-toggle::after {
 	content: "Off";
 	text-transform: uppercase;
