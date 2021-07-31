@@ -1,17 +1,12 @@
-.btn-target {
-	border: none;
-
-
-	transition: .5s;
+.target-sticky {
+	position: sticky !important;
 }
 
 .target {
-
 	text-align: center;
 	background-color: inherit;
-	width: 100%;
 	position: absolute;
-	bottom: 0;
+	bottom: -1px;
 }
 
 .userCorner .btn-target {
@@ -29,10 +24,14 @@
 	bottom: unset;
 }
 
-#userPanel {
+#userPanel, #chatPanel, #config {
 	display: none;
 }
 
 #userPanel:target {
 	display: grid;
+}
+
+#chatPanel:target, #config:target {
+	display: flex;
 }
