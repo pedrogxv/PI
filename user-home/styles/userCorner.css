@@ -6,9 +6,9 @@
     color: wheat;
 
     margin: 10px 15px;
-		min-width: 400px;
-		width: 400px;
-    max-height: 80vh;
+    min-width: 400px;
+    width: 400px;
+    max-height: 90vh;
     overflow: scrolL;
 
     position: relative;
@@ -68,7 +68,8 @@
 
 .userCorner-userList {
     display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
 
     padding: 0 10px;
 }
@@ -77,20 +78,19 @@
     display: flex;
     flex-direction: column;
 
-    margin: 8px;
+    margin: 20px auto;
 
-    height: 250px;
-    width: 100px;
+    height: fit-content;
+    width: 92px;
 
     border-radius: 5px;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .userCorner-userList-user > img {
     cursor: pointer;
 
     border-radius: 1rem;
-    box-shadow: 0 0 4px grey;
 
     min-height: 110px;
     max-height: 110px;
@@ -120,3 +120,7 @@
     box-shadow: 0 0 4px grey;
 }
 
+.userCorner .target-sticky:last-of-type {
+    box-shadow: 0 0 10px grey;
+    padding: 10px;
+}

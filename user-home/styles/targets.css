@@ -20,8 +20,9 @@
 .panelBackTarget {
 	top: 0;
 	left: 0;
-	width: 200px;
 	bottom: unset;
+	width: 200px;
+	margin: -10px;
 }
 
 #userPanel, #chatPanel, #config {
