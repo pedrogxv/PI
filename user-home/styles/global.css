@@ -15,10 +15,6 @@ body {
     overflow-y: hidden;
 }
 
-input {
-	outline: 0;
-}
-
 button {
 	display: inherit;
 	align-items: inherit;

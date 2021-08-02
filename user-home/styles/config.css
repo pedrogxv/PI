@@ -1,12 +1,7 @@
-.panel-config {
-	align-items: flex-start;
-}
-
 .config-head {
 	height: 20%;
 	display: flex;
 	align-items: center;
-	width: 100%;
 }
 
 .config-head .title {
@@ -41,10 +36,10 @@
 }
 
 .field-div {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	width: 30%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+
+	width: 50%;
 }
 
 .field-div-title {
