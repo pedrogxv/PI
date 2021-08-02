@@ -1,13 +1,10 @@
 
 /* aside */
 
-.perfilInfo-bottom {
-    width: 300px;
-}
-
 .perfilInfo-bottom .btn {
-    margin: 10px 0;
-    width: inherit;
+    margin: 10px;
+    width: 80%;
+    float: right;
 }
 
 /* fim adide btn */
@@ -69,7 +66,6 @@
 }
 
 .user-panel-info:last-of-type {
-    padding: 30px 20px 30px 50px;
     text-align: right;
 }
 
