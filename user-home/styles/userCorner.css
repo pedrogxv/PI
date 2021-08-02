@@ -1,5 +1,4 @@
 .userCorner {
-    border: 2px solid black;
     border-radius: 1rem 0;
     box-shadow: 0 0 10px grey;
     background-color: rgb(65, 65, 65);
@@ -33,7 +32,7 @@
 
     display: flex;
     align-items: center;
-    border-bottom: 1px solid black;
+    box-shadow: 0 0 2px black;
 }
 
 .userCorner-head-userText {
@@ -120,7 +119,7 @@
     box-shadow: 0 0 4px grey;
 }
 
-.userCorner .target-sticky:last-of-type {
+.userCorner .target-sticky {
     box-shadow: 0 0 10px grey;
     padding: 10px;
 }

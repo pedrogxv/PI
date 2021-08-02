@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="styles/img.css">
     <link rel="stylesheet" href="styles/chat.css">
     <link rel="stylesheet" href="styles/panel.css">
+    <link rel="stylesheet" href="styles/user-panel.css">
     <link rel="stylesheet" href="styles/config.css">
     <title>User - Home</title>
 </head>
@@ -40,7 +41,8 @@
                 </svg>
             </a>
         </header>
-        <div class="userCorner-actions">
+
+        <section class="userCorner-actions">
             <header class="userCorner-actions-head">
                 <p>Não etrevistados</p>
                 <!-- div para funcionar o atributo 'title' -->
@@ -54,8 +56,9 @@
                     </svg>
                 </div>
             </header>
-        </div>
-        <div class="userCorner-userList">
+        </section>
+
+        <section class="userCorner-userList">
             <div class="userCorner-userList-user">
                 <img src="./imgs/userSamples/felipao.jpg" alt="User">
                 <div class="userInfo">
@@ -63,14 +66,13 @@
                     <p>60+ Anos</p>
                 </div>
                 <a href="#chatPanel" class="btn btn-borderless btn-white bg-green btn-opacity no-link btn-chat">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn"
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn iconBtn-noradius"
                         viewBox="0 0 16 16">
                         <path
                             d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                         <path
                             d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
                     </svg>
-
                 </a>
                 <button class="btn btn-borderless btn-opacity bg-red btn-remover"></button>
             </div>
@@ -81,14 +83,13 @@
                     <p>20 Anos</p>
                 </div>
                 <a href="#chatPanel" class="btn btn-borderless btn-white bg-green btn-opacity no-link btn-chat">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn"
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn iconBtn-noradius"
                         viewBox="0 0 16 16">
                         <path
                             d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                         <path
                             d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
                     </svg>
-
                 </a>
                 <button class="btn btn-borderless btn-opacity bg-red btn-remover"></button>
             </div>
@@ -99,7 +100,7 @@
                     <p>25 Anos</p>
                 </div>
                 <a href="#chatPanel" class="btn btn-borderless btn-white bg-green btn-opacity no-link btn-chat">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn"
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn iconBtn-noradius"
                         viewBox="0 0 16 16">
                         <path
                             d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
@@ -116,7 +117,7 @@
                     <p>30 Anos</p>
                 </div>
                 <a href="#chatPanel" class="btn btn-borderless btn-white bg-green btn-opacity no-link btn-chat">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn"
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-square-text iconBtn iconBtn-noradius"
                         viewBox="0 0 16 16">
                         <path
                             d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
@@ -133,35 +134,32 @@
                     <p>41 Anos</p>
                 </div>
                 <a href="#chatPanel" class="btn btn-borderless btn-white bg-green btn-opacity no-link btn-chat">
-                    <svg xmlns="http://www.w3.org/2000/svg"" fill=" currentColor" class="bi bi-chat-square-text iconBtn"
+                    <svg xmlns="http://www.w3.org/2000/svg"" fill=" currentColor" class="bi bi-chat-square-text iconBtn iconBtn-noradius"
                         viewBox="0 0 16 16">
                         <path
                             d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                         <path
                             d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
                     </svg>
-
                 </a>
                 <button class="btn btn-borderless btn-opacity bg-red btn-remover"></button>
             </div>
-        </div>
-        <a class="target target-sticky no-link" href="#userPanel" target="_self">
-            <button class="btn btn-borderless">
-                Mostrar Candidatos
-            </button>
-        </a>
+        </section>
+
+        <footer class="target target-sticky">
+            <a class="no-link" href="#userPanel" target="_self">
+                <button class="btn btn-borderless">
+                    Mostrar Candidatos
+                </button>
+            </a>
+        </footer>
 
     </aside>
 
     <section class="panel panel-grid" id="userPanel">
-        <a class="no-link target panelBackTarget" href="#" target="_self">
-            <button class="btn btn-borderless">
-                Esconder painel
-            </button>
-        </a>
 
-        <aside class="panel-target">
-            <fieldset>
+        <aside class="user-panel-info">
+            <fieldset class="user-fieldset">
                 <div class="field">
                     <label for="nome">Nome</label>
                     <p name="nome" id="targetUser-nome">Gabriel Alvim</p>
@@ -193,7 +191,7 @@
                 <div class="panel-perfil-actions-btns">
                     <button class="btn btn-rounded btn-borderless btn-shadow">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            class="bi bi-arrow-up-circle-fill iconBtn-bigger icon-green" viewBox="0 0 16 16">
+                            class="bi bi-arrow-up-circle-fill iconBtn-bigger iconBtn-noradius icon-green" viewBox="0 0 16 16">
                             <path
                                 d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
                         </svg>
@@ -215,8 +213,9 @@
                 </div>
             </div>
         </div>
-        <aside class="panel-target">
-            <fieldset>
+
+        <aside class="user-panel-info">
+            <fieldset class="user-fieldset">
                 <label for="xp">Experiência</label>
                 <p name="xp" id="targetUser-experiencia">Nenhuma</p>
             </fieldset>
@@ -242,59 +241,59 @@
     </section>
 
     <!-- TODO: implementar chatPanel (via js) -->
-    <section class="panel panel-flex-column" id="chatPanel">
-        <div class="panel-chat">
-            <header class="chat-head">
-                <div class="chat-head-container">
-                    <a title="Voltar" class="no-link" href="#userPanel">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            class="bi bi-arrow-bar-left iconBtn-big btn btn-borderless btn-background-grey" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z" />
-                        </svg>
-                    </a>
-                    <img src="imgs/userSamples/alvim.jpeg" alt="User image" class="roundedImg">
-                </div>
-                <p class="chat-userName">Alvim</p>
-                <div title="Configurções chat">
+    <section class="panel panel-flex-column panel-chat" id="chatPanel">
+        <header class="chat-head">
+            <div class="chat-head-container">
+                <a title="Voltar" class="no-link" href="#userPanel">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        class="bi bi-three-dots-vertical iconBtn-big btn btn-borderless btn-background-grey" viewBox="0 0 16 16">
-                        <path
-                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                    </svg>
-                </div>
-            </header>
-
-            <section class="chat-body">
-                <div class="msg msg-left">Boa noite !</div>
-                <div class="msg msg-left">Gostaria de saber se fui aprovado.</div>
-                <div class="msg msg-right">Foi não fi, tente mais tarde</div>
-            </section>
-
-            <footer class="chat-input">
-                <div title="Emoji">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-smile iconBtn btn btn-borderless btn-background-grey"
-                        viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        <path
-                            d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                    </svg>
-                </div>
-                <input type="text" name="" id="" placeholder="Digite algo aqui...">
-                <div class="submit-container" title="Enviar">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        class="bi bi-box-arrow-in-right iconBtn-bigger btn btn-borderless btn-background-grey" viewBox="0 0 16 16">
+                        class="bi bi-arrow-bar-left iconBtn-big btn btn-borderless btn-background-grey" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
-                            d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
-                        <path fill-rule="evenodd"
-                            d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z" />
                     </svg>
-                </div>
-            </footer>
-        </div>
+                </a>
+                <img src="imgs/userSamples/alvim.jpeg" alt="User image" class="roundedImg">
+            </div>
+            <p class="chat-userName">Alvim</p>
+            <div title="Configurções chat">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    class="bi bi-three-dots-vertical iconBtn-big btn btn-borderless btn-background-grey" viewBox="0 0 16 16">
+                    <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
+            </div>
+        </header>
+
+        <!-- [ !IMPORTANT ] chat tá usando coluna reversa, por conta disto
+             o primeiro elemento deve representa a última mensagem  -->
+        <section class="chat-body">
+            <div class="msg msg-right">Foi não fi, tente mais tarde</div>
+            <div class="msg msg-left">Boa noite !</div>
+            <div class="msg msg-left">Gostaria de saber se fui aprovado.</div>
+        </section>
+
+        <footer class="chat-footer">
+            <div title="Emoji">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-smile iconBtn btn btn-borderless btn-background-grey"
+                    viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                </svg>
+            </div>
+            <input type="text" class="chat-input" name="" id="" placeholder="Digite algo aqui...">
+            <div class="submit-container" title="Enviar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    class="bi bi-box-arrow-in-right iconBtn iconBtn-big btn-background-grey" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                    <path fill-rule="evenodd"
+                        d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                </svg>
+            </div>
+        </footer>
     </section>
 
-    <section class="panel panel-config" id="config">
+    <section class="panel panel-flex-column" id="config">
         <header class="config-head">
             <a href="#userPanel" class="no-link">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-bar-left btn btn-borderless btn-background-grey iconBtn-big"
@@ -305,6 +304,7 @@
             </a>
             <h2 class="title">Configurações</h2>
         </header>
+
         <div class="config-body">
             <div class="config-field">
                 <h3 class="config-field-title">Notificações</h3>
@@ -375,7 +375,10 @@
                 </button>
             </div>
         </div>
+        
     </section>
+
+    <script src="./scripts/pseudo-element-animation.js"></script>
 
 </body>
 

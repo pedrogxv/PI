@@ -1,20 +1,28 @@
 .iconBtn {
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+
     width: 20px;
     height: 20px;
+    
     object-fit: contain;
-    border: none;
     cursor: pointer;
 }
 
-.iconBtn-big {
-    cursor: pointer;
+.iconBtn-noradius {
+    border-radius: 0;
+    padding: 0;
+}
 
+.iconBtn-big {
     width: 30px !important;
     height: 30px;
 }
 
 .iconBtn-bigger {
-    width: 60px;
+    width: 60px !important;
+    height: 60px;
 }
 
 .icon-white {

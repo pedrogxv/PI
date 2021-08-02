@@ -1,111 +1,25 @@
 .panel {
-    height: 90%;
-		width: 100%;
+    position: relative;
 
-		display: flex;
-    align-items: center;
-    justify-content: space-between;
+    height: 80%;
+    width: 65%;
+    margin: 0 auto;
+
     padding: 20px;
 
-		position: relative;
-}
-
-.panel-grid {
-		display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.panel-flex-column {
-	flex-direction: column;
-}
-
-.panel-target {
     border: 1px solid grey;
     border-radius: 1rem;
 
     background-color: #3a3a3a;
     color: white;
-    height: inherit;
-    padding: 30px;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    position: relative;
 }
 
-.panel-target:last-of-type {
-    padding: 30px 20px 30px 50px;
-    text-align: right;
-}
-
-.panel-target fieldset {
-    border: none;
-}
-
-.panel-target .field {
-    padding: 10px 0;
-}
-
-.panel-target label {
-    color: orange;
-}
-
-.panel-target label ~ * {
-    margin-top: 10px;
-}
-
-.panel-target .btn {
-    padding: 18px;
-
-    font-size: 1.3rem;
-}
-
-.panel-perfil {
-    z-index: 100;
-
-    border-radius: 30px;
-    box-shadow: 0 0 15px grey;
-    background-color: white;
-    height: inherit;
-    transform: scale(1.15);
-
+.panel-grid {
     display: grid;
-    grid-template-rows: 2fr 1fr;
-    overflow: hidden;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-.panel-perfil:hover {
-    cursor: pointer;
-}
-
-.panel-perfil-pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-bottom: 1px solid black;
-}
-
-.panel-perfil-actions {
-    padding: 20px;
+.panel-flex-column {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.panel-perfil-actions-btns {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-}
-
-.perfilInfo-bottom {
-    width: 100%;
-}
-
-.perfilInfo-bottom .btn {
-    margin: 10px 0;
-    width: inherit;
+	flex-direction: column;
 }
