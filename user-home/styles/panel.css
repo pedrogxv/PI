@@ -3,7 +3,8 @@
 
     height: 80%;
     width: 65%;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 20px;
 
     padding: 20px;
 
