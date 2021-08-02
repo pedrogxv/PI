@@ -102,3 +102,8 @@ option {
 .submit-container:hover {
 	background-image: rgba(128, 128, 128, 0.301);
 }
+
+.field-head {
+	display: flex;
+	align-items: center;
+}

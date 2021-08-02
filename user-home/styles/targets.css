@@ -25,11 +25,11 @@
 	margin: -10px;
 }
 
-#userPanel, #chatPanel, #config {
+#candidatoPainel, #chatPanel, #config {
 	display: none;
 }
 
-#userPanel:target {
+#candidatoPainel:target {
 	display: grid;
 }
 

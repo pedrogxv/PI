@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="refresh" content="1000000000; url=./#userPanel" />
+    <meta http-equiv="refresh" content="1000000000; url=./#candidatoPainel" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/userCorner.css">
@@ -147,7 +147,7 @@
         </section>
 
         <footer class="target target-sticky">
-            <a class="no-link" href="#userPanel" target="_self">
+            <a class="no-link" href="#candidatoPainel" target="_self">
                 <button class="btn btn-borderless">
                     Mostrar Candidatos
                 </button>
@@ -156,7 +156,7 @@
 
     </aside>
 
-    <section class="panel panel-grid" id="userPanel">
+    <section class="panel panel-grid" id="candidatoPainel">
 
         <aside class="user-panel-info">
             <fieldset class="user-fieldset">
@@ -165,7 +165,13 @@
                     <p name="nome" id="targetUser-nome">Gabriel Alvim</p>
                 </div>
                 <div class="field">
-                    <label for="links">Links</label>
+                    <div class="field-head">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-link-45deg iconBtn" viewBox="0 0 16 16">
+                            <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                            <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+                          </svg>
+                        <label for="links">Links</label>
+                    </div>
                     <ul name="links" id="targetUser-links">
                         <a href="http://linkedin.com/in/alvim" target="_blank">LinkedIn - Alvim</a>
                     </ul>
@@ -181,6 +187,7 @@
                 </div>
             </fieldset>
         </aside>
+        
         <div class="panel-perfil">
             <img src="./imgs/default-user-image.png" alt="foto de perfil" class="panel-perfil-pic">
             <div class="panel-perfil-actions">
@@ -244,7 +251,7 @@
     <section class="panel panel-flex-column panel-chat" id="chatPanel">
         <header class="chat-head">
             <div class="chat-head-container">
-                <a title="Voltar" class="no-link" href="#userPanel">
+                <a title="Voltar" class="no-link" href="#candidatoPainel">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         class="bi bi-arrow-bar-left iconBtn-big btn btn-borderless btn-background-grey" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -295,7 +302,7 @@
 
     <section class="panel panel-flex-column" id="config">
         <header class="config-head">
-            <a href="#userPanel" class="no-link">
+            <a href="#candidatoPainel" class="no-link">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-bar-left btn btn-borderless btn-background-grey iconBtn-big"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
