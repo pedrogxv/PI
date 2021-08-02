@@ -10,7 +10,7 @@
     
     border-radius: 10px;
     border: none;
-    border-bottom: 6px solid white;
+    border-bottom: 5px solid white;
 
     padding: 10px;
 }
@@ -35,14 +35,14 @@
     background-color: tomato;
     color: black;
 
-    border-bottom-color: red;
+    border-bottom-color: orangered;
 }
 
 .btn-red-reverse {
     background-color: red;
     color: black;
 
-    border-bottom-color: tomato;
+    border-bottom-color: darkred;
 }
 
 
