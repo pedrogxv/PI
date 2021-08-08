@@ -13,7 +13,7 @@ body {
     align-items: center;
     background-color: black;
 	color: white;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 button {

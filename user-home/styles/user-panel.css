@@ -54,6 +54,9 @@
 /* aside */
 
 .user-panel-info {
+    /* importante para a função grab do card implementado via js */
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;

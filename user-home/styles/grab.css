@@ -1,0 +1,45 @@
+/* usado para o estado grab do card ativado */
+
+.absolute-background {
+    display: flex;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+}
+
+.red-area {
+    background-color: red;
+    filter: opacity(.5);
+    border: 2px dashed black;
+}
+
+.red-area::before {
+    content: "Remover";
+    text-transform: uppercase;
+    text-align: center;
+    margin: 50%;
+}
+
+.green-area {
+    background-color: green;
+    filter: opacity(.5);
+    border: 2px dashed black;
+}
+
+.green-area::before {
+    content: "Like";
+    text-transform: uppercase;
+}
+
+.grey-area {
+    background-color: grey;
+    filter: opacity(.5);
+    border: 2px dashed black;
+}
+
+.grey-area::before {
+    content: "Cancelar";
+    text-transform: uppercase;
+}
