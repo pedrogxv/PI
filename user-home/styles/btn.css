@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Georama&display=swap');
+
 .btn {
     cursor: pointer;
 
@@ -11,6 +13,10 @@
     border-radius: 10px;
     border: none;
     border-bottom: 5px solid white;
+
+	letter-spacing: 1px;
+	font-size: .9rem;
+	font-family: 'Georama', Arial, Helvetica, sans-serif;
 
     padding: 10px;
 }
@@ -32,10 +38,10 @@
 }
 
 .btn-red {
-    background-color: tomato;
-    color: black;
+    background-color: orangered;
+    color: whitesmoke;
 
-    border-bottom-color: orangered;
+    border-bottom-color: red;
 }
 
 .btn-red-reverse {
