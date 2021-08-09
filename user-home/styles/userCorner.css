@@ -1,13 +1,12 @@
 .userCorner {
     border-radius: 1rem 0;
-    box-shadow: 0 0 10px grey;
     background-color: rgb(65, 65, 65);
     color: wheat;
 
     margin: 10px 15px;
     min-width: 400px;
     width: 400px;
-    height: 700px;
+    height: 650px;
     overflow: hidden;
 
     position: relative;
@@ -119,4 +118,9 @@
 
 .userCorner-userList-user .btn:hover {
     box-shadow: 0 0 4px grey;
+}
+
+.userCorner-footer {
+	position: fixed;
+	top: 0px;
 }

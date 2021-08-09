@@ -66,6 +66,12 @@
     border-bottom-color: gold;
 }
 
+.btn-gradient-red-to-purple {
+	border: 3px solid transparent;
+	border-image: linear-gradient(45deg, red, purple);
+	border-image-slice: 1;
+}
+
 .btn-borderless {
     border: none;
 }
@@ -96,5 +102,5 @@
 }
 
 .btn-background-grey:hover {
-	background-color: rgba(128, 128, 128, 0.411);
+	background-color: rgba(128, 128, 128, 0.411) !important;
 }
