@@ -30,6 +30,8 @@
     filter: opacity(.5);
 }
 
+/* btn-color */
+
 .btn-white {
     background-color: rgba(255, 255, 255, 0.733);
     color: black;
@@ -66,6 +68,8 @@
     border-bottom-color: gold;
 }
 
+/* btn-border */
+
 .btn-gradient-red-to-purple {
 	border: 3px solid transparent;
 	border-image: linear-gradient(45deg, red, purple);
@@ -76,9 +80,17 @@
     border: none;
 }
 
+.btn-border-green {
+    border: 2px solid green;
+}
+
+/* round */
+
 .btn-rounded {
     border-radius: 100%;
 }
+
+/* btn pseudo-elements */
 
 .btn-chat::after {
 	content: "Chat";
@@ -87,6 +99,8 @@
 .btn-remover::after {
     content: "Remover";
 }
+
+/* btn-hover */
 
 .btn-opacity:hover {
     transform: unset;
