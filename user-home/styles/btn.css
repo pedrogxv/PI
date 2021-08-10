@@ -33,10 +33,10 @@
 /* btn-color */
 
 .btn-white {
-    background-color: rgba(255, 255, 255, 0.733);
+    background-color: white;
     color: black;
 
-    border-bottom-color: white;
+    border-bottom-color: wheat;
 }
 
 .btn-red {
@@ -62,10 +62,10 @@
 }
 
 .btn-gold {
-    background-color: rgba(218, 165, 32, 0.849);
+    background-color: gold;
     color: white;
 
-    border-bottom-color: gold;
+    border-bottom-color: goldenrod;
 }
 
 /* btn-border */
