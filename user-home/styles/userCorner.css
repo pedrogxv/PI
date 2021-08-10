@@ -12,10 +12,6 @@
     position: relative;
 }
 
-.userCorner .btn {
-    color: wheat;
-}
-
 .userCorner > *:not(.userCorner-userList) {
     padding: 20px;
 }
@@ -48,10 +44,6 @@
 .userCorner-head-icon:hover {
     transition: 1s;
     transform: rotate(360deg);
-}
-
-.userCorner-actions {
-	height: 5%;
 }
 
 .userCorner-actions-head {
