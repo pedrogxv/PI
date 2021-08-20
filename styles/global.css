@@ -9,11 +9,13 @@
 body {
     height: 100vh;
 
-    display: flex;
     align-items: center;
-    background-color: black;
+    background-color: rgb(65, 65, 65);
 	color: white;
-    overflow: hidden;
+}
+
+body.with-margin {
+	margin: 10px;
 }
 
 button {

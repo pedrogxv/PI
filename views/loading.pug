@@ -1,0 +1,18 @@
+doctype html
+head
+	meta(charset='UTF-8')
+	title= pageTitle
+	link(rel='stylesheet' type='text/css' href='global.css')
+	style.
+		@keyframes rotate {
+		0%, 100% {
+		transform: rotate(0deg);
+		}
+		50% {
+		transform: rotate(360deg);
+		}
+		}
+
+div(style="width: 250px; height: 325px; margin: 30px auto; display: flex; flex-direction: column; align-items: center; justify-content: space-between;")
+	div.rotation-view(style="width: 250px; height: 250px;border-radius: 100%; border: 5px solid aqua; border-left: none; animation: rotate 2s infinite alternate;")
+	p= loadingTitle

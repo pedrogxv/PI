@@ -10,9 +10,9 @@
     justify-content: space-evenly;
     background-color: transparent;
     
-    border-radius: 10px;
+    border-radius: 5px;
     border: none;
-    border-bottom: 5px solid white;
+    border-bottom: 3px solid white;
 
 	letter-spacing: 1px;
 	font-size: .9rem;
@@ -30,6 +30,12 @@
     filter: opacity(.5);
 }
 
+/* special properties */
+
+.btn-big {
+	font-size: 1.3rem;
+}
+
 /* btn-color */
 
 .btn-white {
@@ -37,6 +43,20 @@
     color: black;
 
     border-bottom-color: wheat;
+}
+
+.btn-black {
+    background-color: rgb(15, 15, 15);
+    color: white;
+
+    border-bottom-color: rgb(65, 65, 65);
+}
+
+.btn-blue {
+    background-color: aqua;
+    color: black;
+
+    border-bottom-color: blue;
 }
 
 .btn-red {
@@ -53,7 +73,6 @@
     border-bottom-color: darkred;
 }
 
-
 .btn-green {
     background-color: chartreuse;
     color: black;
@@ -62,10 +81,14 @@
 }
 
 .btn-gold {
-    background-color: gold;
+    background-color: goldenrod;
     color: white;
 
-    border-bottom-color: goldenrod;
+    border-bottom-color: gold;
+}
+
+.btn-submit {
+    margin: 20px;
 }
 
 /* btn-border */

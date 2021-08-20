@@ -1,0 +1,48 @@
+.form {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-wrap: wrap;
+
+	width: 600px;
+	padding: 5px;
+	margin: 10px auto;
+
+	box-shadow: 0 0 10px rgb(100, 100, 100);
+	border-radius: 10px;
+	background-color: rgb(20, 20, 20);
+}
+
+.form-field {
+	display: flex;
+	flex-direction: column;
+	align-self: baseline;
+
+	width: 250px;
+	box-sizing: border-box;
+	margin: 8px 16px;
+}
+
+.form-field > * {
+	margin: 4px 0;
+}
+
+.field-label {
+	display: flex;
+	align-items: center;
+}
+
+.field-input {
+	padding: 8px;
+	font-size: 1.1rem;
+	background-color: azure;
+
+	border: 1px solid black;
+	border-radius: 4px;
+}
+
+.form-btn {
+	display: inline-block;
+	width: calc(100% - (25px * 2));
+	margin: 25px;
+}

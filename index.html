@@ -4,82 +4,26 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="global.css">
 	<title>Document</title>
+	<style>
+		* {
+			font-size: 1.6rem;
+			line-height: 2rem;
+		}
+	</style>
 </head>
 
-<body>
+<body class="with-margin">
 
-	<a href="/cadastro">Acessar Cadastro (Conceito) <br></a>
-	<a href="/sobre">Acessar Sobre (Conceito) <br> </a>
-	<a href="/user-home">Acessar User Home (Não finalizado) </a>
+	<a href="/cadastro">Acessar Cadastro (conceito) <br></a>
+	<br>
 
-	<br><br><a href="">Teste database</a>
+	<a href="/login">Acessar Login (conceito) <br></a>
+	<br>
 
-	<script>
-
-		// restdb.io query handler
-		var restDB = (function() {
-
-			// configure for your own DB
-			var api = 'https://pisample-250e.restdb.io/rest'
-			var	APIkey = '6112d0b769fac573b50a540e';
-
-			// query the database
-			function query(url, callback) {
-
-				var timeout, xhr = new XMLHttpRequest();
-
-				// set URL and headers
-				xhr.open('GET', api + url);
-				xhr.setRequestHeader('x-apikey', APIkey);
-				xhr.setRequestHeader('content-type', 'application/json');
-				xhr.setRequestHeader('cache-control', 'no-cache');
-
-				// response handler
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState !== 4) return;
-					var err = (xhr.status !== 200), data = null;
-					clearTimeout(timeout);
-					if (!err) {
-						try {
-							data = JSON.parse(xhr.response);
-						}
-						catch(e) {
-							err = true;
-							data = xhr.response || null;
-						}
-					}
-					callback(err, data);
-				};
-
-				// timeout
-				timeout = setTimeout(function() {
-					xhr.abort();
-					callback(true, null);
-				}, 10000);
-
-				// start call
-				xhr.send();
-			}
-
-			// public query method
-			return {
-				query: query
-			};
-
-		})();
-
-		let somedata = null
-
-		restDB.query(
-			'/userdata?q={}',
-			function(err, data) {
-				// success!
-				if (!err) somedata  = data;
-			}
-		);
-
-	</script>
-
+	<a href="/user-home-pug">Acessar User Home [FUNCIONAL - PRINCIPAL] <br> </a>
+	<a href="/user-home">Acessar User Home (Não Funcional) <br> </a>
+	
 </body>
 </html>

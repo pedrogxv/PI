@@ -1,0 +1,220 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' type='text/css' href='global.css')
+  link(rel='stylesheet' type='text/css' href='userCorner.css')
+  link(rel='stylesheet' type='text/css' href='btn.css')
+  link(rel='stylesheet' type='text/css' href='icons.css')
+  link(rel='stylesheet' type='text/css' href='targets.css')
+  link(rel='stylesheet' type='text/css' href='bg.css')
+  link(rel='stylesheet' type='text/css' href='img.css')
+  link(rel='stylesheet' type='text/css' href='chat.css')
+  link(rel='stylesheet' type='text/css' href='panel.css')
+  link(rel='stylesheet' type='text/css' href='user-panel.css')
+  link(rel='stylesheet' type='text/css' href='config.css')
+  link(rel='stylesheet' type='text/css' href='grab.css')
+  title User Home
+  
+aside.userCorner
+  section.userCorner-opt
+    a.no-link.btn.btn-gradient-red-to-purple.btn-background-grey.bg-none(href='#candidatoPainel')
+      | Come&ccedil;ar a buscar
+  header.userCorner-head
+    a.no-link(href='#perfil')
+      img.roundedImg-big(src='./imgs/userSamples/neon.jpg' title='Perfil' alt='User Image')
+    .userCorner-head-userText
+      h2= userData.nome
+      a(href='../' title='Sair da conta')
+        | Sair
+    a.no-link(href='#config' title='Configurações')
+      svg.bi.bi-gear-wide-connected.iconBtn-big.userCorner-head-icon.icon-white(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(d='M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434l.071-.286zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5zm0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78h4.723zM5.048 3.967c-.03.021-.058.043-.087.065l.087-.065zm-.431.355A4.984 4.984 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8 4.617 4.322zm.344 7.646.087.065-.087-.065z')
+  section.userCorner-actions
+    header.userCorner-actions-head
+      p N&atilde;o etrevistados
+      // div para funcionar o atributo 'title'
+      div(title='Ver Salvos')
+        svg.bi.bi-bookmarks.iconBtn.iconBtn-big.icon-white.btn-opacity(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z')
+          path(d='M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z')
+  section.userCorner-userList
+    .userCorner-userList-user
+      img(src='./imgs/userSamples/felipao.jpg' alt='User')
+      .userInfo
+        h4 Felip&atilde;o
+        p 60+ Anos
+      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
+        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
+          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
+      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
+    .userCorner-userList-user
+      img(src='./imgs/userSamples/alvim.jpeg' alt='User')
+      .userInfo
+        h4 Alvim
+        p 20 Anos
+      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
+        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
+          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
+      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
+    .userCorner-userList-user
+      img(src='./imgs/userSamples/autumn.jpg' alt='User')
+      .userInfo
+        h4 Ananda Silva
+        p 25 Anos
+      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
+        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
+          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
+      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
+    .userCorner-userList-user
+      img(src='./imgs/userSamples/italo.jpg' alt='User')
+      .userInfo
+        h4 &Iacute;talo
+        p 30 Anos
+      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
+        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
+          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
+      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
+    .userCorner-userList-user
+      img(src='./imgs/userSamples/L.png' alt='User')
+      .userInfo
+        h4 Lucas
+        p 41 Anos
+      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
+        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill=' currentColor' viewbox='0 0 16 16')
+          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
+          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
+      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
+section#candidatoPainel.panel.panel-grid
+  aside.user-panel-info
+    fieldset.user-fieldset
+      .field
+        label(for='nome') Nome
+        p#targetUser-nome(name='nome') Gabriel Alvim
+      .field
+        .field-head
+          svg.bi.bi-link-45deg.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+            path(d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z')
+            path(d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z')
+          label(for='links') Links
+        ul#targetUser-links(name='links')
+          a(href='http://linkedin.com/in/alvim' target='_blank') LinkedIn - Alvim
+      .field
+        label(for='ensino') Ensino
+        p#targetUser-ensino(name='ensino') Superior Incompleto
+      .field
+        label(for='cursos') Cursos
+        p#targetUser-cursos(name='cursos') Gastronomia Gourmet
+        p#targetUser-cursos(name='cursos') Photoshop Avan&ccedil;ado
+  .panel-perfil
+    img.panel-perfil-pic(src='./imgs/userSamples/italo.jpg' alt='foto de perfil' draggable='false')
+    .panel-perfil-actions
+      .panel-perfil-actions-info
+        h2#targetUser-nome Gabriel Alvim
+        p#targetUser-idade 88 Anos
+      div
+        p.description Teste
+      .panel-perfil-actions-btns
+        button.btn.btn-rounded.btn-borderless.btn-shadow
+          svg.bi.bi-arrow-up-circle-fill.iconBtn-bigger.iconBtn-noradius.icon-green(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+            path(d='M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z')
+        button.btn.btn-borderless
+          svg.bi.bi-bookmark.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+            path(d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z')
+        button.btn.btn-rounded.btn-shadow.btn-borderless
+          svg.bi.bi-arrow-down-circle-fill.iconBtn-bigger.icon-red(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+            path(d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z')
+  aside.user-panel-info
+    fieldset.user-fieldset
+      label(for='xp') Experi&ecirc;ncia
+      p#targetUser-experiencia(name='xp') Nenhuma
+    .perfilInfo-bottom
+      button#targetUser-apresentacao.btn.btn-gold.btn-opacity.btn-translatey
+        svg.bi.bi-camera-video.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(fill-rule='evenodd' d='M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z')
+        |                     Apresenta&ccedil;&atilde;o
+      button#targetUser-curriculo.btn.btn-white.btn-opacity.btn-translatey
+        svg.bi.bi-briefcase.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z')
+        |                     Ver curr&iacute;culo
+// TODO: implementar chatPanel funcional (via js)
+section#chatPanel.panel.panel-flex-column.panel-chat
+  header.chat-head
+    .chat-head-container
+      a.no-link(title='Voltar' href='#candidatoPainel')
+        svg.bi.bi-arrow-bar-left.iconBtn-big.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
+      img.roundedImg(src='imgs/userSamples/alvim.jpeg' alt='User image')
+    p.chat-userName Alvim
+    div(title='Configurções chat')
+      svg.bi.bi-three-dots-vertical.iconBtn-big.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(d='M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z')
+  //
+    [ !IMPORTANT ] chat tá usando coluna reversa, por conta disto
+    o primeiro elemento deve representa a última mensagem
+  section.chat-body
+    .msg.msg-right Foi n&atilde;o fi, tente mais tarde
+    .msg.msg-left Boa noite !
+    .msg.msg-left Gostaria de saber se fui aprovado.
+  footer.chat-footer
+    div(title='Emoji')
+      svg.bi.bi-emoji-smile.iconBtn.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z')
+        path(d='M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z')
+    input.chat-input(type='text' name='' id='' placeholder='Digite algo aqui...' style='outline: 0;')
+    .submit-container(title='Enviar')
+      svg.bi.bi-box-arrow-in-right.iconBtn.iconBtn-big.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(fill-rule='evenodd' d='M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z')
+        path(fill-rule='evenodd' d='M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z')
+section#config.panel.panel-flex-column
+  header.config-head
+    a.no-link(href='#candidatoPainel')
+      svg.bi.bi-arrow-bar-left.btn.btn-borderless.btn-background-grey.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
+    h2.title Configura&ccedil;&otilde;es
+  .config-body
+    .config-field
+      h3.config-field-title Notifica&ccedil;&otilde;es
+      input.checkbox-toggle(type='checkbox' name='' id='' checked='')
+    .config-field
+      h3.config-field-title Apar&ecirc;ncia
+      select(name='aparencia' id='')
+        option(value='light') Claro
+        option(value='dark' selected='') Escuro
+    .config-field
+      h3.config-field-title Contas Vinculadas
+      .field-div
+        svg.bi.bi-linkedin.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z')
+        p.field-div-title LinkedIn
+        button.btn.btn-green Vincular
+      .field-div
+        svg.bi.bi-github.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z')
+        p.field-div-title GitHub
+        button.btn.btn-red Desvincular
+      .field-div
+        svg.bi.bi-reddit.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M6.167 8a.831.831 0 0 0-.83.83c0 .459.372.84.83.831a.831.831 0 0 0 0-1.661zm1.843 3.647c.315 0 1.403-.038 1.976-.611a.232.232 0 0 0 0-.306.213.213 0 0 0-.306 0c-.353.363-1.126.487-1.67.487-.545 0-1.308-.124-1.671-.487a.213.213 0 0 0-.306 0 .213.213 0 0 0 0 .306c.564.563 1.652.61 1.977.61zm.992-2.807c0 .458.373.83.831.83.458 0 .83-.381.83-.83a.831.831 0 0 0-1.66 0z')
+          path(d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.828-1.165c-.315 0-.602.124-.812.325-.801-.573-1.9-.945-3.121-.993l.534-2.501 1.738.372a.83.83 0 1 0 .83-.869.83.83 0 0 0-.744.468l-1.938-.41a.203.203 0 0 0-.153.028.186.186 0 0 0-.086.134l-.592 2.788c-1.24.038-2.358.41-3.17.992-.21-.2-.496-.324-.81-.324a1.163 1.163 0 0 0-.478 2.224c-.02.115-.029.23-.029.353 0 1.795 2.091 3.256 4.669 3.256 2.577 0 4.668-1.451 4.668-3.256 0-.114-.01-.238-.029-.353.401-.181.688-.592.688-1.069 0-.65-.525-1.165-1.165-1.165z')
+        p.field-div-title Reddit
+        button.btn.btn-red Desvincular
+      .field-div
+        svg.bi.bi-twitter.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z')
+        p.field-div-title Twitter
+        button.btn.btn-red Desvincular
+      .field-div
+        svg.bi.bi-discord.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M6.552 6.712c-.456 0-.816.4-.816.888s.368.888.816.888c.456 0 .816-.4.816-.888.008-.488-.36-.888-.816-.888zm2.92 0c-.456 0-.816.4-.816.888s.368.888.816.888c.456 0 .816-.4.816-.888s-.36-.888-.816-.888z')
+          path(d='M13.36 0H2.64C1.736 0 1 .736 1 1.648v10.816c0 .912.736 1.648 1.64 1.648h9.072l-.424-1.48 1.024.952.968.896L15 16V1.648C15 .736 14.264 0 13.36 0zm-3.088 10.448s-.288-.344-.528-.648c1.048-.296 1.448-.952 1.448-.952-.328.216-.64.368-.92.472-.4.168-.784.28-1.16.344a5.604 5.604 0 0 1-2.072-.008 6.716 6.716 0 0 1-1.176-.344 4.688 4.688 0 0 1-.584-.272c-.024-.016-.048-.024-.072-.04-.016-.008-.024-.016-.032-.024-.144-.08-.224-.136-.224-.136s.384.64 1.4.944c-.24.304-.536.664-.536.664-1.768-.056-2.44-1.216-2.44-1.216 0-2.576 1.152-4.664 1.152-4.664 1.152-.864 2.248-.84 2.248-.84l.08.096c-1.44.416-2.104 1.048-2.104 1.048s.176-.096.472-.232c.856-.376 1.536-.48 1.816-.504.048-.008.088-.016.136-.016a6.521 6.521 0 0 1 4.024.752s-.632-.6-1.992-1.016l.112-.128s1.096-.024 2.248.84c0 0 1.152 2.088 1.152 4.664 0 0-.68 1.16-2.448 1.216z')
+        p.field-div-title Discord
+        button.btn.btn-green Vincular
+    .config-field
+      button.btn.btn-red-reverse
+        | Excluir conta

@@ -1,3 +1,7 @@
+body {
+	display: flex;
+}
+
 .panel {
     position: relative;
 
@@ -8,8 +12,8 @@
 
     padding: 20px;
 
-    border: 1px solid grey;
     border-radius: 1rem;
+	box-shadow: 0 0 15px black;
 
     background-color: #3a3a3a;
     color: white;
