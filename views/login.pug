@@ -1,0 +1,23 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' type='text/css' href='global.css')
+  link(rel='stylesheet' type='text/css' href='form.css')
+  link(rel='stylesheet' type='text/css' href='btn.css')
+  link(rel='stylesheet' type='text/css' href='bg.css')
+  link(rel='stylesheet' type='text/css' href='common.css')
+  title Login
+
+body.with-margin
+  a(href='../') Voltar
+  div.flex.bg-red
+    p= error || ""
+  form.form.flex.direction-column(action='login-form' method='POST')
+    .form-field
+      label.field-label(for='email') Email
+      input#email.field-input(type='email' name='email')
+    .form-field
+      label.field-label(for='senha') Senha
+      input#pwd.field-input(type='password' name='senha')
+    input.btn.btn-big.btn-green.form-btn(type='submit' value='Login')

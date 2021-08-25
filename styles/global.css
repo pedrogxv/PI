@@ -30,7 +30,16 @@ button {
 	text-transform: inherit;
 }
 
-a {
+.link {
+	cursor: pointer;
+	background-color: transparent;
+	color: white;
+	border: none;
+}
+
+a, .link {
+	width: fit-content;
+
 	display: flex;
 	align-items: baseline;
 	font-size: .9rem;
