@@ -84,7 +84,8 @@ router.post('/login-form', async (req, res) => {
 			try {
 				userData = JSON.parse(returned)
 				console.log(userData)
-				let newAccessKey = "768"
+				let key = keyGenerator.create()
+				let newAccessKey = key.apiKey
 				userData[0].accessKey = newAccessKey
 
 				// gravando o novo accesskey no bd e no cookie
