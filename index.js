@@ -39,9 +39,8 @@ router.get('/', async (req, res) => {
 	if (req.cookies.accessKey && req.cookies.email) {
 
 		let userData = null
-		accessKey = req.cookies.accessKey
 
-		await dbQuery(`"accessKey": "${accessKey}", "email": "${req.cookies.email}"`, 
+		await dbQuery(`"accessKey": "${req.cookies.accessKey}", "email": "${req.cookies.email}"`, 
 			apikey, (returned) => {
 				userData = JSON.parse(returned)
 				
@@ -108,7 +107,6 @@ router.post('/login-form', async (req, res) => {
 });
 app.use('/login-form', router);
 
-// TODO: implementar logout
 router.get('/logout', (req, res) => {
 	res.clearCookie("accessKey")
 	res.clearCookie("email")
