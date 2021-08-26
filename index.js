@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, '/styles')));
 //  scripts
 app.use(express.static(path.join(__dirname, '/scripts')));
 // user-home images
-app.use(express.static(path.join(__dirname, '/user-home')));
+app.use(express.static(path.join(__dirname, '/imgs')));
 
 //Set up the Express router
 router.get('/', async (req, res) => {

@@ -31,6 +31,8 @@ button {
 }
 
 .link {
+	width: fit-content;
+
 	cursor: pointer;
 	background-color: transparent;
 	color: white;
@@ -38,7 +40,6 @@ button {
 }
 
 a, .link {
-	width: fit-content;
 
 	display: flex;
 	align-items: baseline;
