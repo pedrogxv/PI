@@ -41,7 +41,7 @@ body {
 	overflow-x: hidden;
 }
 
-.panel > header {
+.panel > header:not(.chat-head) {
 	min-height: 150px;
 	height: 20%;
 	display: flex;

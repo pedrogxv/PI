@@ -1,8 +1,3 @@
-/* .panel-chat {
-	overflow-y: scroll;
-	overflow-x: hidden;
-} */
-
 .chat-head, .chat-footer {
 	width: 98%;
 	max-height: 8%;
