@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, '/styles')));
 app.use(express.static(path.join(__dirname, '/scripts')));
 // user-home images
 app.use(express.static(path.join(__dirname, '/imgs')));
+app.use(express.static(path.join(__dirname, '/favicon')));
 
 //Set up the Express router
 router.get('/', async (req, res) => {
@@ -44,10 +45,9 @@ router.get('/', async (req, res) => {
 });
 app.use('/', router);
 
-router.get('/cadastro', (req, res) => {
-  	res.render(path.join(__dirname, '/views/cadastro.pug'));
+app.get('/cadastro', (req, res) => {
+  	res.render(path.join(__dirname, 'views/cadastro.pug'));
 });
-app.use('/cadastro', router);
 
 router.get('/login', (req, res) => {
 	res.render(path.join(__dirname, 'views/login.pug'))
@@ -86,14 +86,11 @@ router.post('/login-form', async (req, res) => {
 	)
 	
 });
-app.use('/login-form', router);
-
 router.get('/logout', (req, res) => {
 	res.clearCookie("accessKey")
 	res.clearCookie("email")
 	res.sendFile(path.join(__dirname, 'index.html'));
 });
-app.use('/logout', router);
 
 router.get('/user-home', async (req, res) => {
 
@@ -120,7 +117,6 @@ router.get('/user-home', async (req, res) => {
 	}
 
 });
-app.use('/user-home', router);
 
 router.get('/loading', (req, res) => {
 
@@ -130,7 +126,6 @@ router.get('/loading', (req, res) => {
 	});
 
 });
-app.use('/loading', router);
 
 // POST CADASTRO
 router.post('/post-cadastro', async (req, res) => {
@@ -165,7 +160,6 @@ router.post('/post-cadastro', async (req, res) => {
 			})
 
 	})
-
 
 })
 
