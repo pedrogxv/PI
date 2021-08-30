@@ -16,3 +16,12 @@
 	box-shadow: 0 0 10px grey;
 	object-fit: contain;
 }
+
+.roundedImg-bigger {
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
+
+	box-shadow: 0 0 10px grey;
+	object-fit: contain;
+}

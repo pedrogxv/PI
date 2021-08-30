@@ -5,3 +5,11 @@
 .direction-column {
 	flex-direction: column;
 }
+
+.align-center {
+	align-items: center;
+}
+
+.justify-content-between {
+	justify-content: space-between;
+}

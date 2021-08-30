@@ -17,10 +17,7 @@ const UserData = require('./scripts/model/UserData')
 // usando pug para geração de views
 const pug = require('pug');
 
-let accessKey = null
-// TODO: change apikey to process.env in replit
-// const apikey = process.env['apikey']
-const apikey = "d7932830591de2013a6dc369ad501ac687903"
+const apikey = process.env['apikey']
 
 // PARSE DE BODY, para requisições de FORM
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,23 +35,7 @@ router.get('/', async (req, res) => {
 
 	if (req.cookies.accessKey && req.cookies.email) {
 
-		let userData = null
-
-		await dbQuery(`"accessKey": "${req.cookies.accessKey}", "email": "${req.cookies.email}"`, 
-			apikey, (returned) => {
-				userData = JSON.parse(returned)
-				
-				if (userData[0] != null)
-					res.render(path.join(__dirname, 'views/user-home.pug'), {
-						"userData": userData[0]
-					});
-				else
-					res.sendFile(path.join(__dirname, 'index.html'));
-				
-			}
-		).catch(() => {
-			res.sendFile(path.join(__dirname, 'index.html'));
-		})
+		res.redirect("/user-home")
 
 	} else {
 		res.sendFile(path.join(__dirname, 'index.html'));
@@ -124,7 +105,7 @@ router.get('/user-home', async (req, res) => {
 			try {
 				console.log(returned)
 				const json = JSON.parse(returned)
-				res.render(path.join(__dirname, '/views/user-home.pug'), {
+				res.render(path.join(__dirname, 		'/views/user-home.pug'), {
 					'userData': json[0]
 				});
 			} catch {

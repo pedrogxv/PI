@@ -14,7 +14,9 @@ head
   link(rel='stylesheet' type='text/css' href='panel.css')
   link(rel='stylesheet' type='text/css' href='user-panel.css')
   link(rel='stylesheet' type='text/css' href='config.css')
+  link(rel='stylesheet' type='text/css' href='form.css')
   link(rel='stylesheet' type='text/css' href='grab.css')
+  link(rel='stylesheet' type='text/css' href='common.css')
   title User Home
   
 aside.userCorner
@@ -172,13 +174,32 @@ section#chatPanel.panel.panel-flex-column.panel-chat
       svg.bi.bi-box-arrow-in-right.iconBtn.iconBtn-big.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
         path(fill-rule='evenodd' d='M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z')
         path(fill-rule='evenodd' d='M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z')
+section#perfil.panel.panel-flex-column
+  header
+    a.no-link(href='#candidatoPainel')
+      svg.bi.bi-arrow-bar-left.btn.btn-borderless.btn-background-grey.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
+    h2.title Perfil
+  .panel-body
+    .flex.align-center.justify-content-between(style="padding: 5vw;")
+      .flex.direction-column
+        h2= userData.nome
+        p.description(style="") #{userData.idade} Anos
+      a.no-link(href='#perfil')
+      img.roundedImg-bigger(src='userSamples/neon.jpg' title='Perfil' alt='User Image')
+    .form-field
+      label.field-label(for="email") Email
+      input.field-input(type="email" name="email" value=`${userData.email}` style="width: fit-content" disabled="")
+    .form-field
+      a.link Mudar Senha
 section#config.panel.panel-flex-column
   header.config-head
     a.no-link(href='#candidatoPainel')
       svg.bi.bi-arrow-bar-left.btn.btn-borderless.btn-background-grey.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
         path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
     h2.title Configura&ccedil;&otilde;es
-  .config-body
+    a.no-link.btn.btn-gradient-red-to-purple(style="position: absolute; right: 30px;" href="#perfil") Meu Perfil
+  .panel-body
     .config-field
       h3.config-field-title Notifica&ccedil;&otilde;es
       input.checkbox-toggle(type='checkbox' name='' id='' checked='')

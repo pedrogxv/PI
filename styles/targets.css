@@ -25,7 +25,7 @@
 	margin: -10px;
 }
 
-#candidatoPainel, #chatPanel, #config {
+#candidatoPainel, #chatPanel, #config, #perfil {
 	display: none;
 }
 
@@ -33,6 +33,6 @@
 	display: grid;
 }
 
-#chatPanel:target, #config:target {
+#chatPanel:target, #config:target, #perfil:target {
 	display: flex;
 }
