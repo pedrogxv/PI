@@ -19,7 +19,7 @@ head
   link(rel='stylesheet' type='text/css' href='grab.css')
   link(rel='stylesheet' type='text/css' href='common.css')
   title User Home
-  
+
 aside.userCorner
   section.userCorner-opt
     a.no-link.btn.btn-gradient-red-to-purple.btn-background-grey.bg-none(href='#candidatoPainel')
@@ -181,8 +181,8 @@ section#perfil.panel.panel-flex-column
       svg.bi.bi-arrow-bar-left.btn.btn-borderless.btn-background-grey.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
         path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
     h2.title Perfil
-  .panel-body
-    .flex.align-center.justify-content-between(style="padding: 5vw;")
+  form.panel-body
+    .flex.align-center.justify-content-between(style="padding: 5vw;" methot="POST")
       .flex.direction-column
         h2= userData.nome
         p.description(style="") #{userData.idade} Anos
@@ -190,9 +190,18 @@ section#perfil.panel.panel-flex-column
       img.roundedImg-bigger(src='userSamples/neon.jpg' title='Perfil' alt='User Image')
     .form-field
       label.field-label(for="email") Email
-      input.field-input(type="email" name="email" value=`${userData.email}` style="width: fit-content" disabled="")
+      input.field-input(type="email" name="email" value=`${userData.email}` disabled="" class="field-toggle")
+    .form-field
+      label.field-label(for="xp") Experiencia
+      textarea.field-input(name="xp" disabled="" class="field-toggle")= userData.experiencia
+    .form-field
+      label.field-label(for="ensino") Ensino
+      textarea.field-input(name="ensino" disabled="" class="field-toggle")= userData.ensino
     .form-field
       a.link(href="/mudar-senha") Mudar Senha
+    .flex
+      a.link(href="#perfil" id="toggle-handler") Editar informações
+      input(type="submit" style="display: none !important;" id="save-info" class="no-link btn btn-green" value="Salvar informações")
 section#config.panel.panel-flex-column
   header.config-head
     a.no-link(href='#candidatoPainel')
@@ -241,3 +250,4 @@ section#config.panel.panel-flex-column
     .config-field
       button.btn.btn-red-reverse
         | Excluir conta
+script(src="pageScripts/perfilEditToggle.js")

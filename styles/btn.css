@@ -76,7 +76,7 @@
 
 .btn-green {
     background-color: chartreuse;
-    color: black;
+    color: black !important;
 
     border-bottom-color: green;
 }

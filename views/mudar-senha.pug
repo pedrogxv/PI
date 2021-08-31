@@ -1,0 +1,23 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  include favicon.pug
+  link(rel='stylesheet' href='global.css')
+  link(rel='stylesheet' href='btn.css')
+  link(rel='stylesheet' href='form.css')
+  link(rel='stylesheet' href='bg.css')
+  link(rel='stylesheet' href='common.css')
+  title PI - Mudar Senha
+body.with-margin
+a.link(href="../") voltar
+div.flex.bg-red
+  p= error || ""
+form.form.flex.direction-column(method='POST')
+  .form-field
+    label.field-label(for='senha1') Nova Senha
+    input.field-input(type='password' name='senha1' id='' required='')
+  .form-field
+    label.field-label(for='senha2') Confima&ccedil;&atilde;o da Nova senha
+    input.field-input(type='password' name='senha2' id='' placeholder='Digite a senha novamente' required='')
+  input.btn.btn-green.btn-big.form-btn(type='submit' value='Mudar senha')

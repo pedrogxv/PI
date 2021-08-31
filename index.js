@@ -8,9 +8,12 @@ const cookieParser = require('cookie-parser')
 const keyGenerator = require('uuid-apikey');
 
 // require arquivos da pasta script
-const dbQuery = require('./scripts/database/get-query.js')
-const post = require('./scripts/database/post-query.js')
-const putAccessKey = require('./scripts/database/putAccessKey')
+const dbQuery = require('./scripts/database/get-query')
+const post = require('./scripts/database/post-query')
+const putQuery = require('./scripts/database/putQuery')
+const cookieCheck = require('./scripts/cookieCheck')
+const queryThroughCookies = require('./scripts/database/queryThroughCookies')
+
 // class
 const UserData = require('./scripts/model/UserData')
 
@@ -34,13 +37,9 @@ app.use(express.static(path.join(__dirname, '/favicon')));
 //Set up the Express router
 router.get('/', async (req, res) => {
 
-	if (req.cookies.accessKey && req.cookies.email) {
-
-		res.redirect("/user-home")
-
-	} else {
+	cookieCheck(req, res, () => {
 		res.sendFile(path.join(__dirname, 'index.html'));
-	}
+	})
 
 });
 app.use('/', router);
@@ -50,7 +49,11 @@ app.get('/cadastro', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-	res.render(path.join(__dirname, 'views/login.pug'))
+	
+	cookieCheck(req, res, () => {
+		res.render(path.join(__dirname, 'views/login.pug'))
+	})
+
 })
 
 router.post('/login-form', async (req, res) => {
@@ -69,7 +72,7 @@ router.post('/login-form', async (req, res) => {
 				userData[0].accessKey = newAccessKey
 
 				// gravando o novo accesskey no bd e no cookie
-				await putAccessKey(userData[0]._id, userData, 
+				await putQuery(userData[0]._id, userData, 
 					apikey, (returned) => {
 						res.cookie(`accessKey`,`${newAccessKey}`);
 						res.cookie(`email`,`${userData[0].email}`);
@@ -88,9 +91,11 @@ router.post('/login-form', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
+
 	res.clearCookie("accessKey")
 	res.clearCookie("email")
 	res.sendFile(path.join(__dirname, 'index.html'));
+
 });
 
 router.get('/user-home', async (req, res) => {
@@ -98,20 +103,19 @@ router.get('/user-home', async (req, res) => {
 	// login with accessKey
 	if (req.cookies.accessKey && req.cookies.email) {
 
-		await dbQuery(`"accessKey":"${req.cookies.accessKey}","email":"${req.cookies.email}"`, apikey, (returned) => {
+		queryThroughCookies(req, res, (returned) => {
 
 			try {
-				console.log(returned)
-				const json = JSON.parse(returned)
+				const userData = JSON.parse(returned)
 				res.render(path.join(__dirname, '/views/user-home.pug'), {
-					'userData': json[0]
+					'userData': userData[0]
 				});
 			} catch {
 				res.redirect("/");
 			}
-			
-		});
 
+		})
+		
 	}
 	else {
 		res.redirect("/login?accesskey=false")
@@ -150,9 +154,12 @@ router.post('/post-cadastro', async (req, res) => {
 				'senha': req.body.pwd,
 				'experiencia': req.body.exp
 			}, apikey, (returned) => {
+
+				// tentar "ler" o json retornado
 				try {
 					JSON.parse(returned)
 					res.redirect('/login');
+				// se retornar erro
 				} catch (e) {
 					res.render(path.join(__dirname, '/views/cadastro.pug'), {
 						"error": "Falha no cadastro, tente novamente."
@@ -166,9 +173,41 @@ router.post('/post-cadastro', async (req, res) => {
 
 router.get('/mudar-senha', (req, res) => {
 
-	res.sendFile(path.join(__dirname, '/views/mudar-senha.html'));
+	res.render(path.join(__dirname, '/views/mudar-senha.pug'));
 
 });
+
+router.post('/mudar-senha', async (req, res) => {
+
+	if (req.body.senha1 == req.body.senha2) {
+
+		queryThroughCookies(req, res, async (returned) => {
+			console.log(returned)
+			try {
+				let userData = JSON.parse(returned)
+				userData[0].senha = req.body.senha2
+
+				await putQuery(userData[0]._id, userData, apikey, (returned) => {
+
+					res.redirect('/')
+					
+				})
+
+			} catch (e) {
+				res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
+					"error": `Ocorreu um erro, tente novamente!`
+				})
+			}
+			
+		})
+
+	} else {
+		res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
+			"error": `Senhas não se coincidem!`
+		})
+	}
+
+})
 
 //set up the Express server to listen on port 3000 and logs some messages when the server is ready
 let server = app.listen(3000, function(){

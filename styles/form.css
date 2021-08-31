@@ -43,6 +43,11 @@
 	border-radius: 4px;
 }
 
+.field-input:disabled {
+	color: rgb(170, 170, 170);
+	background-color: transparent !important;
+}
+
 .form-btn {
 	display: inline-block;
 	width: 100%;

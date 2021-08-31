@@ -1,4 +1,4 @@
-let putAccessKey = async (_id, userData, apikey, callback) => {
+let putQuery = async (_id, userData, apikey, callback) => {
 	if (_id == null) return;
 
 	var request = require("request");
@@ -56,4 +56,4 @@ let putAccessKey = async (_id, userData, apikey, callback) => {
 
 }
 
-module.exports = putAccessKey;
+module.exports = putQuery;
