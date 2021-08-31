@@ -38,6 +38,7 @@ let dbQuery = async (query, apikey, callback) => {
 
 	get.then(
 		(returned) => {
+			console.log(returned)
             console.log(JSON.parse(returned))
 			callback(returned)
 		}

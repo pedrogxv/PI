@@ -4,8 +4,9 @@
 	align-items: flex-end;
 	flex-wrap: wrap;
 
-	width: 600px;
-	padding: 5px;
+	width: 80%;
+	max-width: 600px;
+	padding: 25px;
 	margin: 10px auto;
 
 	box-shadow: 0 0 10px rgb(100, 100, 100);
@@ -18,9 +19,10 @@
 	flex-direction: column;
 	align-self: baseline;
 
-	width: 250px;
+	width: 100%;
+	max-width: 250px;
 	box-sizing: border-box;
-	margin: 8px 16px;
+	margin: 8px 0;
 }
 
 .form-field > * {
@@ -43,6 +45,6 @@
 
 .form-btn {
 	display: inline-block;
-	width: calc(100% - (25px * 2));
-	margin: 25px;
+	width: 100%;
+	margin: 30px 0;
 }

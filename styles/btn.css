@@ -33,6 +33,7 @@
 /* special properties */
 
 .btn-big {
+	padding: 15px;
 	font-size: 1.3rem;
 }
 

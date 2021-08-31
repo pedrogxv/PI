@@ -86,6 +86,7 @@ router.post('/login-form', async (req, res) => {
 	)
 	
 });
+
 router.get('/logout', (req, res) => {
 	res.clearCookie("accessKey")
 	res.clearCookie("email")
@@ -102,7 +103,7 @@ router.get('/user-home', async (req, res) => {
 			try {
 				console.log(returned)
 				const json = JSON.parse(returned)
-				res.render(path.join(__dirname, 		'/views/user-home.pug'), {
+				res.render(path.join(__dirname, '/views/user-home.pug'), {
 					'userData': json[0]
 				});
 			} catch {
@@ -162,6 +163,12 @@ router.post('/post-cadastro', async (req, res) => {
 	})
 
 })
+
+router.get('/mudar-senha', (req, res) => {
+
+	res.sendFile(path.join(__dirname, '/views/mudar-senha.html'));
+
+});
 
 //set up the Express server to listen on port 3000 and logs some messages when the server is ready
 let server = app.listen(3000, function(){
