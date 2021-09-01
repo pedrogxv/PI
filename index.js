@@ -27,7 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser())
 
 // styles
-app.use(express.static(path.join(__dirname, '/styles')));
+// app.use(express.static(path.join(__dirname, '/styles')));
+app.use(express.static(path.join(__dirname, '/dist')));
 //  scripts
 app.use(express.static(path.join(__dirname, '/scripts')));
 // user-home images

@@ -1,5 +1,6 @@
-body {
+body.with-panel {
 	display: flex;
+	align-items: center;
 }
 
 .panel {
