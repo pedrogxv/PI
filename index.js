@@ -65,7 +65,7 @@ router.post('/login-form', async (req, res) => {
 		query[0].accessKey = newAccessKey
 
 		// gravando o novo accesskey no bd e no cookie
-		const loginQuery = await putQuery(query[0]._id, query, apikey)
+		const loginQuery = await putQuery(query, apikey)
 		
 		res.cookie(`accessKey`,`${newAccessKey}`);
 		res.cookie(`email`,`${query[0].email}`);
@@ -91,43 +91,41 @@ router.get('/user-home', async (req, res) => {
 		
 	// login with accessKey
 	if (req.cookies.accessKey && req.cookies.email) {
+		
+		try {
 
-		let query = JSON.parse(await queryThroughCookies(req, res))
-		console.log(query)
+			let query = JSON.parse(await queryThroughCookies(req, res))
 
-		// se não encontrar um objeto na query
-		// retornar e fazer logout (para excluir os cookies)
-		if (typeof query[0] != 'object') {
-			res.redirect("/logout")
-			return
-		}
+			// se não encontrar um objeto na query
+			// retornar e fazer logout (para excluir os cookies)
+			if (typeof query[0] != 'object') {
+				res.redirect("/logout")
+				return
+			}
 
-		let likeUser = null
+			let likeUser = null
 
-		if (query[0].likes.length > 0) {
-			// pegando os usuário que o usuário principal deu 'like'
-			let likes = query[0].likes.split(";")
-			// // removendo último elemento do array (que é vazio)
-			likes.pop()
+			if (query[0].likes.length > 0) {
+				// pegando os usuário que o usuário principal deu 'like'
+				let likes = query[0].likes.split(";")
+				// // removendo último elemento do array (que é vazio)
+				likes.pop()
 
+				if (likes != null) {
+					if (likes.length > 0) {
 
-			if (likes != null) {
-				if (likes.length > 0) {
+						// pegando as informações de todos os usuários com like
+						likeUser = await Promise.all(likes.map(async (like, idx) => {
 
-					// pegando as informações de todos os usuários com like
-					likeUser = await Promise.all(likes.map(async (like, idx) => {
+							const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
 
-						const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
+							return likeQuery[0]
 
-						return likeQuery[0]
+						}))
 
-					}))
-
+					}
 				}
 			}
-		}
-
-		try {
 
 			const userData = query
 
@@ -147,15 +145,6 @@ router.get('/user-home', async (req, res) => {
 		return
 
 	}
-
-});
-
-router.get('/loading', (req, res) => {
-
-	res.render(path.join(__dirname, '/views/loading.pug'), {
-		'pageTitle': 'Cadastrando...',
-		'loadingTitle': "Cadastrando..."
-	});
 
 });
 
@@ -209,15 +198,12 @@ router.post('/mudar-senha', async (req, res) => {
 
 	if (req.body.senha1 == req.body.senha2) {
 
-		const query = await queryThroughCookies(req, res)
+		const query = JSON.parse(await queryThroughCookies(req, res))
 		
-		console.log(query)
-
 		try {
-			let userData = JSON.parse(query)
 			userData[0].senha = req.body.senha2
 
-			const queryRes = await putQuery(userData[0]._id,userData, apikey)
+			const queryRes = await putQuery(query, apikey)
 
 			res.redirect('/')
 			
@@ -226,13 +212,30 @@ router.post('/mudar-senha', async (req, res) => {
 				"error": `Ocorreu um erro, tente novamente!`
 			})
 		}
-		
 
 	} else {
 		res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
-			"error": `Senhas não se coincidem!`
+			"error": `Senhas não coincidem!`
 		})
 	}
+
+})
+
+router.get('/confirmar-reset', async (req, res) => {
+	
+	res.render(path.join(__dirname, 'views/like-reset.pug'))
+
+})
+
+router.post('/reset-like', async (req, res) => {
+	
+	let query = JSON.parse(await queryThroughCookies(req, res))
+
+	query[0].likes = ''
+
+	const queryRes = await putQuery(query, apikey)
+
+	res.redirect('/')
 
 })
 

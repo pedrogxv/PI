@@ -1,12 +1,14 @@
-let putQuery = async (_id, userData, apikey) => {
+let putQuery = async (userData, apikey) => {
 	
-	if (_id == null) return;
+	if (userData[0]._id == null) return;
+
+	console
 
 	var request = require("request");
 
 	var options = { 
 		method: 'PUT',
-		url: `https://pisample-250e.restdb.io/rest/userdata/${_id}`,
+		url: `https://pisample-250e.restdb.io/rest/userdata/${userData[0]._id}`,
 		headers: 
 		{ 
 			'cache-control': 'no-cache',
@@ -20,7 +22,8 @@ let putQuery = async (_id, userData, apikey) => {
 			senha: userData[0].senha,
 			email: userData[0].email,
 			idade: userData[0].idade,
-			accessKey: userData[0].accessKey
+			accessKey: userData[0].accessKey,
+			likes: userData[0].likes
 		},
 		json: true
 	};

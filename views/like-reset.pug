@@ -1,0 +1,19 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  include favicon.pug  
+  link(rel='stylesheet' type='text/css' href='styles/form-merge.css')
+  title Confirmação
+
+body.with-margin
+  a(href='../') Voltar
+  div.flex.bg-red
+    p= error || ""
+  form.form.flex.direction-column(action='reset-like' method='POST')
+    h1 Tem certeza que deseja realizar o reset de seus likes?
+    br
+    h2 Isto pode afetar seu historico de conversas!
+    a.no-link(href="../")
+      input.no-link.btn.btn-big.btn-green.form-btn( type="button" value="Cancelar")
+    input.btn.btn-big.btn-red.form-btn(type='submit' value='Resetar')
