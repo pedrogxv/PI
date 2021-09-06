@@ -57,20 +57,18 @@ router.get('/login', (req, res) => {
 
 router.post('/login-form', async (req, res) => {
 
-	let query = await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey)
+	let query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
 
 	try {
-		userData = JSON.parse(query)
-		console.log(userData)
-		let key = keyGenerator.create()
-		let newAccessKey = key.apiKey
-		userData[0].accessKey = newAccessKey
+
+		let newAccessKey = keyGenerator.create().apiKey
+		query[0].accessKey = newAccessKey
 
 		// gravando o novo accesskey no bd e no cookie
-		const loginQuery = await putQuery(userData[0]._id, userData, apikey)
+		const loginQuery = await putQuery(query[0]._id, query, apikey)
 		
 		res.cookie(`accessKey`,`${newAccessKey}`);
-		res.cookie(`email`,`${userData[0].email}`);
+		res.cookie(`email`,`${query[0].email}`);
 		res.redirect("/user-home")
 
 	} catch {
@@ -81,7 +79,14 @@ router.post('/login-form', async (req, res) => {
 
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', async (req, res) => {
+
+	const query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
+
+	// limpando accessKey do banco de dados
+	query.accessKey = ""
+
+	const loginQuery = await putQuery(query[0]._id, query, apikey)
 
 	res.clearCookie("accessKey")
 	res.clearCookie("email")
