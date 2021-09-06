@@ -93,7 +93,8 @@ router.get('/user-home', async (req, res) => {
 	if (req.cookies.accessKey && req.cookies.email) {
 
 		let query = JSON.parse(await queryThroughCookies(req, res))
-		
+		console.log(query)
+
 		// se não encontrar um objeto na query
 		// retornar e fazer logout (para excluir os cookies)
 		if (typeof query[0] != 'object') {
@@ -101,25 +102,28 @@ router.get('/user-home', async (req, res) => {
 			return
 		}
 
-		// // pegando os usuário que o usuário principal deu 'like'
-		let likes = query[0].likes.split(";")
-		// // removendo último elemento do array (que é vazio)
-		likes.pop()
-
 		let likeUser = null
 
-		if (likes != null) {
-			if (likes.length > 0) {
+		if (query[0].likes.length > 0) {
+			// pegando os usuário que o usuário principal deu 'like'
+			let likes = query[0].likes.split(";")
+			// // removendo último elemento do array (que é vazio)
+			likes.pop()
 
-				// pegando as informações de todos os usuários com like
-				likeUser = await Promise.all(likes.map(async (like, idx) => {
 
-					const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
+			if (likes != null) {
+				if (likes.length > 0) {
 
-					return likeQuery[0]
+					// pegando as informações de todos os usuários com like
+					likeUser = await Promise.all(likes.map(async (like, idx) => {
 
-				}))
+						const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
 
+						return likeQuery[0]
+
+					}))
+
+				}
 			}
 		}
 
@@ -127,19 +131,21 @@ router.get('/user-home', async (req, res) => {
 
 			const userData = query
 
-			console.log(likeUser)
-
 			res.render(path.join(__dirname, '/views/user-home.pug'), {
 				'userData': userData[0],
 				'likeUser': likeUser
 			});
+			return
 
 		} catch {
 			res.redirect("/");
+			return
 		}
 
 	} else {
 		res.redirect("/login?cookie=false")
+		return
+
 	}
 
 });

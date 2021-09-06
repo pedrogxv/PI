@@ -13,3 +13,8 @@
 .justify-content-between {
 	justify-content: space-between;
 }
+
+.center {
+	width: fit-content;
+	margin: auto;
+}
