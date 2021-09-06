@@ -5,7 +5,7 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   include favicon.pug
   link(rel='stylesheet' type='text/css' href='styles/merge.css')
-  title User Home
+  title PI - User Home
 
 body.with-panel
 aside.userCorner
@@ -32,56 +32,18 @@ aside.userCorner
           path(d='M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z')
           path(d='M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z')
   section.userCorner-userList
-    .userCorner-userList-user
-      img(src='/userSamples/felipao.jpg' alt='User')
-      .userInfo
-        h4 Felip&atilde;o
-        p 60+ Anos
-      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
-        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
-          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
-      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
-    .userCorner-userList-user
-      img(src='/userSamples/alvim.jpeg' alt='User')
-      .userInfo
-        h4 Alvim
-        p 20 Anos
-      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
-        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
-          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
-      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
-    .userCorner-userList-user
-      img(src='/userSamples/autumn.jpg' alt='User')
-      .userInfo
-        h4 Ananda Silva
-        p 25 Anos
-      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
-        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
-          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
-      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
-    .userCorner-userList-user
-      img(src='/userSamples/italo.jpg' alt='User')
-      .userInfo
-        h4 &Iacute;talo
-        p 30 Anos
-      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
-        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
-          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
-      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
-    .userCorner-userList-user
-      img(src='/userSamples/L.png' alt='User')
-      .userInfo
-        h4 Lucas
-        p 41 Anos
-      a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
-        svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill=' currentColor' viewbox='0 0 16 16')
-          path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
-          path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
-      button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
+    if likeUser
+      each val in likeUser
+        .userCorner-userList-user
+          img(src='/userSamples/felipao.jpg' alt='User')
+          .userInfo
+            h4= val.nome
+            p #{val.idade} Anos
+          a.btn.btn-borderless.btn-white.bg-none.btn-opacity.no-link.btn-chat.btn-border-green(href='#chatPanel')
+            svg.bi.bi-chat-square-text.iconBtn.iconBtn-noradius(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+              path(d='M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z')
+              path(d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z')
+          button.btn.btn-borderless.btn-opacity.bg-red.btn-remover
 section#candidatoPainel.panel.panel-grid
   aside.user-panel-info
     fieldset.user-fieldset

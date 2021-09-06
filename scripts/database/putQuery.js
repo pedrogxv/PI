@@ -1,4 +1,5 @@
-let putQuery = async (_id, userData, apikey, callback) => {
+let putQuery = async (_id, userData, apikey) => {
+	
 	if (_id == null) return;
 
 	var request = require("request");
@@ -24,7 +25,7 @@ let putQuery = async (_id, userData, apikey, callback) => {
 		json: true
 	};
 
-	const putReq = new Promise ( 
+	return new Promise ( 
 		(resolve, reject) => {
 
 			request(options, (error, response, body) => {
@@ -45,12 +46,6 @@ let putQuery = async (_id, userData, apikey, callback) => {
 				}, 5000)
 
 			})
-		}
-	)
-
-	putReq.then(
-		(returned) => {
-			callback(returned)
 		}
 	)
 

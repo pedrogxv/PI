@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 // accessKey generator
 const keyGenerator = require('uuid-apikey');
+// usando pug para geração de views
+const pug = require('pug');
 
 // require arquivos da pasta script
 const dbQuery = require('./scripts/database/get-query')
@@ -17,9 +19,6 @@ const queryThroughCookies = require('./scripts/database/queryThroughCookies')
 // class
 const UserData = require('./scripts/model/UserData')
 
-// usando pug para geração de views
-const pug = require('pug');
-
 const apikey = process.env['apikey']
 
 // PARSE DE BODY, para requisições de FORM
@@ -27,7 +26,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser())
 
 // styles
-// app.use(express.static(path.join(__dirname, '/styles')));
 app.use(express.static(path.join(__dirname, '/dist')));
 //  scripts
 app.use(express.static(path.join(__dirname, '/scripts')));
@@ -58,37 +56,29 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login-form', async (req, res) => {
-  	
-	console.log(req.body.email + req.body.senha)
 
-	await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, 
-		apikey, 
-		async (returned) => {
+	let query = await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey)
 
-			try {
-				userData = JSON.parse(returned)
-				console.log(userData)
-				let key = keyGenerator.create()
-				let newAccessKey = key.apiKey
-				userData[0].accessKey = newAccessKey
+	try {
+		userData = JSON.parse(query)
+		console.log(userData)
+		let key = keyGenerator.create()
+		let newAccessKey = key.apiKey
+		userData[0].accessKey = newAccessKey
 
-				// gravando o novo accesskey no bd e no cookie
-				await putQuery(userData[0]._id, userData, 
-					apikey, (returned) => {
-						res.cookie(`accessKey`,`${newAccessKey}`);
-						res.cookie(`email`,`${userData[0].email}`);
-						res.redirect("/user-home")
-				})
+		// gravando o novo accesskey no bd e no cookie
+		const loginQuery = await putQuery(userData[0]._id, userData, apikey)
+		
+		res.cookie(`accessKey`,`${newAccessKey}`);
+		res.cookie(`email`,`${userData[0].email}`);
+		res.redirect("/user-home")
 
-			} catch {
-				res.render(path.join(__dirname, '/views/login.pug'), {
-					"error": "Falha no login! Verifique seu email e senha"
-				})
-			}
-			
-		}
-	)
-	
+	} catch {
+		res.render(path.join(__dirname, '/views/login.pug'), {
+			"error": "Falha no login! Verifique seu email e senha"
+		})
+	}
+
 });
 
 router.get('/logout', (req, res) => {
@@ -101,25 +91,57 @@ router.get('/logout', (req, res) => {
 
 router.get('/user-home', async (req, res) => {
 
-	// login with accessKey
-	if (req.cookies.accessKey && req.cookies.email) {
+	try {
+		
+		// login with accessKey
+		if (req.cookies.accessKey && req.cookies.email) {
 
-		queryThroughCookies(req, res, (returned) => {
+			let query = JSON.parse(await queryThroughCookies(req, res))
+
+			// // pegando os usuário que o usuário principal deu 'like'
+			let likes = query[0].likes.split(";")
+			// // removendo último elemento do array (que é vazio)
+			likes.pop()
+
+			let likeUser = null
+
+			if (likes != null) {
+				if (likes.length > 0) {
+
+					// pegando as informações de todos os usuários com like
+					likeUser = await Promise.all(likes.map(async (like, idx) => {
+
+						const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
+
+						return likeQuery[0]
+
+					}))
+
+				}
+			}
 
 			try {
-				const userData = JSON.parse(returned)
+
+				const userData = query
+
+				console.log(likeUser)
+
 				res.render(path.join(__dirname, '/views/user-home.pug'), {
-					'userData': userData[0]
+					'userData': userData[0],
+					'likeUser': likeUser
 				});
+
 			} catch {
 				res.redirect("/");
 			}
 
-		})
-		
-	}
-	else {
-		res.redirect("/login?accesskey=false")
+		} else {
+			res.redirect("/login?accesskey=false")
+		}
+
+	} catch (e) {
+		console.log(e)
+		res.redirect('/logout')
 	}
 
 });
@@ -137,38 +159,39 @@ router.get('/loading', (req, res) => {
 router.post('/post-cadastro', async (req, res) => {
 
 	// checando se email já existe no servidor
-	await dbQuery(`"email": "${req.body.email}"`, apikey, async (returned) => {
+	const query = await dbQuery(`"email": "${req.body.email}"`,apikey)
+	
+	// se sim, não deixar cadastrar
+	if (JSON.parse(query).length > 0)
+		res.render(path.join(__dirname, '/views/cadastro.pug'), {
+			"error": "Email existente, tente usar outro!"
+		});
+	
+	// senão, cadastrar
+	else {
+
+		const postQuery = await post({
+			'nome': req.body.name,
+			'email': req.body.email,
+			'idade': req.body.idade,
+			'ensino': req.body.ensino,
+			'senha': req.body.pwd,
+			'experiencia': req.body.exp
+		}, apikey)
 		
-		// se sim, não deixar cadastrar
-		if (JSON.parse(returned).length > 0)
+
+		// tentar "ler" o json retornado
+		try {
+			JSON.parse(postQuery)
+			res.redirect('/login');
+		// se retornar erro
+		} catch (e) {
 			res.render(path.join(__dirname, '/views/cadastro.pug'), {
-				"error": "Email existente, tente usar outro!"
+				"error": "Falha no cadastro, tente novamente."
 			});
-		
-		// senão, cadastrar
-		else 
-			await post({
-				'nome': req.body.name,
-				'email': req.body.email,
-				'idade': req.body.idade,
-				'ensino': req.body.ensino,
-				'senha': req.body.pwd,
-				'experiencia': req.body.exp
-			}, apikey, (returned) => {
+		}
 
-				// tentar "ler" o json retornado
-				try {
-					JSON.parse(returned)
-					res.redirect('/login');
-				// se retornar erro
-				} catch (e) {
-					res.render(path.join(__dirname, '/views/cadastro.pug'), {
-						"error": "Falha no cadastro, tente novamente."
-					});
-				}
-			})
-
-	})
+	}
 
 })
 
@@ -182,25 +205,24 @@ router.post('/mudar-senha', async (req, res) => {
 
 	if (req.body.senha1 == req.body.senha2) {
 
-		queryThroughCookies(req, res, async (returned) => {
-			console.log(returned)
-			try {
-				let userData = JSON.parse(returned)
-				userData[0].senha = req.body.senha2
+		const query = await queryThroughCookies(req, res)
+		
+		console.log(query)
 
-				await putQuery(userData[0]._id, userData, apikey, (returned) => {
+		try {
+			let userData = JSON.parse(query)
+			userData[0].senha = req.body.senha2
 
-					res.redirect('/')
-					
-				})
+			const queryRes = await putQuery(userData[0]._id,userData, apikey)
 
-			} catch (e) {
-				res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
-					"error": `Ocorreu um erro, tente novamente!`
-				})
-			}
+			res.redirect('/')
 			
-		})
+		} catch (e) {
+			res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
+				"error": `Ocorreu um erro, tente novamente!`
+			})
+		}
+		
 
 	} else {
 		res.render(path.join(__dirname, 'views/mudar-senha.pug'), {

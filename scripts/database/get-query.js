@@ -1,5 +1,6 @@
 // usando request para requisição ao Restdb JS API
-let dbQuery = async (query, apikey, callback) => {
+
+let dbQuery = async (query, apikey) => {
 	var request = require("request");
 
 	var options = { 
@@ -12,7 +13,7 @@ let dbQuery = async (query, apikey, callback) => {
 		} 
 	};
 
-	const get = new Promise ( 
+	return new Promise ( 
 		(resolve, reject) => {
 
 			request(options, (error, response, body) => {
@@ -33,14 +34,6 @@ let dbQuery = async (query, apikey, callback) => {
 				}, 5000)
 
 			})
-		}
-	)
-
-	get.then(
-		(returned) => {
-			console.log(returned)
-            console.log(JSON.parse(returned))
-			callback(returned)
 		}
 	)
 
