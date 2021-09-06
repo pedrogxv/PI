@@ -81,13 +81,6 @@ router.post('/login-form', async (req, res) => {
 
 router.get('/logout', async (req, res) => {
 
-	const query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
-
-	// limpando accessKey do banco de dados
-	query.accessKey = ""
-
-	const loginQuery = await putQuery(query[0]._id, query, apikey)
-
 	res.clearCookie("accessKey")
 	res.clearCookie("email")
 	res.sendFile(path.join(__dirname, 'index.html'));
@@ -95,58 +88,58 @@ router.get('/logout', async (req, res) => {
 });
 
 router.get('/user-home', async (req, res) => {
-
-	try {
 		
-		// login with accessKey
-		if (req.cookies.accessKey && req.cookies.email) {
+	// login with accessKey
+	if (req.cookies.accessKey && req.cookies.email) {
 
-			let query = JSON.parse(await queryThroughCookies(req, res))
-
-			// // pegando os usuário que o usuário principal deu 'like'
-			let likes = query[0].likes.split(";")
-			// // removendo último elemento do array (que é vazio)
-			likes.pop()
-
-			let likeUser = null
-
-			if (likes != null) {
-				if (likes.length > 0) {
-
-					// pegando as informações de todos os usuários com like
-					likeUser = await Promise.all(likes.map(async (like, idx) => {
-
-						const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
-
-						return likeQuery[0]
-
-					}))
-
-				}
-			}
-
-			try {
-
-				const userData = query
-
-				console.log(likeUser)
-
-				res.render(path.join(__dirname, '/views/user-home.pug'), {
-					'userData': userData[0],
-					'likeUser': likeUser
-				});
-
-			} catch {
-				res.redirect("/");
-			}
-
-		} else {
-			res.redirect("/login?accesskey=false")
+		let query = JSON.parse(await queryThroughCookies(req, res))
+		
+		// se não encontrar um objeto na query
+		// retornar e fazer logout (para excluir os cookies)
+		if (typeof query[0] != 'object') {
+			res.redirect("/logout")
+			return
 		}
 
-	} catch (e) {
-		console.log(e)
-		res.redirect('/logout')
+		// // pegando os usuário que o usuário principal deu 'like'
+		let likes = query[0].likes.split(";")
+		// // removendo último elemento do array (que é vazio)
+		likes.pop()
+
+		let likeUser = null
+
+		if (likes != null) {
+			if (likes.length > 0) {
+
+				// pegando as informações de todos os usuários com like
+				likeUser = await Promise.all(likes.map(async (like, idx) => {
+
+					const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
+
+					return likeQuery[0]
+
+				}))
+
+			}
+		}
+
+		try {
+
+			const userData = query
+
+			console.log(likeUser)
+
+			res.render(path.join(__dirname, '/views/user-home.pug'), {
+				'userData': userData[0],
+				'likeUser': likeUser
+			});
+
+		} catch {
+			res.redirect("/");
+		}
+
+	} else {
+		res.redirect("/login?cookie=false")
 	}
 
 });
