@@ -1,0 +1,29 @@
+// TODO: implementar chatPanel funcional (via js)
+section#chatPanel.panel.panel-flex-column.panel-chat
+  header.chat-head
+    .chat-head-container
+      a.no-link(title='Voltar' href='#candidatoPainel')
+        svg.bi.bi-arrow-bar-left.iconBtn-big.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+          path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
+      img.roundedImg(src='/userSamples/alvim.jpeg' alt='User image')
+    p.chat-userName Alvim
+    div(title='Configurções chat')
+      svg.bi.bi-three-dots-vertical.iconBtn-big.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(d='M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z')
+  //
+    [ !IMPORTANT ] chat tá usando coluna reversa, por conta disto
+    o primeiro elemento deve representa a última mensagem
+  section.chat-body
+    .msg.msg-right Foi n&atilde;o fi, tente mais tarde
+    .msg.msg-left Boa noite !
+    .msg.msg-left Gostaria de saber se fui aprovado.
+  footer.chat-footer
+    div(title='Emoji')
+      svg.bi.bi-emoji-smile.iconBtn.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z')
+        path(d='M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z')
+    input.chat-input(type='text' name='' id='' placeholder='Digite algo aqui...' style='outline: 0;')
+    .submit-container(title='Enviar')
+      svg.bi.bi-box-arrow-in-right.iconBtn.iconBtn-big.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(fill-rule='evenodd' d='M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z')
+        path(fill-rule='evenodd' d='M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z')

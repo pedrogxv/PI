@@ -23,7 +23,8 @@ let putQuery = async (userData, apikey) => {
 			email: userData[0].email,
 			idade: userData[0].idade,
 			accessKey: userData[0].accessKey,
-			likes: userData[0].likes
+			likes: userData[0].likes,
+			unlikes: userData[0].unlikes
 		},
 		json: true
 	};

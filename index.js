@@ -107,6 +107,7 @@ router.get('/user-home', async (req, res) => {
 
 			if (query[0].likes.length > 0) {
 				// pegando os usuário que o usuário principal deu 'like'
+				console.log(query[0].likes)
 				let likes = query[0].likes.split(";")
 				// // removendo último elemento do array (que é vazio)
 				likes.pop()
@@ -135,7 +136,9 @@ router.get('/user-home', async (req, res) => {
 			});
 			return
 
-		} catch {
+		} catch (e) {
+			console.log(e)
+			
 			res.redirect("/");
 			return
 		}
@@ -231,8 +234,10 @@ router.post('/reset-like', async (req, res) => {
 	
 	let query = JSON.parse(await queryThroughCookies(req, res))
 
+	// reseta o valor de likes
 	query[0].likes = ''
 
+	// salva o novo valor de query no bd
 	const queryRes = await putQuery(query, apikey)
 
 	res.redirect('/')
@@ -240,6 +245,6 @@ router.post('/reset-like', async (req, res) => {
 })
 
 //set up the Express server to listen on port 3000 and logs some messages when the server is ready
-let server = app.listen(3000, function(){
+let server = app.listen(3000, () => {
   console.log("App server is running on port 3000");
 });

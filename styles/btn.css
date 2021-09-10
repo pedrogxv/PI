@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Georama&display=swap');
 
+button:disabled {
+	background-color: grey !important;
+	color: black !important;
+}
+
+button:hover:disabled {
+	cursor: not-allowed !important;
+}
+
 .btn {
     cursor: pointer;
 
