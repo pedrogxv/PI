@@ -24,7 +24,7 @@ removeLike.forEach( (like, idx) => {
 
 				console.log(data[0]);
 
-				// request2(data)
+				request2(data)
 			}
 		});
 
@@ -36,42 +36,44 @@ removeLike.forEach( (like, idx) => {
 
 	})
 
-	// const request2 = (data) => {
+	const request2 = (data) => {
 		
-	// 	let likes = data[0].likes
+		let likes = data[0].likes
 
-	// 	console.log("Data: " + likes)
+		console.log("Data: " + likes)
 
-	// 	if (typeof likes === "string") {
-	// 		likes = likes.split(";")
-	// 	}
+		if (typeof likes === "string") {
+			likes = likes.split(";")
+		}
 
-	// 	likes.splice(likes.indexOf(like.value), 1)
-	// 	likes = likes.join(";")
+		likes.splice(likes.indexOf(like.value), 1)
+		likes = likes.join(";")
 
-	// 	console.log("Joined: " + likes)
+		console.log("Joined: " + likes)
 
-	// 	let put = JSON.stringify({
-	// 		"likes": likes
-	// 	});
+		let put = JSON.stringify({
+			"likes": likes
+		});
 
-	// 	let xhr = new XMLHttpRequest();
-	// 	xhr.withCredentials = false;
+		let xhr = new XMLHttpRequest();
+		xhr.withCredentials = false;
 
-	// 	xhr.addEventListener("readystatechange", function () {
-	// 		if (this.readyState === 4) {
-	// 			// removendo userDiv ao clicar em remover e a requisição der certo
-	// 			userDiv[idx].remove()
-	// 		}
-	// 	});
+		xhr.addEventListener("readystatechange", function () {
+			if (this.readyState === 4) {
+				// removendo userDiv ao clicar em remover e a requisição der certo
+				like.disabled = false
 
-	// 	xhr.open("PUT", `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`);
-	// 	xhr.setRequestHeader("content-type", "application/json");
-	// 	xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
-	// 	xhr.setRequestHeader("cache-control", "no-cache");
+				userDiv[idx].remove()
+			}
+		});
 
-	// 	xhr.send(put);
+		xhr.open("PUT", `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`);
+		xhr.setRequestHeader("content-type", "application/json");
+		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
+		xhr.setRequestHeader("cache-control", "no-cache");
 
-	// }
+		xhr.send(put);
+
+	}
 
 })
