@@ -1,52 +1,55 @@
 section#candidatoPainel.panel.panel-grid
-  aside.user-panel-info
-    fieldset.user-fieldset
-      .field
-        label(for='nome') Nome
-        p#targetUser-nome(name='nome') Gabriel Alvim
-      .field
-        .field-head
-          svg.bi.bi-link-45deg.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-            path(d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z')
-            path(d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z')
-          label(for='links') Links
-        ul#targetUser-links(name='links')
-          a(href='http://linkedin.com/in/alvim' target='_blank') LinkedIn - Alvim
-      .field
-        label(for='ensino') Ensino
-        p#targetUser-ensino(name='ensino') Superior Incompleto
-      .field
-        label(for='cursos') Cursos
-        p#targetUser-cursos(name='cursos') Gastronomia Gourmet
-        p#targetUser-cursos(name='cursos') Photoshop Avan&ccedil;ado
-  .panel-perfil
-    img.panel-perfil-pic(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false')
-    .panel-perfil-actions
-      .panel-perfil-actions-info
-        h2#targetUser-nome Gabriel Alvim
-        p#targetUser-idade 88 Anos
-      div
-        p.description Teste
-      .panel-perfil-actions-btns
-        button.btn.btn-rounded.btn-borderless.btn-shadow
-          svg.bi.bi-arrow-up-circle-fill.iconBtn-bigger.iconBtn-noradius.icon-green(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-            path(d='M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z')
-        button.btn.btn-borderless
-          svg.bi.bi-bookmark.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-            path(d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z')
-        button.btn.btn-rounded.btn-shadow.btn-borderless
-          svg.bi.bi-arrow-down-circle-fill.iconBtn-bigger.icon-red(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-            path(d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z')
-  aside.user-panel-info
-    fieldset.user-fieldset
-      label(for='xp') Experi&ecirc;ncia
-      p#targetUser-experiencia(name='xp') Nenhuma
-    .perfilInfo-bottom
-      button#targetUser-apresentacao.btn.btn-gold.btn-opacity.btn-translatey
-        svg.bi.bi-camera-video.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-          path(fill-rule='evenodd' d='M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z')
-        |                     Apresenta&ccedil;&atilde;o
-      button#targetUser-curriculo.btn.btn-white.btn-opacity.btn-translatey
-        svg.bi.bi-briefcase.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-          path(d='M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z')
-        |                     Ver curr&iacute;culo
+  .loading-div
+    .loading-rotate
+    .loading-title
+//   aside.user-panel-info
+//     fieldset.user-fieldset
+//       .field
+//         label(for='nome') Nome
+//         p#targetUser-nome(name='nome') Gabriel Alvim
+//       .field
+//         .field-head
+//           svg.bi.bi-link-45deg.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+//             path(d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z')
+//             path(d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z')
+//           label(for='links') Links
+//         ul#targetUser-links(name='links')
+//           a(href='http://linkedin.com/in/alvim' target='_blank') LinkedIn - Alvim
+//       .field
+//         label(for='ensino') Ensino
+//         p#targetUser-ensino(name='ensino') Superior Incompleto
+//       .field
+//         label(for='cursos') Cursos
+//         p#targetUser-cursos(name='cursos') Gastronomia Gourmet
+//         p#targetUser-cursos(name='cursos') Photoshop Avan&ccedil;ado
+//   .panel-perfil
+//     img.panel-perfil-pic(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false')
+//     .panel-perfil-actions
+//       .panel-perfil-actions-info
+//         h2#targetUser-nome Gabriel Alvim
+//         p#targetUser-idade 88 Anos
+//       div
+//         p.description Teste
+//       .panel-perfil-actions-btns
+//         button.btn.btn-rounded.btn-borderless.btn-shadow
+//           svg.bi.bi-arrow-up-circle-fill.iconBtn-bigger.iconBtn-noradius.icon-green(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+//             path(d='M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z')
+//         button.btn.btn-borderless
+//           svg.bi.bi-bookmark.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+//             path(d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z')
+//         button.btn.btn-rounded.btn-shadow.btn-borderless
+//           svg.bi.bi-arrow-down-circle-fill.iconBtn-bigger.icon-red(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+//             path(d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z')
+//   aside.user-panel-info
+//     fieldset.user-fieldset
+//       label(for='xp') Experi&ecirc;ncia
+//       p#targetUser-experiencia(name='xp') Nenhuma
+//     .perfilInfo-bottom
+//       button#targetUser-apresentacao.btn.btn-gold.btn-opacity.btn-translatey
+//         svg.bi.bi-camera-video.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+//           path(fill-rule='evenodd' d='M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z')
+//         |                     Apresenta&ccedil;&atilde;o
+//       button#targetUser-curriculo.btn.btn-white.btn-opacity.btn-translatey
+//         svg.bi.bi-briefcase.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+//           path(d='M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z')
+//         |                     Ver curr&iacute;culo
