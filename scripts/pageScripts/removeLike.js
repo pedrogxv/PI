@@ -3,7 +3,6 @@ const userDiv = document.querySelectorAll(".userCorner-userList-user")
 
 let cookies = document.cookie
 cookies = cookies.split(/[=, ;]+/)
-console.log(cookies)
 
 removeLike.forEach( (like, idx) => {
 
@@ -22,8 +21,6 @@ removeLike.forEach( (like, idx) => {
 			if (this.readyState === 4) {
 				const data = JSON.parse(this.responseText)
 
-				console.log(data[0]);
-
 				request2(data)
 			}
 		});
@@ -40,16 +37,12 @@ removeLike.forEach( (like, idx) => {
 		
 		let likes = data[0].likes
 
-		console.log("Data: " + likes)
-
 		if (typeof likes === "string") {
 			likes = likes.split(";")
 		}
 
 		likes.splice(likes.indexOf(like.value), 1)
 		likes = likes.join(";")
-
-		console.log("Joined: " + likes)
 
 		let put = JSON.stringify({
 			"likes": likes

@@ -39,6 +39,8 @@ button {
 }
 
 a, .link {
+	margin: 2px;
+
 	cursor: pointer;
 
 	display: flex;

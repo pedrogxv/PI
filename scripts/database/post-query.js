@@ -24,7 +24,7 @@ let post = async (data, apikey, callback) => {
 		json: true
 	};
 
-	const post = new Promise ( 
+	return new Promise ( 
 		(resolve, reject) => {
 
 			request(options, (error, response, body) => {
@@ -45,12 +45,6 @@ let post = async (data, apikey, callback) => {
 				}, 5000)
 
 			})
-		}
-	)
-
-	post.then(
-		(returned) => {
-			callback(returned)
 		}
 	)
 

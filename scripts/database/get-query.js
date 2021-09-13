@@ -1,11 +1,16 @@
 // usando request para requisição ao Restdb JS API
 
-let dbQuery = async (query, apikey) => {
-	var request = require("request");
+let dbQuery = async (query, apikey, ext) => {
+	let request = require("request");
 
-	var options = { 
+	let url = "https://pisample-250e.restdb.io/rest/userdata?"
+	if (query) url += "q={" + query + "}"
+
+	if (ext) url += "&" + ext;
+
+	let options = { 
 		method: 'GET',
-		url: `https://pisample-250e.restdb.io/rest/userdata?q={${query}}`,
+		url: url,
 		headers: 
 		{ 
 			'cache-control': 'no-cache',

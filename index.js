@@ -47,6 +47,48 @@ app.get('/cadastro', (req, res) => {
   	res.render(path.join(__dirname, 'views/cadastro.pug'));
 });
 
+// POST CADASTRO
+router.post('/cadastro', async (req, res) => {
+
+	// checando se email já existe no servidor
+	const query = JSON.parse(await dbQuery(`"email": "${req.body.email}"`,apikey))
+	
+	// se sim, não deixar cadastrar
+	if (query.length > 0)
+		res.render(path.join(__dirname, '/views/cadastro.pug'), {
+			"error": "Email existente, tente usar outro!"
+		});
+	
+	// senão, cadastrar
+	else {
+
+		const postQuery = await post({
+			'nome': req.body.name,
+			'email': req.body.email,
+			'idade': req.body.idade,
+			'ensino': req.body.ensino,
+			'senha': req.body.pwd,
+			'experiencia': req.body.exp
+		}, apikey)
+		
+
+		// tentar "ler" o json retornado
+		try {
+			
+			console.log(typeof postQuery)
+			res.redirect('/login');
+		// se retornar erro
+		} catch (e) {
+			console.log(e)
+			res.render(path.join(__dirname, '/views/cadastro.pug'), {
+				"error": "Falha no cadastro, tente novamente."
+			});
+		}
+
+	}
+
+})
+
 router.get('/login', (req, res) => {
 	
 	cookieCheck(req, res, () => {
@@ -89,7 +131,7 @@ router.get('/logout', async (req, res) => {
 
 router.get('/user-home', async (req, res) => {
 		
-	// login with accessKey
+	// login with cookies
 	if (req.cookies.accessKey && req.cookies.email) {
 		
 		try {
@@ -103,13 +145,14 @@ router.get('/user-home', async (req, res) => {
 				return
 			}
 
+			// código para pegar os usuários com like e "dislike" do usuário
 			let likeUser = null
 
 			let likes = query[0].likes
 
 			if (likes.length > 0 && !Array.isArray(likes)) {
 				// pegando os usuário que o usuário principal deu 'like'
-				let likes = query[0].likes.split(";")
+				likes = query[0].likes.split(";")
 				// // removendo último elemento do array (que é vazio)
 				likes.pop()
 
@@ -126,12 +169,58 @@ router.get('/user-home', async (req, res) => {
 
 				}
 			}
+			// FIM DO CÓDIGO DOS LIKES
+
+			// INICIO DO CÓDIGO DISLIKES
+
+			let dislikes = query[0].dislikes
+
+			if (dislikes.length > 0 && !Array.isArray(dislikes)) {
+				// pegando os usuário que o usuário principal deu 'like'
+				dislikes = query[0].dislikes.split(";")
+				// // removendo último elemento do array (que é vazio)
+				dislikes.pop()
+			}
+
+			// FIM CÓDIGO DISLIKES
+
+			// Inicio do código para pegar o candidato user
+
+			let notQuery = ""
+
+			if (dislikes || likes) {
+				notQuery += `"_id": {"$not": {"$in": [`
+				
+				if (dislikes)
+					notQuery += `${dislikes.map((dis) => "\"" + dis + "\"")}`
+				
+				if (likes) {
+					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
+					if (notQuery.slice(-1) === "\"")
+						notQuery += ","
+
+					notQuery += `${likes.map((like) => "\"" + like + "\"")}`
+				}
+
+				notQuery += `]}}`
+			}
+
+			// A query not é para excluir os usuários não gostados ("diliked") e gostados ("likes")
+
+			let targetUser = JSON.parse(await dbQuery(notQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
+
+			console.log(targetUser)
+
+			// Fim do código para pegar o candidato user
+
+			targetUser[0].links = targetUser[0].links.split(";")
 
 			const userData = query
 
 			res.render(path.join(__dirname, '/views/user-home.pug'), {
 				'userData': userData[0],
-				'likeUser': likeUser
+				'likeUser': likeUser,
+				'targetUser': targetUser[0]
 			});
 			return
 
@@ -149,46 +238,6 @@ router.get('/user-home', async (req, res) => {
 	}
 
 });
-
-// POST CADASTRO
-router.post('/post-cadastro', async (req, res) => {
-
-	// checando se email já existe no servidor
-	const query = await dbQuery(`"email": "${req.body.email}"`,apikey)
-	
-	// se sim, não deixar cadastrar
-	if (JSON.parse(query).length > 0)
-		res.render(path.join(__dirname, '/views/cadastro.pug'), {
-			"error": "Email existente, tente usar outro!"
-		});
-	
-	// senão, cadastrar
-	else {
-
-		const postQuery = await post({
-			'nome': req.body.name,
-			'email': req.body.email,
-			'idade': req.body.idade,
-			'ensino': req.body.ensino,
-			'senha': req.body.pwd,
-			'experiencia': req.body.exp
-		}, apikey)
-		
-
-		// tentar "ler" o json retornado
-		try {
-			JSON.parse(postQuery)
-			res.redirect('/login');
-		// se retornar erro
-		} catch (e) {
-			res.render(path.join(__dirname, '/views/cadastro.pug'), {
-				"error": "Falha no cadastro, tente novamente."
-			});
-		}
-
-	}
-
-})
 
 router.get('/mudar-senha', (req, res) => {
 
