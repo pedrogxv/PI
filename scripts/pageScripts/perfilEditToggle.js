@@ -17,7 +17,7 @@ toggleHandler.addEventListener('click', () => {
 	toggleHandler.innerHTML = !toggle ? "Cancelar" : "Editar Informações"
 
 	// toggle entre btn e link
-	toggleHandler.className = !toggle ? "no-link btn btn-red" : "link"
+	toggleHandler.className = !toggle ? "no-link btn btn-red" : "no-link btn btn-borderless btn-border-green"
 
 	console.log("TESTES")
 	console.log(saveInfo.style.display)

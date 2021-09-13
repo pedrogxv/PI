@@ -117,6 +117,10 @@ button:hover:disabled {
     border: 2px solid green;
 }
 
+.btn-border-red{
+	border: 2px solid red;
+	}
+
 /* round */
 
 .btn-rounded {

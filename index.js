@@ -75,7 +75,6 @@ router.post('/cadastro', async (req, res) => {
 		// tentar "ler" o json retornado
 		try {
 			
-			console.log(typeof postQuery)
 			res.redirect('/login');
 		// se retornar erro
 		} catch (e) {
@@ -208,8 +207,6 @@ router.get('/user-home', async (req, res) => {
 			// A query not é para excluir os usuários não gostados ("diliked") e gostados ("likes")
 
 			let targetUser = JSON.parse(await dbQuery(notQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
-
-			console.log(targetUser)
 
 			// Fim do código para pegar o candidato user
 

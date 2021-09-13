@@ -20,10 +20,11 @@ section#perfil.panel.panel-flex-column
     .form-field
       label.field-label(for="ensino") Ensino
       textarea.field-input(name="ensino" disabled="" class="field-toggle")= userData.ensino
-    .form-field
-      a.link(href="/mudar-senha") Mudar Senha
-    .flex
-      a.link(href="#perfil" id="toggle-handler") Editar informações
-      input(type="submit" style="display: none !important;" id="save-info" class="no-link btn btn-green" value="Salvar informações")
-    .form-field
-      a.link(href="/confirmar-reset") Resetar Likes
+    .flex.justify-content-between.align-center(style="padding: 0 10px;")
+      .form-field
+        a.no-link.btn.btn-black(href="/mudar-senha") Mudar Senha
+      .flex.direction-column
+        a.no-link.btn.btn-borderless.btn-border-green(href="#perfil" id="toggle-handler") Editar informações
+        input(type="submit" style="display: none !important;" id="save-info" class="no-link btn btn-green" value="Salvar informações")
+      .form-field
+        a.no-link.btn.btn-borderless.btn-border-red(href="/confirmar-reset") Resetar Likes
