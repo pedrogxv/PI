@@ -19,9 +19,6 @@ toggleHandler.addEventListener('click', () => {
 	// toggle entre btn e link
 	toggleHandler.className = !toggle ? "no-link btn btn-red" : "link"
 
-	// exibindo botão de salvar
-	saveInfo.style.display = toggle ? 'none !important' : 'flex'
-
 	console.log("TESTES")
 	console.log(saveInfo.style.display)
 
@@ -29,9 +26,13 @@ toggleHandler.addEventListener('click', () => {
 	// a página ira dar refresh, 
 	// para que as informações fiquem iguais ao servidor
 	if (toggle) {
+		saveInfo.remove()
 		setTimeout(() => {
 			window.location.reload()
 		}, 100)
+	} else {
+		// exibindo botão de salvar
+		saveInfo.style.display = 'flex'
 	}
 
 })
