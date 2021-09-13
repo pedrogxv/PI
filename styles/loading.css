@@ -8,11 +8,19 @@
 }
 
 .loading-div {
+
 	width: 45px;
 	height: 45px;
 
+}
+
+.loading-rotate {
 	border: 2px solid blue;
 	border-radius: 100%;
 
 	animation: rotate 5s infinite;
+}
+
+.loading-title::after {
+	content: "Carregando...";
 }
