@@ -55,7 +55,7 @@ router.get('/login', (req, res) => {
 
 })
 
-router.post('/login-form', async (req, res) => {
+router.post('/login', async (req, res) => {
 
 	let query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
 
@@ -105,15 +105,15 @@ router.get('/user-home', async (req, res) => {
 
 			let likeUser = null
 
-			if (query[0].likes.length > 0) {
+			let likes = query[0].likes
+
+			if (likes.length > 0 && !Array.isArray(likes)) {
 				// pegando os usuário que o usuário principal deu 'like'
-				console.log(query[0].likes)
 				let likes = query[0].likes.split(";")
 				// // removendo último elemento do array (que é vazio)
 				likes.pop()
 
 				if (likes != null) {
-					if (likes.length > 0) {
 
 						// pegando as informações de todos os usuários com like
 						likeUser = await Promise.all(likes.map(async (like, idx) => {
@@ -124,7 +124,6 @@ router.get('/user-home', async (req, res) => {
 
 						}))
 
-					}
 				}
 			}
 
