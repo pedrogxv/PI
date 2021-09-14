@@ -1,50 +1,59 @@
 section#candidatoPainel.panel.panel-grid
+  .loading-div(style="display: none !important;")
+    .loading-rotate
+    .loading-title
   aside.user-panel-info
     fieldset.user-fieldset
       .field
         label(for='nome') Nome
-        p#targetUser-nome(name='nome')= targetUser.nome
+        p#targetUser-nome.target-info(name="nome")= targetUser.nome
       .field
+        .field-head#targetUser-links
+          svg.bi.bi-link-45deg.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+            path(d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z')
+            path(d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z')
+          label(for='links') Links
         if targetUser.links
-          .field-head
-            svg.bi.bi-link-45deg.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-              path(d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z')
-              path(d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z')
-            label(for='links') Links
           each link in targetUser.links
-            ul#targetUser-links(name='links')
+            ul.target-info(name='links')
               a(href=`${link}` target='_blank')= link
+        else
+            ul.target-info(name='links')
+              a(href=`${link}` target='_blank')
       .field
         label(for='ensino') Ensino
-        p#targetUser-ensino(name='ensino')= targetUser.ensino
-      if targetUser.curso
-        .field
-          label(for='cursos') Cursos
+        p#targetUser-ensino.target-info(name='ensino')= targetUser.ensino
+      .field
+        label(for='cursos') Cursos
+        if targetUser.cursos
           each curso in targetUser.cursos
-            p.targetUser-cursos(name='cursos')= curso
+            p.targetUser-cursos.target-info(name='cursos')= curso
+        else
+          p.targetUser-cursos.target-info(name='cursos')
   .panel-perfil
     img.panel-perfil-pic(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false')
     .panel-perfil-actions
       .panel-perfil-actions-info
-        h2#targetUser-nome= targetUser.nome
-        p#targetUser-idade #{targetUser.idade} Anos
-      div
-        p.description= targetUser.description
+        h2#targetUser-nome.target-info(name="nome")= targetUser.nome
+        p#targetUser-idade.target-info(name="idade") #{targetUser.idade} Anos
+        if targetUser.description
+          div
+            p.description.target-info(name="description")= targetUser.description
       .panel-perfil-actions-btns
-        button.btn.btn-rounded.btn-borderless.btn-shadow#target-action-down(value=`${targetUser._id}`)
+        button.btn.btn-rounded.btn-borderless.btn-shadow#target-action-up(value=`${targetUser._id}`)
           svg.bi.bi-arrow-up-circle-fill.iconBtn-bigger.iconBtn-noradius.icon-green(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
             path(d='M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z')
         button.btn.btn-borderless
           svg.bi.bi-bookmark.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
             path(d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z')
-        button.btn.btn-rounded.btn-shadow.btn-borderless#target-action-up(value=`${targetUser._id}`)
+        button.btn.btn-rounded.btn-shadow.btn-borderless#target-action-down(value=`${targetUser._id}`)
           svg.bi.bi-arrow-down-circle-fill.iconBtn-bigger.icon-red(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
             path(d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z')
   aside.user-panel-info
     if targetUser.experiencia
       fieldset.user-fieldset
-        label(for='xp') Experi&ecirc;ncia
-        p#targetUser-experiencia(name='xp')= targetUser.experiencia
+        label(for='experiencia') Experi&ecirc;ncia
+        p#targetUser-experiencia.target-info(name='experiencia')= targetUser.experiencia
     .perfilInfo-bottom
       button#targetUser-apresentacao.btn.btn-gold.btn-opacity.btn-translatey
         svg.bi.bi-camera-video.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')

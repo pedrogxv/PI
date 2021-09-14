@@ -21,6 +21,16 @@ removeLike.forEach( (like, idx) => {
 			if (this.readyState === 4) {
 				const data = JSON.parse(this.responseText)
 
+				try {
+					if (!data.length) {
+						throw ""
+					}
+				} catch (e) {
+					like.disabled = false
+					alert("Erro na remoção. Recarregue a página ou faça login novamente.")
+					return
+				}
+
 				request2(data)
 			}
 		});

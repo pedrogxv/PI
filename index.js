@@ -104,9 +104,9 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
 
-	let query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
-
 	try {
+
+		let query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
 
 		let newAccessKey = keyGenerator.create().apiKey
 		query[0].accessKey = newAccessKey
@@ -121,7 +121,7 @@ router.post('/login', async (req, res) => {
 
 	} catch {
 		res.render(path.join(__dirname, '/views/login.pug'), {
-			"error": "Falha no login! Verifique seu email e senha"
+			"error": "Falha no login! Verifique seu email e senha."
 		})
 	}
 
@@ -199,9 +199,13 @@ router.get('/user-home', async (req, res) => {
 			let notQuery = ""
 
 			if (lastVisited || likes) {
-				notQuery += `"_id": {"$not": {"$in": [`
+				notQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
+
 				
 				if (lastVisited)
+					if (notQuery.slice(-1) === "\"")
+						notQuery += ","
+
 					notQuery += `${lastVisited.map((dis) => "\"" + dis + "\"")}`
 				
 				if (likes) {
@@ -221,9 +225,11 @@ router.get('/user-home', async (req, res) => {
 
 			// Fim do código para pegar o candidato user
 
-			targetUser[0].links = targetUser[0].links.split(";")
-			targetUser[0].cursos = targetUser[0].cursos.split(";")
-
+			try {
+				targetUser[0].links = targetUser[0].links.split(";")
+				targetUser[0].cursos = targetUser[0].cursos.split(";")
+			} catch (e) {}
+			
 			const userData = query
 
 			res.render(path.join(__dirname, '/views/user-home.pug'), {
@@ -241,7 +247,7 @@ router.get('/user-home', async (req, res) => {
 		}
 
 	} else {
-		res.redirect("/login?cookie=false")
+		res.redirect("/login?loginError=true")
 		return
 
 	}

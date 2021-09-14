@@ -19,9 +19,6 @@ toggleHandler.addEventListener('click', () => {
 	// toggle entre btn e link
 	toggleHandler.className = !toggle ? "no-link btn btn-red" : "no-link btn btn-borderless btn-border-green"
 
-	console.log("TESTES")
-	console.log(saveInfo.style.display)
-
 	// quando o usuário clicar em "Cancelar", 
 	// a página ira dar refresh, 
 	// para que as informações fiquem iguais ao servidor
