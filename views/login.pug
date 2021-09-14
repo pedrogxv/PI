@@ -10,7 +10,7 @@ body.with-margin
   a(href='../') Voltar
   div.flex.bg-red
     p= error || ""
-  form.form.flex.direction-column(action='' method='POST')
+  form.form.flex.direction-column(action='/login' method='POST')
     .form-field
       label.field-label(for='email') Email
       input#email.field-input(type='email' name='email')

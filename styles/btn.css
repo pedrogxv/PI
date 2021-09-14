@@ -121,6 +121,14 @@ button:hover:disabled {
 	border: 2px solid red;
 	}
 
+/* btn-full representa o bg sem borda */
+
+.btn-full-white{
+	background-color: white; 
+	border: none;
+	color: black;
+}
+
 /* round */
 
 .btn-rounded {

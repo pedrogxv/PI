@@ -21,7 +21,7 @@ let post = async (data, apikey, callback) => {
 			senha: data.senha,
 			experiencia: data.exp,
 			likes: data.likes,
-			dislikes: data.dislikes,
+			lastVisited: data.lastVisited,
 			accessKey: data.accessKey,
 			descrition: data.descrition,
 			preferences: data.preferences,

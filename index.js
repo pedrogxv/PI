@@ -71,15 +71,12 @@ router.post('/cadastro', async (req, res) => {
 			'experiencia': req.body.exp,
 			'likes': "",
 			'links': "",
-			'dislikes': "",
+			'lastVisited': "",
 			'accessKey': "",
 			'description': "",
 			'preferencias': "",
 			'cursos': ""
 		}, apikey)
-
-		console.log(postQuery)
-		console.log(req.body.pwd)		
 
 		// tentar "ler" o json retornado
 		try {
@@ -155,7 +152,7 @@ router.get('/user-home', async (req, res) => {
 				return
 			}
 
-			// código para pegar os usuários com like e "dislike" do usuário
+			// código para pegar os usuários com like do usuário
 			let likeUser = null
 
 			let likes = query[0].likes
@@ -184,28 +181,28 @@ router.get('/user-home', async (req, res) => {
 			}
 			// FIM DO CÓDIGO DOS LIKES
 
-			// INICIO DO CÓDIGO DISLIKES
+			// INICIO DO CÓDIGO lastVisited
 
-			let dislikes = query[0].dislikes
+			let lastVisited = query[0].lastVisited
 
-			if (dislikes.length > 0 && !Array.isArray(dislikes)) {
+			if (lastVisited.length > 0 && !Array.isArray(lastVisited)) {
 				// pegando os usuário que o usuário principal deu 'like'
-				dislikes = query[0].dislikes.split(";")
+				lastVisited = query[0].lastVisited.split(";")
 				// // removendo último elemento do array (que é vazio)
-				dislikes.pop()
+				lastVisited.pop()
 			}
 
-			// FIM CÓDIGO DISLIKES
+			// FIM CÓDIGO lastVisited
 
 			// Inicio do código para pegar o candidato user
 
 			let notQuery = ""
 
-			if (dislikes || likes) {
+			if (lastVisited || likes) {
 				notQuery += `"_id": {"$not": {"$in": [`
 				
-				if (dislikes)
-					notQuery += `${dislikes.map((dis) => "\"" + dis + "\"")}`
+				if (lastVisited)
+					notQuery += `${lastVisited.map((dis) => "\"" + dis + "\"")}`
 				
 				if (likes) {
 					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
@@ -218,7 +215,7 @@ router.get('/user-home', async (req, res) => {
 				notQuery += `]}}`
 			}
 
-			// A query not é para excluir os usuários não gostados ("diliked") e gostados ("likes")
+			// A query not é para excluir os usuários já visitados ("lastVisited") e gostados ("likes")
 
 			let targetUser = JSON.parse(await dbQuery(notQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
 

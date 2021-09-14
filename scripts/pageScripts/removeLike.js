@@ -4,8 +4,6 @@ const userDiv = document.querySelectorAll(".userCorner-userList-user")
 let cookies = document.cookie
 cookies = cookies.split(/[=, ;]+/)
 
-console.log(cookies)
-
 removeLike.forEach( (like, idx) => {
 
 	like.addEventListener("click", () => {
