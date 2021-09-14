@@ -4,6 +4,8 @@ const userDiv = document.querySelectorAll(".userCorner-userList-user")
 let cookies = document.cookie
 cookies = cookies.split(/[=, ;]+/)
 
+console.log(cookies)
+
 removeLike.forEach( (like, idx) => {
 
 	like.addEventListener("click", () => {
@@ -25,7 +27,7 @@ removeLike.forEach( (like, idx) => {
 			}
 		});
 
-		xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata?q={"email":"${cookies[3]}","accessKey":"${cookies[1]}"}`);
+		xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata?q={"email":"${cookies[3]}","senha":"${cookies[5]}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 		xhr.setRequestHeader("cache-control", "no-cache");

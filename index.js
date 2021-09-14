@@ -68,9 +68,18 @@ router.post('/cadastro', async (req, res) => {
 			'idade': req.body.idade,
 			'ensino': req.body.ensino,
 			'senha': req.body.pwd,
-			'experiencia': req.body.exp
+			'experiencia': req.body.exp,
+			'likes': "",
+			'links': "",
+			'dislikes': "",
+			'accessKey': "",
+			'description': "",
+			'preferencias': "",
+			'cursos': ""
 		}, apikey)
-		
+
+		console.log(postQuery)
+		console.log(req.body.pwd)		
 
 		// tentar "ler" o json retornado
 		try {
@@ -110,6 +119,7 @@ router.post('/login', async (req, res) => {
 		
 		res.cookie(`accessKey`,`${newAccessKey}`);
 		res.cookie(`email`,`${query[0].email}`);
+		res.cookie(`senha`,`${query[0].senha}`);
 		res.redirect("/user-home")
 
 	} catch {
@@ -124,6 +134,7 @@ router.get('/logout', async (req, res) => {
 
 	res.clearCookie("accessKey")
 	res.clearCookie("email")
+	res.clearCookie("senha")
 	res.sendFile(path.join(__dirname, 'index.html'));
 
 });
@@ -149,23 +160,26 @@ router.get('/user-home', async (req, res) => {
 
 			let likes = query[0].likes
 
-			if (likes.length > 0 && !Array.isArray(likes)) {
-				// pegando os usuário que o usuário principal deu 'like'
-				likes = query[0].likes.split(";")
-				// // removendo último elemento do array (que é vazio)
-				likes.pop()
+			if (typeof likes != "undefined" && !Array.isArray(likes)) {
+				if (likes.length > 0) {
 
-				if (likes != null) {
+					// pegando os usuário que o usuário principal deu 'like'
+					likes = query[0].likes.split(";")
+					// // removendo último elemento do array (que é vazio)
+					likes.pop()
 
-						// pegando as informações de todos os usuários com like
-						likeUser = await Promise.all(likes.map(async (like, idx) => {
+					if (likes != null) {
 
-							const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
+							// pegando as informações de todos os usuários com like
+							likeUser = await Promise.all(likes.map(async (like, idx) => {
 
-							return likeQuery[0]
+								const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
 
-						}))
+								return likeQuery[0]
 
+							}))
+
+					}
 				}
 			}
 			// FIM DO CÓDIGO DOS LIKES
@@ -211,6 +225,7 @@ router.get('/user-home', async (req, res) => {
 			// Fim do código para pegar o candidato user
 
 			targetUser[0].links = targetUser[0].links.split(";")
+			targetUser[0].cursos = targetUser[0].cursos.split(";")
 
 			const userData = query
 
@@ -224,7 +239,7 @@ router.get('/user-home', async (req, res) => {
 		} catch (e) {
 			console.log(e)
 			
-			res.redirect("/");
+			res.redirect("/logout");
 			return
 		}
 

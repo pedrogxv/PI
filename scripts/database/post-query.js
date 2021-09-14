@@ -14,12 +14,18 @@ let post = async (data, apikey, callback) => {
 			'content-type': 'application/json'
 		},
 		body: {
-			senha: data.senha,
-			email: data.email,
 			nome: data.nome,
-			ensino: data.ensino,
+			email: data.email,
 			idade: data.idade,
-			experiencia: data.experiencia
+			ensino: data.ensino,
+			senha: data.senha,
+			experiencia: data.exp,
+			likes: data.likes,
+			dislikes: data.dislikes,
+			accessKey: data.accessKey,
+			descrition: data.descrition,
+			preferences: data.preferences,
+			cursos: data.cursos
 		},
 		json: true
 	};
