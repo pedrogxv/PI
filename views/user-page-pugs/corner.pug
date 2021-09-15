@@ -28,7 +28,8 @@ aside.userCorner
       each val in likeUser
         if val
           .userCorner-userList-user
-            img(src='/userSamples/felipao.jpg' alt='User image')
+            a.no-link(href="#candidatoProfile")
+              img(src='/userSamples/felipao.jpg' alt='User image')
             .userInfo
               h4= val.nome
               p #{val.idade} Anos

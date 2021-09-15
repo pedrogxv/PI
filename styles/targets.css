@@ -25,7 +25,7 @@
 	margin: -10px;
 }
 
-#candidatoPainel, #chatPanel, #config, #perfil, #filtro-panel {
+#candidatoPainel, #chatPanel, #config, #perfil, #filtro-panel, #candidato-profile {
 	display: none;
 }
 
@@ -33,6 +33,6 @@
 	display: grid;
 }
 
-#chatPanel:target, #config:target, #perfil:target, #filtro-panel:target {
+#chatPanel:target, #config:target, #perfil:target, #filtro-panel:target, #candidato-profile:target {
 	display: flex;
 }

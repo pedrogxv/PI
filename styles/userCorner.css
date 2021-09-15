@@ -84,7 +84,7 @@
     overflow-y: hidden;
 }
 
-.userCorner-userList-user > img {
+.userCorner-userList-user img {
     cursor: pointer;
 
     border-radius: 1rem;
