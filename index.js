@@ -265,27 +265,33 @@ router.get('/mudar-senha', (req, res) => {
 
 router.post('/mudar-senha', async (req, res) => {
 
-	if (req.body.senha1 == req.body.senha2) {
+	if (req.body.senha1 && req.body.senha2) {
+		if (req.body.senha1 == req.body.senha2) {
 
-		try {	
-			const query = JSON.parse(await queryThroughCookies(req, res))
-		
-			query[0].senha = req.body.senha2
-
-			const queryRes = await putQuery(query, apikey)
-
-			res.redirect('/')
+			try {	
+				const query = JSON.parse(await queryThroughCookies(req, res))
 			
-		} catch (e) {
-			console.log(e)
+				query[0].senha = req.body.senha2
+
+				const queryRes = await putQuery(query, apikey)
+
+				res.redirect('/')
+				
+			} catch (e) {
+				console.log(e)
+				res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
+					"error": `Ocorreu um erro, tente novamente!`
+				})
+			}
+
+		} else {
 			res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
-				"error": `Ocorreu um erro, tente novamente!`
+				"error": `Senhas não coincidem!`
 			})
 		}
-
 	} else {
 		res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
-			"error": `Senhas não coincidem!`
+				"error": `Campos não preenchidos.`
 		})
 	}
 

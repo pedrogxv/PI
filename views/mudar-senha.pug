@@ -7,13 +7,17 @@ head
   title PI - Mudar Senha
 body.with-margin
 a.link(href="../") voltar
-div.flex.bg-red
+div.flex.bg-red.error-div
   p= error || ""
-form.form.flex.direction-column(method='POST')
+.loading-div#loading-senha
+  .loading-rotate
+  .loading-title
+form.form.flex.direction-column#senha-div(method='POST')
   .form-field
     label.field-label(for='senha1') Nova Senha
-    input.field-input(type='password' name='senha1' required='')
+    input.field-input(type='password' name='senha1')
   .form-field
     label.field-label(for='senha2') Confima&ccedil;&atilde;o da Nova senha
-    input.field-input(type='password' name='senha2' placeholder='Digite a senha novamente' required='')
-  input.btn.btn-green.btn-big.form-btn(type='submit' value='Mudar senha')
+    input.field-input(type='password' name='senha2' placeholder='Digite a senha novamente')
+  input.btn.btn-green.btn-big.form-btn#submit-senha(type='submit' value='Mudar senha')
+script(src="pageScripts/mudarSenhaLoad.js")
