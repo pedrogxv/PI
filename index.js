@@ -71,7 +71,7 @@ router.post('/cadastro', async (req, res) => {
 			'experiencia': req.body.exp,
 			'likes': "",
 			'links': "",
-			'lastVisited': "",
+			'dislikes': "",
 			'accessKey': "",
 			'description': "",
 			'preferencias': "",
@@ -181,32 +181,35 @@ router.get('/user-home', async (req, res) => {
 			}
 			// FIM DO CÓDIGO DOS LIKES
 
-			// INICIO DO CÓDIGO lastVisited
+			// INICIO DO CÓDIGO dislikes
 
-			let lastVisited = query[0].lastVisited
+			let dislikes = query[0].dislikes
 
-			if (lastVisited.length > 0 && !Array.isArray(lastVisited)) {
-				// pegando os usuário que o usuário principal deu 'like'
-				lastVisited = query[0].lastVisited.split(";")
-				// // removendo último elemento do array (que é vazio)
-				lastVisited.pop()
+			if (typeof dislikes != "undefined") {
+				if (!Array.isArray(dislikes)) {
+					console.log("Entered")
+					// pegando os usuário que o usuário principal deu 'like'
+					dislikes = query[0].dislikes.split(";")
+					// // removendo último elemento do array (que é vazio)
+					dislikes.pop()
+				}
 			}
 
-			// FIM CÓDIGO lastVisited
+			// FIM CÓDIGO dislikes
 
 			// Inicio do código para pegar o candidato user
 
 			let notQuery = ""
-
-			if (lastVisited || likes) {
-				notQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
-
+			
+			notQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
+			
+			if (dislikes || likes) {
 				
-				if (lastVisited)
+				if (dislikes)
 					if (notQuery.slice(-1) === "\"")
 						notQuery += ","
 
-					notQuery += `${lastVisited.map((dis) => "\"" + dis + "\"")}`
+					notQuery += `${dislikes.map((dis) => "\"" + dis + "\"")}`
 				
 				if (likes) {
 					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
@@ -216,10 +219,11 @@ router.get('/user-home', async (req, res) => {
 					notQuery += `${likes.map((like) => "\"" + like + "\"")}`
 				}
 
-				notQuery += `]}}`
 			}
 
-			// A query not é para excluir os usuários já visitados ("lastVisited") e gostados ("likes")
+			notQuery += `]}}`
+
+			// A query not é para excluir os usuários já visitados ("dislikes") e gostados ("likes"), além do próprio usuário logado
 
 			let targetUser = JSON.parse(await dbQuery(notQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
 
@@ -264,16 +268,17 @@ router.post('/mudar-senha', async (req, res) => {
 
 	if (req.body.senha1 == req.body.senha2) {
 
-		const query = JSON.parse(await queryThroughCookies(req, res))
+		try {	
+			const query = JSON.parse(await queryThroughCookies(req, res))
 		
-		try {
-			userData[0].senha = req.body.senha2
+			query[0].senha = req.body.senha2
 
 			const queryRes = await putQuery(query, apikey)
 
 			res.redirect('/')
 			
 		} catch (e) {
+			console.log(e)
 			res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
 				"error": `Ocorreu um erro, tente novamente!`
 			})
@@ -295,15 +300,22 @@ router.get('/confirmar-reset', async (req, res) => {
 
 router.post('/reset-like', async (req, res) => {
 	
-	let query = JSON.parse(await queryThroughCookies(req, res))
+	try {
+		let query = JSON.parse(await queryThroughCookies(req, res))
 
-	// reseta o valor de likes
-	query[0].likes = ''
+		console.log(query)
 
-	// salva o novo valor de query no bd
-	const queryRes = await putQuery(query, apikey)
+		// reseta o valor de likes
+		query[0].likes = ''
 
-	res.redirect('/')
+		// salva o novo valor de query no bd
+		const queryRes = await putQuery(query, apikey)
+
+	} catch (e) {
+		console.log(e)
+	}
+
+	res.redirect('/user-home')
 
 })
 

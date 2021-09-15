@@ -124,9 +124,9 @@ button:hover:disabled {
 /* btn-full representa o bg sem borda */
 
 .btn-full-white{
-	background-color: white; 
-	border: none;
-	color: black;
+	background-color:#fff!important;
+	border:0 !important;
+	color:black!important;
 }
 
 /* round */

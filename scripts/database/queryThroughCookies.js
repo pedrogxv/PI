@@ -3,7 +3,7 @@ const apikey = process.env['apikey']
 
 let queryThroughCookies = async (req, res) => {
 
-	return await dbQuery(`"accessKey":"${req.cookies.accessKey}","email":"${req.cookies.email}"`, apikey)
+	return await dbQuery(`"senha":"${req.cookies.senha}","email":"${req.cookies.email}"`, apikey)
 	
 }
 

@@ -9,6 +9,8 @@
 
 .loading-div {
 
+	/* display como none para que seja melhor o handle por js */
+	display: none;
 	width: 80px;
 	height: 80px;
 
