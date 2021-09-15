@@ -23,8 +23,9 @@ section#perfil.panel.panel-flex-column
     .flex.justify-content-between.align-center(style="padding: 0 10px;")
       .form-field
         a.no-link.btn.btn-black(href="/mudar-senha") Mudar Senha
-      .flex.direction-column
+      .flex.direction-column.align-center
         a.no-link.btn.btn-borderless.btn-border-green(href="#perfil" id="toggle-handler") Editar informações
         input(type="submit" style="display: none !important;" id="save-info" class="no-link btn btn-green" value="Salvar informações")
       .form-field
-        a.no-link.btn.btn-borderless.btn-border-red(href="/confirmar-reset") Resetar Likes
+        a.no-link.btn.btn-borderless.btn-border-red(href="/confirmar-reset?likes=true") Resetar Likes
+        a.no-link.btn.btn-borderless.btn-border-red(href="/confirmar-reset?dislikes=true") Resetar Dislikes

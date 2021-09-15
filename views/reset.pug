@@ -7,13 +7,19 @@ head
   title Confirmação
 
 body.with-margin
+  .loading-div#reset-load
+    .loading-rotate
+    .loading-title
   a(href='../') Voltar
   div.flex.bg-red
     p= error || ""
-  form.form.flex.direction-column(action='reset-like' method='POST')
+  form.form.flex.direction-column#reset-form(action="/reset-like" method='POST')
     h1 Tem certeza que deseja realizar o reset de seus likes?
     br
     h2 Isto pode afetar seu historico de conversas!
     a.no-link(href="../")
-      input.no-link.btn.btn-big.btn-green.form-btn( type="button" value="Cancelar")
+      input.no-link.btn.btn-big.btn-green.form-btn(type="button" value="Cancelar")
+    if resetType
+       input(type='hidden' name="resetType" value=`${resetType}`)
     input.btn.btn-big.btn-red.form-btn(type='submit' value='Resetar')
+script(src="pageScripts/resetLoad.js")

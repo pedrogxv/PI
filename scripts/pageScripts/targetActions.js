@@ -61,15 +61,19 @@ const request2 = (data, like, _id) => {
 		targetFieldValue = targetFieldValue.split(";")
 	}
 
-	// se o valor 0 for vazio significa que não há registro no banco de dados
-	if (targetFieldValue[0] == '') {
-		targetFieldValue[0] = _id
-	}
-	else if (typeof _id != 'undefined') {
-		if (_id && Array.isArray(_id)) {
+	console.log(targetFieldValue)
+
+	// se o valor de 0 for vazio significa que não há registro no banco de dados
+	if (typeof _id != 'undefined') {
+		if (targetFieldValue[0] == '') {
+			targetFieldValue[0] = _id
+		}
+		else {
 			targetFieldValue.push(_id)
 		}
 	}
+
+	console.log(targetFieldValue)
 
 	targetFieldValue = targetFieldValue.join(";")
 	targetFieldValue = targetFieldValue.replace(";;", ";")

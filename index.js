@@ -187,7 +187,6 @@ router.get('/user-home', async (req, res) => {
 
 			if (typeof dislikes != "undefined") {
 				if (!Array.isArray(dislikes)) {
-					console.log("Entered")
 					// pegando os usuário que o usuário principal deu 'like'
 					dislikes = query[0].dislikes.split(";")
 					// // removendo último elemento do array (que é vazio)
@@ -204,16 +203,16 @@ router.get('/user-home', async (req, res) => {
 			notQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
 			
 			if (dislikes || likes) {
-				
+
 				if (dislikes)
-					if (notQuery.slice(-1) === "\"")
+					if (notQuery.slice(-1) === "\"" && typeof dislikes[0] != "undefined")
 						notQuery += ","
 
 					notQuery += `${dislikes.map((dis) => "\"" + dis + "\"")}`
 				
 				if (likes) {
 					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
-					if (notQuery.slice(-1) === "\"")
+					if (notQuery.slice(-1) === "\"" && typeof likes[0] != "undefined")
 						notQuery += ","
 
 					notQuery += `${likes.map((like) => "\"" + like + "\"")}`
@@ -294,19 +293,38 @@ router.post('/mudar-senha', async (req, res) => {
 
 router.get('/confirmar-reset', async (req, res) => {
 	
-	res.render(path.join(__dirname, 'views/like-reset.pug'))
+	let resetType = null
+
+	if (req.query.likes) {
+		resetType = "likes"
+	}
+	if (req.query.dislikes) {
+		resetType = "dislikes"
+	}
+
+	res.render(path.join(__dirname, 'views/reset.pug'), {
+		"resetType": resetType
+	})
 
 })
 
 router.post('/reset-like', async (req, res) => {
 	
 	try {
+		
 		let query = JSON.parse(await queryThroughCookies(req, res))
 
-		console.log(query)
 
-		// reseta o valor de likes
-		query[0].likes = ''
+		if (req.body.resetType == 'likes') {
+			// reseta o valor de likes
+			query[0].likes = ''
+		}
+		if (req.body.resetType == 'dislikes') {
+			// reseta o valor de dislikes
+			query[0].dislikes = ''
+		}
+
+		console.log(query)
 
 		// salva o novo valor de query no bd
 		const queryRes = await putQuery(query, apikey)
