@@ -4,16 +4,12 @@ _Acesse a última versão do site: [https://pi.pedrogxv.repl.co/](https://pi.ped
 
 _Repositório do Projeto Integrado (PI) do curso de Técnico em Informática do Senac.._
 
-## Páginas WEB
-
-*Nav*: [https://pi.pedrogxv.repl.co/](https://pi.pedrogxv.repl.co/)
-
-*Home*: [https://pi.pedrogxv.repl.co/sobre/](https://pi.pedrogxv.repl.co/sobre/)
-
-*Seletor*: [https://pi.pedrogxv.repl.co/cadastro/](https://pi.pedrogxv.repl.co/cadastro/)
-
-*User Home*: [https://pi.pedrogxv.repl.co/user-home/](https://pi.pedrogxv.repl.co/user-home/)
-
 ## Conceito
 
-_Criar uma espécie de 'Tinder' para os contratantes._
+_Criar uma espécie de 'Tinder' para os contratantes e candidatos._
+
+## Execução
+
+### Banco de Dados
+
+_Usado a plataforma (restdb.io)_

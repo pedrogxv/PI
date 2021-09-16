@@ -1,0 +1,28 @@
+{
+  "name": "PI",
+  "version": "1.0.0",
+  "description": "_Acesse a última versão do site: [https://pi.pedrogxv.repl.co/](https://pi.pedrogxv.repl.co/)_",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PedroGXV/PI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PedroGXV/PI/issues"
+  },
+  "homepage": "https://github.com/PedroGXV/PI#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "pug": "^3.0.2",
+    "request": "^2.88.2",
+    "uuid-apikey": "^1.5.3"
+  }
+}
