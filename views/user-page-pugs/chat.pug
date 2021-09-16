@@ -1,11 +1,18 @@
 // TODO: implementar chatPanel funcional (via js)
 section#chatPanel.panel.panel-flex-column.panel-chat
-  header.chat-head
+  .loading-div#chat-loading
+    .loading-rotate
+    .loading-title
+  #aviso-no-data-chat(style="width: 100%;")
+    .btn.btn-gradient-red-to-purple.btn-opacity Nenhuma informação econtrada
+    p(style="margin-top: 50px;") Clique em um usuário para carregar o chat.
+  header.chat-head(style="display: none;")
     .chat-head-container
       a.no-link(title='Voltar' href='#candidatoPainel')
         svg.bi.bi-arrow-bar-left.iconBtn-big.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
           path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
-      img.roundedImg(src='/userSamples/alvim.jpeg' alt='User image')
+      a.profileLink.no-link.chat-userPerfil(title="Ver Pefil do Candidato" href="#candidatoProfile")
+        img.roundedImg(src='/userSamples/alvim.jpeg' alt='User image')
     p.chat-userName Alvim
     div(title='Configurções chat')
       svg.bi.bi-three-dots-vertical.iconBtn-big.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
@@ -13,11 +20,11 @@ section#chatPanel.panel.panel-flex-column.panel-chat
   //
     [ !IMPORTANT ] chat tá usando coluna reversa, por conta disto
     o primeiro elemento deve representa a última mensagem
-  section.chat-body
+  section.chat-body(style="display: none;")
     .msg.msg-right Foi n&atilde;o fi, tente mais tarde
     .msg.msg-left Boa noite !
     .msg.msg-left Gostaria de saber se fui aprovado.
-  footer.chat-footer
+  footer.chat-footer(style="display: none;")
     div(title='Emoji')
       svg.bi.bi-emoji-smile.iconBtn.btn.btn-borderless.btn-background-grey(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
         path(d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z')

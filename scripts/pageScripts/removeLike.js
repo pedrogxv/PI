@@ -7,6 +7,10 @@ cookies = cookies.split(/[=, ;]+/)
 removeLike.forEach( (like, idx) => {
 
 	like.addEventListener("click", () => {
+		removeOnClick(like)
+	})
+
+	const removeOnClick = (like) => {
 		like.disabled = true
 
 		let xhr = new XMLHttpRequest()
@@ -41,7 +45,7 @@ removeLike.forEach( (like, idx) => {
 		xhr.setRequestHeader("cache-control", "no-cache");
 		xhr.send(null)
 
-	})
+	}
 
 	const request2 = (data) => {
 		

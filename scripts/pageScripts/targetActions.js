@@ -319,14 +319,14 @@ const createCornerUser = (dataObj) => {
 
 	chatLink.appendChild(svgChat)
 
-	const button = document.createElement("button")
-	button.className = "btn btn-borderless btn-opacity bg-red btn-remover removeLike"
-	button.value = `${dataObj._id}`
+	const removeButton = document.createElement("button")
+	removeButton.className = "btn btn-borderless btn-opacity bg-red btn-remover removeLike"
+	removeButton.value = `${dataObj._id}`
 
 	userList.appendChild(img)
 	userList.appendChild(userInfo)
 	userList.appendChild(chatLink)
-	userList.appendChild(button)
+	userList.appendChild(removeButton)
 	
 	const corner = document.querySelector(".userCorner-userList")
 	corner.appendChild(userList)

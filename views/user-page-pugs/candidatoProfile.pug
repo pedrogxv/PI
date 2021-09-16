@@ -1,1 +1,39 @@
-section#candidato-profile.panel.panel-flex-column
+section#candidatoProfile.panel.panel-flex-column
+  header
+    a.no-link(href='#candidatoPainel')
+      svg.bi.bi-arrow-bar-left.btn.btn-borderless.btn-background-grey.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
+        path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
+    h2.title Perfil do Candidato
+  .loading-div#perfilCandidatoLoading
+    .loading-rotate
+    .loading-title
+  #aviso-no-data(style="width: 100%;")
+    .btn.btn-gradient-red-to-purple.btn-opacity Nenhuma informação econtrada
+    p(style="margin-top: 50px;") Clique em um usuário para carregar as informações.
+  .panel-body#candidatoPanelBody(style="display: none;")
+    .flex.align-center(style="padding:5vw;")
+      img.roundedImg-bigger(src='/userSamples/felipao.jpg')
+      div(style="margin-left: 20px;")
+        h2.profileInfo(name="nome") Nome do Candidato
+        p.description.profileInfo(name="idade") Idade
+    .flex.justify-content-between.user-fieldset(style="margin: 50px 15px;")
+      .flex.direction-column(style="margin: 8px 0;")
+        label(for="description") Descrição do candidato
+        p.profileInfo(name="description") Exemplo de descrição
+      .flex.direction-column(style="margin: 8px 0; text-align: end;")
+        label(for="ensino") Ensino do candidato
+        p.profileInfo(name="ensino") Exemplo de ensino
+    .flex.justify-content-between.user-fieldset(style="margin: 50px 15px;")
+      .flex.direction-column(style="margin: 8px 0;")
+        label(for="cursos") Cursos do candidato
+        p.profileInfo(name="cursos") Exemplo de curso
+      .flex.direction-column(style="margin: 8px 0; text-align: end;")
+        label(for="experiencia") Experiência do candidato
+        p.profileInfo(name="experiencia") Exemplo de xp
+    .flex.justify-content-between.user-fieldset(style="margin: 50px 15px;")
+      .flex.direction-column(style="margin: 8px 0;")
+        label(for="links") Links do candidato
+        p.profileInfo(name="links") Exemplo de link
+      .flex.direction-column(style="margin: 8px 0;  text-align: end;")
+        label(for="email") Email do candidato
+        p.profileInfo(name="email") exemplo@gmail.com
