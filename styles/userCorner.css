@@ -84,6 +84,12 @@
     overflow-y: hidden;
 }
 
+.userCorner-userList-user:hover {
+	transform: scale(1.05);
+	filter: blur(.2px);
+	cursor: pointer;
+}
+
 .userCorner-userList-user img {
     cursor: pointer;
 

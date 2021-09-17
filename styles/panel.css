@@ -14,6 +14,7 @@ body.with-panel {
     padding: 20px;
 
     border-radius: 1rem;
+	border: 2px solid white;
 	box-shadow: 0 0 15px black;
 
     background-color: #3a3a3a;
