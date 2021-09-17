@@ -11,11 +11,13 @@ removeLike.forEach( (like, idx) => {
 	})
 
 	const removeOnClick = (like) => {
+		setUserCornerLoading(true)
 		like.disabled = true
 
 		let xhr = new XMLHttpRequest()
 
 		if (!xhr) {
+			setUserCornerLoading(false)
 			alert('Erro na requisição! Recarregue a página.');
 			return
 		}
@@ -23,19 +25,21 @@ removeLike.forEach( (like, idx) => {
 		xhr.addEventListener("readystatechange", function () {
 			// quando a requsição der certo
 			if (this.readyState === 4) {
-				const data = JSON.parse(this.responseText)
 
 				try {
+					const data = JSON.parse(this.responseText)
+
 					if (!data.length) {
 						throw ""
 					}
+					request2(data)
 				} catch (e) {
+					setUserCornerLoading(false)
 					like.disabled = false
 					alert("Erro na remoção. Recarregue a página ou faça login novamente.")
 					return
 				}
 
-				request2(data)
 			}
 		});
 
@@ -68,6 +72,7 @@ removeLike.forEach( (like, idx) => {
 		xhr.addEventListener("readystatechange", function () {
 			if (this.readyState === 4) {
 				// removendo userDiv ao clicar em remover e a requisição der certo
+				setUserCornerLoading(false)
 				like.disabled = false
 
 				userDiv[idx].remove()
@@ -84,3 +89,20 @@ removeLike.forEach( (like, idx) => {
 	}
 
 })
+
+const setUserCornerLoading = (state) => {
+	const loading = document.querySelector("#cornerUsr-loading")
+	const panels = document.querySelectorAll(".userCorner-userList-user")
+
+	if (state) {
+		loading.style.display = "block"
+		panels.forEach((panel) => {
+			panel.style.display = "none"
+		})
+	} else {
+		loading.style.display = "none"
+		panels.forEach((panel) => {
+			panel.style.display = "flex"
+		})
+	}
+}
