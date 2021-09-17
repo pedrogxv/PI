@@ -101,6 +101,7 @@ const initiatePerfilEditToggle = (oldData) => {
 			// exibindo botão de salvar
 			saveInfo.style.display = 'block'
 			saveInfo.addEventListener("click", () => {
+
 				toggleHandler.click()
 				setPerfilInfoLoading(true)
 				saveInfo.style.display = 'none'
@@ -110,11 +111,23 @@ const initiatePerfilEditToggle = (oldData) => {
 				fieldToggles.forEach((field) => {
 					// se a data antiga tiver o campo name do field
 					// isso é feito para prevenir novas datas no bd
-					if (oldData[field.getAttribute("name")]) {
-						newData[field.getAttribute("name")] = field.value
+					if (typeof oldData[field.getAttribute("name")] != "undefined") {
+						console.log(oldData[field.getAttribute("name")])
+						// se for um campo de email
+						if (field.getAttribute("name") === "email") {
+							// se o valor não for nulo ou vazio
+							if (field.value)
+								newData[field.getAttribute("name")] = field.value
+							else {
+								alert("Seu email não pode ser nulo / vazio.")
+							}
+						} else {
+							newData[field.getAttribute("name")] = field.value
+						}
 					}
 				})
 
+				console.log(newData)
 
 				let data = JSON.stringify(newData);
 
@@ -123,7 +136,6 @@ const initiatePerfilEditToggle = (oldData) => {
 
 				xhr.addEventListener("readystatechange", function () {
 					if (this.readyState === 4) {
-						setPerfilInfoLoading(false)
 						window.location.reload()
 					}
 				});
