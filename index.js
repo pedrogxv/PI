@@ -4,8 +4,6 @@ const router = express.Router();
 const path = require('path')//Include the Path module
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
-// accessKey generator
-const keyGenerator = require('uuid-apikey');
 // usando pug para geração de views
 const pug = require('pug');
 
@@ -108,18 +106,14 @@ router.post('/login', async (req, res) => {
 
 		let query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
 
-		let newAccessKey = keyGenerator.create().apiKey
-		query[0].accessKey = newAccessKey
-
 		// gravando o novo accesskey no bd e no cookie
-		const loginQuery = await putQuery(query, apikey)
-		
-		res.cookie(`accessKey`,`${newAccessKey}`);
+		res.cookie(`_id`,`${query[0]._id}`);
 		res.cookie(`email`,`${query[0].email}`);
 		res.cookie(`senha`,`${query[0].senha}`);
 		res.redirect("/user-home")
 
-	} catch {
+	} catch (e) {
+		console.log(e)
 		res.render(path.join(__dirname, '/views/login.pug'), {
 			"error": "Falha no login! Verifique seu email e senha."
 		})
@@ -139,7 +133,7 @@ router.get('/logout', async (req, res) => {
 router.get('/user-home', async (req, res) => {
 		
 	// login with cookies
-	if (req.cookies.accessKey && req.cookies.email) {
+	if (req.cookies.senha && req.cookies.email) {
 		
 		try {
 

@@ -10,6 +10,7 @@ window.addEventListener("load", () => {
 	xhr.addEventListener("readystatechange", function () {
 		if (this.readyState === 4) {
 			try {
+				console.log(clientCookies)
 				const data = JSON.parse(this.responseText);
 				
 				const dataKeys = Object.keys(data[0])
@@ -23,7 +24,6 @@ window.addEventListener("load", () => {
 						&& dataKeys[key] != "dislikes"
 					) {
 						
-						console.log(data[0][dataKeys[key]])
 						createFormField(dataKeys[key], data[0][dataKeys[key]])
 
 					}
@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
 
 				setPerfilInfoLoading(false)
 
-				initiatePerfilEditToggle()
+				initiatePerfilEditToggle(data[0])
 
 			} catch (e) {
 				setPerfilInfoLoading(false)
@@ -73,7 +73,7 @@ const createFormField = (dataName, dataValue) => {
 }
 
 
-const initiatePerfilEditToggle = () => {
+const initiatePerfilEditToggle = (oldData) => {
 	// script para fazer a alternância dos botões
 	// de 'Editar informções' e 'Cancelar'
 
@@ -95,17 +95,47 @@ const initiatePerfilEditToggle = () => {
 		// toggle entre btn e link
 		toggleHandler.className = !toggle ? "no-link btn btn-red" : "no-link btn btn-borderless btn-border-green"
 
-		// quando o usuário clicar em "Cancelar", 
-		// a página ira dar refresh, 
-		// para que as informações fiquem iguais ao servidor
 		if (toggle) {
-			saveInfo.remove()
-			setTimeout(() => {
-				window.location.reload()
-			}, 100)
+			saveInfo.style.display = 'none'
 		} else {
 			// exibindo botão de salvar
-			saveInfo.style.display = 'flex'
+			saveInfo.style.display = 'block'
+			saveInfo.addEventListener("click", () => {
+				toggleHandler.click()
+				setPerfilInfoLoading(true)
+				saveInfo.style.display = 'none'
+				
+				let newData = {}
+
+				fieldToggles.forEach((field) => {
+					// se a data antiga tiver o campo name do field
+					// isso é feito para prevenir novas datas no bd
+					if (oldData[field.getAttribute("name")]) {
+						newData[field.getAttribute("name")] = field.value
+					}
+				})
+
+
+				let data = JSON.stringify(newData);
+
+				let xhr = new XMLHttpRequest();
+				xhr.withCredentials = false;
+
+				xhr.addEventListener("readystatechange", function () {
+					if (this.readyState === 4) {
+						setPerfilInfoLoading(false)
+						window.location.reload()
+					}
+				});
+
+				xhr.open("PUT", `https://pisample-250e.restdb.io/rest/userdata/${clientCookies[1]}`);
+				xhr.setRequestHeader("content-type", "application/json");
+				xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
+				xhr.setRequestHeader("cache-control", "no-cache");
+
+				xhr.send(data);
+
+			})
 		}
 
 	})
