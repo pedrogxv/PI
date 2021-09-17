@@ -11,16 +11,11 @@ section#perfil.panel.panel-flex-column
         p.description(style="") #{userData.idade} Anos
       a.no-link(href='#perfil')
       img.roundedImg-bigger(src='userSamples/neon.jpg' title='Perfil' alt='User Image')
-    .form-field
-      label.field-label(for="email") Email
-      input.field-input(type="email" name="email" value=`${userData.email}` disabled="" class="field-toggle")
-    .form-field
-      label.field-label(for="xp") Experiencia
-      textarea.field-input(name="xp" disabled="" class="field-toggle")= userData.experiencia
-    .form-field
-      label.field-label(for="ensino") Ensino
-      textarea.field-input(name="ensino" disabled="" class="field-toggle")= userData.ensino
-    .flex.justify-content-between.align-center(style="padding: 0 10px;")
+    .loading-div#perfilInfo-loading(style="margin: 30px;")
+      .loading-rotate
+      .loading-title
+    #perfil-form
+    .flex.justify-content-between.align-center(style="padding: 0 10px; align-items: baseline;")
       .form-field
         a.no-link.btn.btn-black(href="/mudar-senha") Mudar Senha
       .flex.direction-column.align-center
