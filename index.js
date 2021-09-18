@@ -72,7 +72,7 @@ router.post('/cadastro', async (req, res) => {
 			'lastVisited': "",
 			'current': "",
 			'accessKey': "",
-			'description': req.body.description,
+			'descricao': req.body.descricao,
 			'preferencias': "",
 			'cursos': "",
 			'next': ""

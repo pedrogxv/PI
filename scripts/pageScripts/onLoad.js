@@ -22,6 +22,9 @@ window.addEventListener("load", () => {
 						&& dataKeys[key] != "accessKey"
 						&& dataKeys[key] != "favoritos"
 						&& dataKeys[key] != "lastVisited"
+						&& dataKeys[key] != "next"
+						&& dataKeys[key] != "current"
+						&& dataKeys[key] != "preferencias"
 					) {
 						
 						createFormField(dataKeys[key], data[0][dataKeys[key]])
@@ -56,7 +59,8 @@ const createFormField = (dataName, dataValue) => {
 	const fieldLabel = document.createElement("label")
 	fieldLabel.className = "field-label"
 	fieldLabel.setAttribute("for", `${dataName}`)
-	fieldLabel.innerHTML = `${dataName}`
+	// fazendo com q o primeiro caracter seja maiúsculo
+	fieldLabel.innerHTML = `${dataName.at(0).toUpperCase() + dataName.slice(1)}`
 
 	const fieldInput = document.createElement("input")
 	fieldInput.className = "field-input field-toggle"

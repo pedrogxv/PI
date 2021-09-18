@@ -24,7 +24,11 @@ let putQuery = async (userData, apikey) => {
 			idade: userData[0].idade,
 			accessKey: userData[0].accessKey,
 			favoritos: userData[0].favoritos,
-			lastVisited: userData[0].lastVisited
+			lastVisited: userData[0].lastVisited,
+			next: userData[0].next,
+			links: userData[0].links,
+			descricao: userData[0].descricao,
+			current: userData[0].current
 		},
 		json: true
 	};
