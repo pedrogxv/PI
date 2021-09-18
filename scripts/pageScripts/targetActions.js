@@ -8,6 +8,10 @@ const upIcon = document.querySelector("#target-action-up")
 const star = document.querySelector("#target-star")
 const downIcon = document.querySelector("#target-action-down")
 
+upIcon.addEventListener('click', () => {
+	makeActionRequest(actionMode.UP, star.value)
+})
+
 star.addEventListener('click', () => {
 	makeActionRequest(actionMode.STAR, star.value)
 })
@@ -55,13 +59,19 @@ const request2 = (data, actionModeVal, _id) => {
 
 	let targetFieldValue = null
 
-	if (actionModeVal === 'star') {
-		targetFieldName = "favoritos"
-		targetFieldValue = data[0].favoritos
-	} 
-	if (actionModeVal === 'down') {
-		targetFieldName = "lastVisited"
-		targetFieldValue = data[0].lastVisited
+	switch (actionModeVal) {
+		case 'star':
+			targetFieldName = "favoritos"
+			targetFieldValue = data[0].favoritos
+			break
+		case 'down':
+			targetFieldName = "next"
+			targetFieldValue = data[0].next
+			break
+		case 'up':
+			targetFieldName = "lastVisited"
+			targetFieldValue = data[0].lastVisited
+			break
 	}
 
 	if (typeof targetFieldValue === "string") {
@@ -135,6 +145,17 @@ const setActionLoading = (state) => {
 		})
 	}
 }
+
+// const updateCandidatoPanelInfo = (data, actionMode) => {
+
+// 	const query = ""
+
+// 	if (actionMode == 'up') {
+// 		query
+// 	}
+
+// 	let xhr = reqHead("GET", `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`)
+// }
 
 const reqHead = (type, url) => {
 	let xhr = new XMLHttpRequest();

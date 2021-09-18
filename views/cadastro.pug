@@ -18,8 +18,8 @@ body.with-margin
       label(for='name') Nome
       input#name.field-input(type='text' name='name' placeholder='Digite seu nome' required='')
     .form-field
-      label.field-label(for='pwd') Senha
-      input#pwd.field-input(type='password' name='pwd' required='')
+      label.field-label(for='senha') Senha
+      input#pwd.field-input(type='password' name='senha' required='')
     .form-field
       label.field-label(for='ensino') Ensino
       textarea#ensino.field-input(type='text' name='ensino' rows='12' cols='12' required='')
@@ -27,6 +27,9 @@ body.with-margin
       label.field-label(for='idade') Idade
       input#idade.field-input(type='number' name='idade' required='')
     .form-field
-      label.field-label(for='exp') Experi&ecirc;ncia
-      textarea#exp.field-input(type='text' name='exp' required='')
+      label.field-label(for='experiencia') Experi&ecirc;ncia
+      textarea#exp.field-input(type='text' name='experiencia' required='')
+    .form-field
+      label(for="description") Descrição (Opcional)
+      textarea.field-input(name="description")
     input.btn.btn-blue.btn-big.form-btn(type='submit' value='Cadastrar' style='text-transform: uppercase;')

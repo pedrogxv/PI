@@ -8,9 +8,12 @@ head
 
 body.with-margin
   a(href='../') Voltar
-  div.flex.bg-red
+  div.flex.bg-red.error-div
     p= error || ""
-  form.form.flex.direction-column(action='' method='POST')
+  .loading-div#login-load
+    .loading-rotate
+    .loading-title
+  form.form.flex.direction-column#login-form(action='' method='POST')
     .form-field
       label.field-label(for='email') Email
       input#email.field-input(type='email' name='email')
@@ -18,3 +21,5 @@ body.with-margin
       label.field-label(for='senha') Senha
       input#pwd.field-input(type='password' name='senha')
     input.btn.btn-big.btn-green.form-btn(type='submit' value='Login')
+
+script(src="pageScripts/loginLoad.js")

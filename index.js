@@ -65,15 +65,17 @@ router.post('/cadastro', async (req, res) => {
 			'email': req.body.email,
 			'idade': req.body.idade,
 			'ensino': req.body.ensino,
-			'senha': req.body.pwd,
-			'experiencia': req.body.exp,
+			'senha': req.body.senha,
+			'experiencia': req.body.experiencia,
 			'favoritos': "",
 			'links': "",
 			'lastVisited': "",
+			'current': "",
 			'accessKey': "",
-			'description': "",
+			'description': req.body.description,
 			'preferencias': "",
-			'cursos': ""
+			'cursos': "",
+			'next': ""
 		}, apikey)
 
 		// tentar "ler" o json retornado
@@ -104,7 +106,13 @@ router.post('/login', async (req, res) => {
 
 	try {
 
+		if (!req.body.email || !req.body.senha)
+			throw "Campos de email e/ou senha vazios."
+
 		let query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
+
+		if (!query[0])
+			throw "Nenhum usuário encontrado!"
 
 		// gravando o novo accesskey no bd e no cookie
 		res.cookie(`_id`,`${query[0]._id}`);
@@ -115,7 +123,7 @@ router.post('/login', async (req, res) => {
 	} catch (e) {
 		console.log(e)
 		res.render(path.join(__dirname, '/views/login.pug'), {
-			"error": "Falha no login! Verifique seu email e senha."
+			"error": e
 		})
 	}
 
@@ -223,9 +231,8 @@ router.get('/user-home', async (req, res) => {
 			// Fim do código para pegar o candidato user
 
 			try {
-
 				if (targetUser[0].links)
-				 targetUser[0].links = targetUser[0].links.split(";")
+					targetUser[0].links = targetUser[0].links.split(";")
 				else {
 					links = targetUser[0].links
 					targetUser[0].links = [links]
