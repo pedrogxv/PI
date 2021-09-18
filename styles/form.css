@@ -45,6 +45,7 @@
 .field-input:disabled {
 	color: rgb(170, 170, 170);
 	background-color: transparent !important;
+	border: none;
 }
 
 .form-btn {
