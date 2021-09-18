@@ -48,7 +48,7 @@ const makeActionRequest = (actionModeVal, _id) => {
 	xhr.send(null);
 }
 
-// req para atualizar os campos dos favoritos e dislikes do usuário
+// req para atualizar os campos dos favoritos e lastVisited do usuário
 const request2 = (data, actionModeVal, _id) => {
 
 	let targetFieldName = null
@@ -60,8 +60,8 @@ const request2 = (data, actionModeVal, _id) => {
 		targetFieldValue = data[0].favoritos
 	} 
 	if (actionModeVal === 'down') {
-		targetFieldName = "dislikes"
-		targetFieldValue = data[0].dislikes
+		targetFieldName = "lastVisited"
+		targetFieldValue = data[0].lastVisited
 	}
 
 	if (typeof targetFieldValue === "string") {

@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
 						&& dataKeys[key] != "id"
 						&& dataKeys[key] != "accessKey"
 						&& dataKeys[key] != "favoritos"
-						&& dataKeys[key] != "dislikes"
+						&& dataKeys[key] != "lastVisited"
 					) {
 						
 						createFormField(dataKeys[key], data[0][dataKeys[key]])

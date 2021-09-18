@@ -69,7 +69,7 @@ router.post('/cadastro', async (req, res) => {
 			'experiencia': req.body.exp,
 			'favoritos': "",
 			'links': "",
-			'dislikes': "",
+			'lastVisited': "",
 			'accessKey': "",
 			'description': "",
 			'preferencias': "",
@@ -175,20 +175,20 @@ router.get('/user-home', async (req, res) => {
 			}
 			// FIM DO CÓDIGO DOS LIKES
 
-			// INICIO DO CÓDIGO dislikes
+			// INICIO DO CÓDIGO lastVisited
 
-			let dislikes = query[0].dislikes
+			let lastVisited = query[0].lastVisited
 
-			if (typeof dislikes != "undefined") {
-				if (!Array.isArray(dislikes)) {
+			if (typeof lastVisited != "undefined") {
+				if (!Array.isArray(lastVisited)) {
 					// pegando os usuário que o usuário principal deu 'like'
-					dislikes = query[0].dislikes.split(";")
+					lastVisited = query[0].lastVisited.split(";")
 					// // removendo último elemento do array (que é vazio)
-					dislikes.pop()
+					lastVisited.pop()
 				}
 			}
 
-			// FIM CÓDIGO dislikes
+			// FIM CÓDIGO lastVisited
 
 			// Inicio do código para pegar o candidato user
 
@@ -196,13 +196,13 @@ router.get('/user-home', async (req, res) => {
 			
 			notQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
 			
-			if (dislikes || favoritos) {
+			if (lastVisited || favoritos) {
 
-				if (dislikes)
-					if (notQuery.slice(-1) === "\"" && typeof dislikes[0] != "undefined")
+				if (lastVisited)
+					if (notQuery.slice(-1) === "\"" && typeof lastVisited[0] != "undefined")
 						notQuery += ","
 
-					notQuery += `${dislikes.map((dis) => "\"" + dis + "\"")}`
+					notQuery += `${lastVisited.map((dis) => "\"" + dis + "\"")}`
 				
 				if (favoritos) {
 					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
@@ -216,7 +216,7 @@ router.get('/user-home', async (req, res) => {
 
 			notQuery += `]}}`
 
-			// A query not é para excluir os usuários já visitados ("dislikes") e gostados ("likes"), além do próprio usuário logado
+			// A query not é para excluir os usuários já visitados ("lastVisited") e gostados ("likes"), além do próprio usuário logado
 
 			let targetUser = JSON.parse(await dbQuery(notQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
 
@@ -312,8 +312,8 @@ router.get('/confirmar-reset', async (req, res) => {
 	if (req.query.favoritos) {
 		resetType = "favoritos"
 	}
-	if (req.query.dislikes) {
-		resetType = "dislikes"
+	if (req.query.lastVisited) {
+		resetType = "lastVisited"
 	}
 
 	res.render(path.join(__dirname, 'views/reset.pug'), {
@@ -333,9 +333,9 @@ router.post('/reset-like', async (req, res) => {
 			// reseta o valor de likes
 			query[0].likes = ''
 		}
-		if (req.body.resetType == 'dislikes') {
-			// reseta o valor de dislikes
-			query[0].dislikes = ''
+		if (req.body.resetType == 'lastVisited') {
+			// reseta o valor de lastVisited
+			query[0].lastVisited = ''
 		}
 
 		console.log(query)

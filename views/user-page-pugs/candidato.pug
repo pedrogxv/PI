@@ -32,7 +32,7 @@ section#candidatoPainel.panel.panel-grid
           else
             p.targetUser-cursos.target-info(name='cursos')
     .panel-perfil
-      img.panel-perfil-pic(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false')
+      img.panel-perfil-pic.profileLink(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false' onclick="window.location.replace('https://pi.pedrogxv.repl.co/user-home#candidatoProfile')" value=`${targetUser._id}`)
       .panel-perfil-actions
         .panel-perfil-actions-info
           h2#targetUser-nome.target-info(name="nome")= targetUser.nome
