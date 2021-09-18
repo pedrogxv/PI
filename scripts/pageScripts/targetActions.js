@@ -1,19 +1,25 @@
+const actionMode = {
+	UP: 'up',
+	DOWN: 'down',
+	STAR: 'star'
+}
 
-const likeUp = document.querySelector("#target-action-up")
-const likeDown = document.querySelector("#target-action-down")
+const upIcon = document.querySelector("#target-action-up")
+const star = document.querySelector("#target-star")
+const downIcon = document.querySelector("#target-action-down")
 
-likeUp.addEventListener('click', () => {
-	makeActionRequest(true, likeUp.value)
+star.addEventListener('click', () => {
+	makeActionRequest(actionMode.STAR, star.value)
 })
 
-likeDown.addEventListener('click', () => {
-	makeActionRequest(false, likeDown.value)
+downIcon.addEventListener('click', () => {
+	makeActionRequest(actionMode.DOWN, downIcon.value)
 })
 
 let browserCookies = document.cookie
 browserCookies = browserCookies.split(/[=, ;]+/)
 
-const makeActionRequest = (like, _id) => {
+const makeActionRequest = (actionModeVal, _id) => {
 	setActionLoading(true)
 
 	const xhr = reqHead(
@@ -29,7 +35,7 @@ const makeActionRequest = (like, _id) => {
 
 				console.log(data)
 
-				request2(data, like, _id)			
+				request2(data, actionModeVal, _id)			
 			} catch (e) {
 				setActionLoading(false)
 				console.log(e)
@@ -43,16 +49,17 @@ const makeActionRequest = (like, _id) => {
 }
 
 // req para atualizar os campos dos favoritos e dislikes do usuário
-const request2 = (data, like, _id) => {
+const request2 = (data, actionModeVal, _id) => {
 
 	let targetFieldName = null
 
 	let targetFieldValue = null
 
-	if (like) {
+	if (actionModeVal === 'star') {
 		targetFieldName = "favoritos"
 		targetFieldValue = data[0].favoritos
-	} else {
+	} 
+	if (actionModeVal === 'down') {
 		targetFieldName = "dislikes"
 		targetFieldValue = data[0].dislikes
 	}

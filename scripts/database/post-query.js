@@ -10,7 +10,7 @@ let post = async (data, apikey, callback) => {
 		headers: 
 		{ 
 			'cache-control': 'no-cache',
-			'x-apikey': apikey ,
+			'x-apikey': apikey,
 			'content-type': 'application/json'
 		},
 		body: {
@@ -24,8 +24,8 @@ let post = async (data, apikey, callback) => {
 			favoritos: data.favoritos,
 			dislikes: data.dislikes,
 			accessKey: data.accessKey,
-			descrition: data.descrition,
-			preferences: data.preferences,
+			description: data.description,
+			preferencias: data.preferencias,
 			cursos: data.cursos
 		},
 		json: true

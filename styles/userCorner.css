@@ -51,10 +51,6 @@
     transform: rotate(360deg);
 }
 
-.userCorner-actions {
-	box-shadow: 1px 1px 5px grey;
-}
-
 .userCorner-actions-head {
     display: flex;
     justify-content: space-between;
