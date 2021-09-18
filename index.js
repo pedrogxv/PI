@@ -67,7 +67,7 @@ router.post('/cadastro', async (req, res) => {
 			'ensino': req.body.ensino,
 			'senha': req.body.pwd,
 			'experiencia': req.body.exp,
-			'likes': "",
+			'favoritos': "",
 			'links': "",
 			'dislikes': "",
 			'accessKey': "",
@@ -149,20 +149,20 @@ router.get('/user-home', async (req, res) => {
 			// código para pegar os usuários com like do usuário
 			let likeUser = null
 
-			let likes = query[0].likes
+			let favoritos = query[0].favoritos
 
-			if (typeof likes != "undefined" && !Array.isArray(likes)) {
-				if (likes.length > 0) {
+			if (typeof favoritos != "undefined" && !Array.isArray(favoritos)) {
+				if (favoritos.length > 0) {
 
 					// pegando os usuário que o usuário principal deu 'like'
-					likes = query[0].likes.split(";")
+					favoritos = query[0].favoritos.split(";")
 					// // removendo último elemento do array (que é vazio)
-					likes.pop()
+					favoritos.pop()
 
-					if (likes != null) {
+					if (favoritos != null) {
 
 							// pegando as informações de todos os usuários com like
-							likeUser = await Promise.all(likes.map(async (like, idx) => {
+							likeUser = await Promise.all(favoritos.map(async (like, idx) => {
 
 								const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
 
@@ -196,7 +196,7 @@ router.get('/user-home', async (req, res) => {
 			
 			notQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
 			
-			if (dislikes || likes) {
+			if (dislikes || favoritos) {
 
 				if (dislikes)
 					if (notQuery.slice(-1) === "\"" && typeof dislikes[0] != "undefined")
@@ -204,12 +204,12 @@ router.get('/user-home', async (req, res) => {
 
 					notQuery += `${dislikes.map((dis) => "\"" + dis + "\"")}`
 				
-				if (likes) {
+				if (favoritos) {
 					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
-					if (notQuery.slice(-1) === "\"" && typeof likes[0] != "undefined")
+					if (notQuery.slice(-1) === "\"" && typeof favoritos[0] != "undefined")
 						notQuery += ","
 
-					notQuery += `${likes.map((like) => "\"" + like + "\"")}`
+					notQuery += `${favoritos.map((like) => "\"" + like + "\"")}`
 				}
 
 			}
@@ -223,9 +223,23 @@ router.get('/user-home', async (req, res) => {
 			// Fim do código para pegar o candidato user
 
 			try {
-				targetUser[0].links = targetUser[0].links.split(";")
-				targetUser[0].cursos = targetUser[0].cursos.split(";")
-			} catch (e) {}
+
+				if (targetUser[0].links)
+				 targetUser[0].links = targetUser[0].links.split(";")
+				else {
+					links = targetUser[0].links
+					targetUser[0].links = [links]
+				}
+
+				if (targetUser[0].cursos)
+					targetUser[0].cursos = targetUser[0].cursos.split(";")
+				else {		
+					cursos = targetUser[0].cursos
+					targetUser[0].cursos = [cursos]
+				}
+			} catch (e) {
+				console.log(e)
+			}
 			
 			const userData = query
 
@@ -295,8 +309,8 @@ router.get('/confirmar-reset', async (req, res) => {
 	
 	let resetType = null
 
-	if (req.query.likes) {
-		resetType = "likes"
+	if (req.query.favoritos) {
+		resetType = "favoritos"
 	}
 	if (req.query.dislikes) {
 		resetType = "dislikes"

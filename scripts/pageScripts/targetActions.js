@@ -42,7 +42,7 @@ const makeActionRequest = (like, _id) => {
 	xhr.send(null);
 }
 
-// req para atualizar os campos dos likes e dislikes do usuário
+// req para atualizar os campos dos favoritos e dislikes do usuário
 const request2 = (data, like, _id) => {
 
 	let targetFieldName = null
@@ -50,8 +50,8 @@ const request2 = (data, like, _id) => {
 	let targetFieldValue = null
 
 	if (like) {
-		targetFieldName = "likes"
-		targetFieldValue = data[0].likes
+		targetFieldName = "favoritos"
+		targetFieldValue = data[0].favoritos
 	} else {
 		targetFieldName = "dislikes"
 		targetFieldValue = data[0].dislikes

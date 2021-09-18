@@ -53,17 +53,17 @@ removeLike.forEach( (like, idx) => {
 
 	const request2 = (data) => {
 		
-		let likes = data[0].likes
+		let favoritos = data[0].favoritos
 
-		if (typeof likes === "string") {
-			likes = likes.split(";")
+		if (typeof favoritos === "string") {
+			favoritos = favoritos.split(";")
 		}
 
-		likes.splice(likes.indexOf(like.value), 1)
-		likes = likes.join(";")
+		favoritos.splice(favoritos.indexOf(like.value), 1)
+		favoritos = favoritos.join(";")
 
 		let put = JSON.stringify({
-			"likes": likes
+			"favoritos": favoritos
 		});
 
 		let xhr = new XMLHttpRequest();

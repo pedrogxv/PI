@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
 						&& dataKeys[key] != "senha"
 						&& dataKeys[key] != "id"
 						&& dataKeys[key] != "accessKey"
-						&& dataKeys[key] != "likes"
+						&& dataKeys[key] != "favoritos"
 						&& dataKeys[key] != "dislikes"
 					) {
 						
