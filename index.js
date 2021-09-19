@@ -307,16 +307,15 @@ router.get('/confirmar-reset', async (req, res) => {
 
 })
 
-router.post('/reset-like', async (req, res) => {
+router.post('/reset', async (req, res) => {
 	
 	try {
 		
 		let query = JSON.parse(await queryThroughCookies(req, res))
 
-
-		if (req.body.resetType == 'likes') {
-			// reseta o valor de likes
-			query[0].likes = ''
+		if (req.body.resetType == 'favoritos') {
+			// reseta o valor de favoritos
+			query[0].favoritos = ''
 		}
 		if (req.body.resetType == 'lastVisited') {
 			// reseta o valor de lastVisited
