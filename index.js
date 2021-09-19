@@ -118,6 +118,7 @@ router.post('/login', async (req, res) => {
 		res.cookie(`_id`,`${query[0]._id}`);
 		res.cookie(`email`,`${query[0].email}`);
 		res.cookie(`senha`,`${query[0].senha}`);
+
 		res.redirect("/user-home")
 
 	} catch (e) {
@@ -154,8 +155,8 @@ router.get('/user-home', async (req, res) => {
 				return
 			}
 
-			// código para pegar os usuários com like do usuário
-			let likeUser = null
+			// código para pegar os usuários com favorito do usuário
+			let userFavorito = null
 
 			let favoritos = query[0].favoritos
 
@@ -169,64 +170,41 @@ router.get('/user-home', async (req, res) => {
 
 					if (favoritos != null) {
 
-							// pegando as informações de todos os usuários com like
-							likeUser = await Promise.all(favoritos.map(async (like, idx) => {
+						let favArgs = favoritos.map((value, idx) => {
+							value = "\"" + value + "\""
+							return value
+						})
 
-								const likeQuery = JSON.parse(await dbQuery(`"_id":"${like}"`, apikey))
+						// ternário checa se favArgs tem algum elemento, senão acrescentar aspas
+						let favoritosQuery = `"_id": {"$in": [${favArgs.length > 0 ? favArgs : '\"\"'}]}`
 
-								return likeQuery[0]
-
-							}))
+						userFavorito =  JSON.parse(await dbQuery(favoritosQuery, apikey))
 
 					}
 				}
 			}
-			// FIM DO CÓDIGO DOS LIKES
+			// FIM DO CÓDIGO DOS FAVORITOS
 
-			// INICIO DO CÓDIGO lastVisited
+			let reqQuery = ''
 
-			let lastVisited = query[0].lastVisited
+			// se tiver current
+			if (query[0].current)
+				reqQuery = `"_id": "${query[0].current}"`
+			else {
+				reqQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
 
-			if (typeof lastVisited != "undefined") {
-				if (!Array.isArray(lastVisited)) {
-					// pegando os usuário que o usuário principal deu 'like'
-					lastVisited = query[0].lastVisited.split(";")
-					// // removendo último elemento do array (que é vazio)
-					lastVisited.pop()
-				}
-			}
-
-			// FIM CÓDIGO lastVisited
-
-			// Inicio do código para pegar o candidato user
-
-			let notQuery = ""
-			
-			notQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
-			
-			if (lastVisited || favoritos) {
-
-				if (lastVisited)
-					if (notQuery.slice(-1) === "\"" && typeof lastVisited[0] != "undefined")
-						notQuery += ","
-
-					notQuery += `${lastVisited.map((dis) => "\"" + dis + "\"")}`
-				
 				if (favoritos) {
 					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
-					if (notQuery.slice(-1) === "\"" && typeof favoritos[0] != "undefined")
-						notQuery += ","
+					if (reqQuery.slice(-1) === "\"" && typeof favoritos[0] != "undefined")
+						reqQuery += ","
 
-					notQuery += `${favoritos.map((like) => "\"" + like + "\"")}`
+					reqQuery += `${favoritos.map((like) => "\"" + like + "\"")}`
 				}
 
+				reqQuery += `]}}`
 			}
 
-			notQuery += `]}}`
-
-			// A query not é para excluir os usuários já visitados ("lastVisited") e gostados ("likes"), além do próprio usuário logado
-
-			let targetUser = JSON.parse(await dbQuery(notQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
+			let targetUser = JSON.parse(await dbQuery(reqQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
 
 			// Fim do código para pegar o candidato user
 
@@ -240,7 +218,7 @@ router.get('/user-home', async (req, res) => {
 
 				if (targetUser[0].cursos)
 					targetUser[0].cursos = targetUser[0].cursos.split(";")
-				else {		
+				else {
 					cursos = targetUser[0].cursos
 					targetUser[0].cursos = [cursos]
 				}
@@ -252,7 +230,7 @@ router.get('/user-home', async (req, res) => {
 
 			res.render(path.join(__dirname, '/views/user-home.pug'), {
 				'userData': userData[0],
-				'likeUser': likeUser,
+				'userFavorito': userFavorito,
 				'targetUser': targetUser[0]
 			});
 			return

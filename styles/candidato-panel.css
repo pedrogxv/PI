@@ -24,10 +24,6 @@
     overflow: hidden;
 }
 
-.panel-perfil:hover {
-    cursor: pointer;
-}
-
 .panel-perfil-pic {
     width: 100%;
     height: 65%;

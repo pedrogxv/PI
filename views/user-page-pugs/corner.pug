@@ -26,8 +26,8 @@ aside.userCorner
     .loading-div#cornerUsr-loading
       .loading-rotate
       .loading-title
-    if likeUser
-      each val in likeUser
+    if userFavorito
+      each val in userFavorito
         if val
           .userCorner-userList-user
             a.profileLink.no-link(href="#candidatoProfile" value=`${val._id}`)

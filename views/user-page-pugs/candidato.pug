@@ -37,9 +37,9 @@ section#candidatoPainel.panel.panel-grid
         .panel-perfil-actions-info
           h2#targetUser-nome.target-info(name="nome")= targetUser.nome
           p#targetUser-idade.target-info(name="idade") #{targetUser.idade} Anos
-          if targetUser.description
+          if targetUser.descricao
             div
-              p.description.target-info(name="description")= targetUser.description
+              p.description.target-info(name="descricao" style="margin: 15px 0")= targetUser.descricao
         .panel-perfil-actions-btns
           button.btn.btn-rounded.btn-borderless.btn-shadow#target-action-up(value=`${targetUser._id}`)
             svg.iconBtn-bigger.iconBtn-noradius.icon-green(xmlns='http://www.w3.org/2000/svg'  fill='currentColor' viewbox='0 0 16 16')

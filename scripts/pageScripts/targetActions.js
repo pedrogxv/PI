@@ -74,14 +74,15 @@ const request2 = (data, actionModeVal, _id) => {
 			break
 	}
 
+	// console.lg(data[0].favoritos)
+	// console.lg(typeof data[0].favoritos)
+
 	if (typeof targetFieldValue === "string") {
 		targetFieldValue = targetFieldValue.split(";")
 	}
 
-	console.log(targetFieldValue)
-
 	// se o valor de 0 for vazio significa que não há registro no banco de dados
-	if (typeof _id != 'undefined') {
+	if (_id) {
 		if (targetFieldValue[0] == '') {
 			targetFieldValue[0] = _id
 		}
@@ -90,11 +91,12 @@ const request2 = (data, actionModeVal, _id) => {
 		}
 	}
 
-	console.log(targetFieldValue)
-
-	targetFieldValue = targetFieldValue.join(";")
-	targetFieldValue = targetFieldValue.replace(";;", ";")
-	targetFieldValue += ";"
+	// se largura do array for maior q um
+	if (targetFieldValue.length > 1)
+		targetFieldValue = targetFieldValue.join(";")
+	// senão, como o join não vai funcionar, incrementar ";"
+	else
+		targetFieldValue += ";"
 
 	// se começar com ";", excluir o primeiro valor
 	if (targetFieldValue.startsWith(";")) {
@@ -146,16 +148,16 @@ const setActionLoading = (state) => {
 	}
 }
 
-// const updateCandidatoPanelInfo = (data, actionMode) => {
+const updateCandidatoPanelInfo = (data, actionMode) => {
 
-// 	const query = ""
+	const query = ""
 
-// 	if (actionMode == 'up') {
-// 		query
-// 	}
+	if (actionMode == 'up') {
+		query
+	}
 
-// 	let xhr = reqHead("GET", `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`)
-// }
+	let xhr = reqHead("GET", `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`)
+}
 
 const reqHead = (type, url) => {
 	let xhr = new XMLHttpRequest();
