@@ -1,6 +1,6 @@
 const cookieCheck = (req, res, callback) => {
 
-	if (req.cookies.accessKey && req.cookies.email) {
+	if (req.cookies.senha && req.cookies.email) {
 
 		res.redirect("/user-home")
 

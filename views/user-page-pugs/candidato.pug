@@ -6,55 +6,33 @@ section#candidatoPainel.panel.panel-grid
     aside.user-panel-info(style=targetUser ? "" : "none")
       fieldset.user-fieldset
         .field
-          label(for='nome') Nome
-          p#targetUser-nome.target-info(name="nome")= targetUser.nome
-        .field
-          .field-head#targetUser-links
-            svg.bi.bi-link-45deg.iconBtn(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
-              path(d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z')
-              path(d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z')
-            label(for='links') Links
-          if targetUser.links
-            each link in targetUser.links
-              ul.target-info(name='links')
-                a(href=`${link}` target='_blank')= link
-          else
-              ul.target-info(name='links')
-                a(href=`${link}` target='_blank')
-        .field
           label(for='ensino') Ensino
           p#targetUser-ensino.target-info(name='ensino')= targetUser.ensino
         .field
           label(for='cursos') Cursos
-          if targetUser.cursos
-            each curso in targetUser.cursos
-              p.targetUser-cursos.target-info(name='cursos')= curso
-          else
-            p.targetUser-cursos.target-info(name='cursos')
+          p#targetUser-cursos.targetUser-cursos.target-info(name='cursos')= targetUser.curso
     .panel-perfil
       img.panel-perfil-pic.profileLink(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false' onclick="window.location.replace('https://pi.pedrogxv.repl.co/user-home#candidatoProfile')" value=`${targetUser._id}`)
       .panel-perfil-actions
         .panel-perfil-actions-info
           h2#targetUser-nome.target-info(name="nome")= targetUser.nome
           p#targetUser-idade.target-info(name="idade") #{targetUser.idade} Anos
-          if targetUser.descricao
-            div
-              p.description.target-info(name="descricao" style="margin: 15px 0")= targetUser.descricao
+          div
+            p#targetUser-descricao.description.target-info(name="descricao" style="margin: 15px 0")= targetUser.descricao
         .panel-perfil-actions-btns
           button.btn.btn-rounded.btn-borderless.btn-shadow#target-action-up(value=`${targetUser._id}`)
             svg.iconBtn-bigger.iconBtn-noradius.icon-green(xmlns='http://www.w3.org/2000/svg'  fill='currentColor' viewbox='0 0 16 16')
               path(d='M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z')
           button.btn.btn-borderless.btn-rounded#target-star(value=`${targetUser._id}`)
-            svg.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='gold' viewbox='0 0 16 16')
+            svg.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='goldenrod' viewbox='0 0 16 16')
               path(d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z')
           button.btn.btn-rounded.btn-shadow.btn-borderless#target-action-down(value=`${targetUser._id}`)
             svg.bi.bi-arrow-down-circle-fill.iconBtn-bigger.icon-red(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
               path(d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z')
     aside.user-panel-info
-      if targetUser.experiencia
-        fieldset.user-fieldset
-          label(for='experiencia') Experi&ecirc;ncia
-          p#targetUser-experiencia.target-info(name='experiencia')= targetUser.experiencia
+      fieldset.user-fieldset
+        label(for='experiencia') Experi&ecirc;ncia
+        p#targetUser-experiencia.target-info(name='experiencia')= targetUser.experiencia
       .perfilInfo-bottom
         button#targetUser-apresentacao.btn.btn-gold.btn-opacity.btn-translatey
           svg.bi.bi-camera-video.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 16 16')
@@ -69,7 +47,5 @@ section#candidatoPainel.panel.panel-grid
       h2 Nenhum candidato encontrado
       h4(style="color: orange; margin: 15px 0;") O que fazer?
       ul.flex.direction-column(style="margin-left: 20px; gap: 6px;")
-        li Recarregue a página
-        li Atualize os filtros e recarregue a página. (Não funcional)
-        li Resete seus dislikes na aba "Perfil", isso resultará na remoção de todos os seus "dislikes" (dislike é gerado quando você clica na seta vermelha pra baixo no candidato)
-        li Caso mesmo assim não tenha candidatos significa que você já viu todos os usuários cadastrados no site!
+        li Inicie uma nova busca.
+        li Já iniciou uma nova busca? Então significa que não foram encontrados candidatos nas areas de interesse selecionadas.

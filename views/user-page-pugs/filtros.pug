@@ -1,9 +1,9 @@
 section#filtro-panel.panel.panel-flex.column
-  .form-field.flex.direction-column
+  form.form-field.flex.direction-column(method="POST" action="/novaBusca")
     label.form-label(for="area-busca") Área de Busca
-    select.field-input
-      option Ok
+    select.field-input(name="areaInteresse")
+      option(value="Tecnologia") Tecnologia
     label.form-label(for="area-secundaria") Área de Busca Secundária
-    select.field-input
-      option ok2
-    button.btn.btn-green.btn-opacity Salvar Filtros
+    select.field-input(name="areaInteresse2")
+      option(value="")
+    input#buscaInit.btn.btn-green.btn-opacity(type="submit" value="Iniciar Nova Busca")

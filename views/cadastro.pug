@@ -22,13 +22,20 @@ body.with-margin
       input#pwd.field-input(type='password' name='senha' required='')
     .form-field
       label.field-label(for='ensino') Ensino
-      textarea#ensino.field-input(type='text' name='ensino' rows='12' cols='12' required='')
+      input#ensino.field-input(type='text' name='ensino' rows='12' cols='12' required='')
     .form-field
       label.field-label(for='idade') Idade
       input#idade.field-input(type='number' name='idade' required='')
     .form-field
+      label.field-label(for='areaInteresse') Area de interesse (Principal)
+      select#idade.field-input(type='text' name='areaInteresse' required='')
+        option(value="Tecnologia") Tecnologia
+    .form-field
+      label.field-label(for='areaInteresse2') Area de interesse secundária (Opcional)
+      input#idade.field-input(type='text' name='areaInteresse2')
+    .form-field
       label.field-label(for='experiencia') Experi&ecirc;ncia
-      textarea#exp.field-input(type='text' name='experiencia' required='')
+      input#exp.field-input(type='text' name='experiencia' required='')
     .form-field
       label(for="descricao") Descrição (Opcional)
       textarea.field-input(name="descricao")

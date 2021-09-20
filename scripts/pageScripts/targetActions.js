@@ -37,9 +37,7 @@ const makeActionRequest = (actionModeVal, _id) => {
 			try {
 				const data = JSON.parse(this.responseText)
 
-				console.log(data)
-
-				request2(data, actionModeVal, _id)			
+				atualizarCampos(data, actionModeVal, _id)			
 			} catch (e) {
 				setActionLoading(false)
 				console.log(e)
@@ -53,59 +51,60 @@ const makeActionRequest = (actionModeVal, _id) => {
 }
 
 // req para atualizar os campos dos favoritos e lastVisited do usuário
-const request2 = (data, actionModeVal, _id) => {
+const atualizarCampos = (data, actionModeVal, _id) => {
 
-	let targetFieldName = null
+	let newData = {}
 
-	let targetFieldValue = null
+	let pilhaCandidatos = data[0].pilhaCandidatos
+	let currentTarget = data[0].currentTarget
 
-	switch (actionModeVal) {
-		case 'star':
-			targetFieldName = "favoritos"
-			targetFieldValue = data[0].favoritos
-			break
-		case 'down':
-			targetFieldName = "next"
-			targetFieldValue = data[0].next
-			break
-		case 'up':
-			targetFieldName = "lastVisited"
-			targetFieldValue = data[0].lastVisited
-			break
-	}
+	if (pilhaCandidatos.length === 0)
+		window.location.reload(false);
 
-	// console.lg(data[0].favoritos)
-	// console.lg(typeof data[0].favoritos)
-
-	if (typeof targetFieldValue === "string") {
-		targetFieldValue = targetFieldValue.split(";")
-	}
-
-	// se o valor de 0 for vazio significa que não há registro no banco de dados
+	// se o valor de _id for vazio significa que não há registro no banco de dados
 	if (_id) {
-		if (targetFieldValue[0] == '') {
-			targetFieldValue[0] = _id
-		}
-		else {
-			targetFieldValue.push(_id)
+		switch (actionModeVal) {
+			case 'star':
+				// adicionando aos favoritos do usuário
+				let favoritos = data[0].favoritos
+				if (!Array.isArray(favoritos))
+					favoritos = []
+				favoritos.push(_id)
+
+				newData["favoritos"] = favoritos
+
+				// removendo da pilha
+				if (Array.isArray(pilhaCandidatos)) {
+					const index = pilhaCandidatos.indexOf(_id)
+					if (index > -1)
+						pilhaCandidatos.splice(index, 1)
+				}
+				break
+			case 'down':
+				if (pilhaCandidatos.length > 1) {
+					currentTarget--
+					if (currentTarget < 0)
+						currentTarget = pilhaCandidatos.length - 1	
+					console.log(currentTarget)
+				} else {
+					currentTarget = 0
+				}
+				break
+			case 'up':
+				if (pilhaCandidatos.length > 1) {
+					currentTarget++
+					if (currentTarget > pilhaCandidatos.length - 1)
+						currentTarget = 0
+				} else {
+					currentTarget = 0
+				}
+				break
 		}
 	}
 
-	// se largura do array for maior q um
-	if (targetFieldValue.length > 1)
-		targetFieldValue = targetFieldValue.join(";")
-	// senão, como o join não vai funcionar, incrementar ";"
-	else
-		targetFieldValue += ";"
-
-	// se começar com ";", excluir o primeiro valor
-	if (targetFieldValue.startsWith(";")) {
-		targetFieldValue = targetFieldValue.substring(1)
-	}
-
-	let newData = JSON.stringify({
-		[targetFieldName]: targetFieldValue
-	});
+	newData["pilhaCandidatos"] = pilhaCandidatos
+	newData["currentTarget"] = currentTarget
+	
 
 	let xhr = reqHead(
 		"PUT", 	`https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`
@@ -116,7 +115,12 @@ const request2 = (data, actionModeVal, _id) => {
 
 			try {
 				const updatedData = JSON.parse(this.responseText)
-				window.location.reload(true)
+				console.log(updatedData)
+
+				if (actionModeVal === "star")
+					window.location.reload(true)
+				else
+					updateCandidatoPanelInfo(updatedData.pilhaCandidatos[updatedData.currentTarget], actionMode)
 
 			} catch (e) {
 				setActionLoading(false)
@@ -127,7 +131,7 @@ const request2 = (data, actionModeVal, _id) => {
 		}
 	});
 
-	xhr.send(newData);
+	xhr.send(JSON.stringify(newData));
 }
 
 const setActionLoading = (state) => {
@@ -148,15 +152,53 @@ const setActionLoading = (state) => {
 	}
 }
 
-const updateCandidatoPanelInfo = (data, actionMode) => {
+const updateCandidatoPanelInfo = (targetId, actionMode) => {
 
-	const query = ""
+	// se query estiver vazia, retirar o _id do usuário logado para que ele não possa se selecionar
+	let xhr = reqHead("GET", `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`)
 
-	if (actionMode == 'up') {
-		query
-	}
+	xhr.addEventListener("readystatechange", function () {
+		if (this.readyState === 4) {
 
-	let xhr = reqHead("GET", `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`)
+			try {
+				const newData = JSON.parse(this.responseText)
+
+				console.log(newData)
+
+				const dataKeys = Object.keys(newData[0])
+
+				for (let key in dataKeys) {
+					if (!dataKeys[key].startsWith("_") 
+						&& dataKeys[key] != "senha"
+						&& dataKeys[key] != "id"
+						&& dataKeys[key] != "accessKey"
+						&& dataKeys[key] != "favoritos"
+						&& dataKeys[key] != "lastVisited"
+						&& dataKeys[key] != "next"
+						&& dataKeys[key] != "current"
+						&& dataKeys[key] != "pilhaCandidatos"
+						&& dataKeys[key] != "preferencias"
+					) {
+						
+						let userValue = document.querySelector(`#targetUser-${dataKeys[key]}`)
+
+						if (userValue)
+							userValue.innerHTML = newData[0][dataKeys[key]]
+						if (dataKeys[key] === "idade")
+							userValue.innerHTML += " Anos"
+					}
+				}
+				setActionLoading(false)
+			} catch (e) {
+				setActionLoading(false)
+				console.log(e)
+				return
+			}
+
+		}
+	});
+
+	xhr.send(null);
 }
 
 const reqHead = (type, url) => {

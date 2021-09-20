@@ -1,9 +1,9 @@
 aside.userCorner
   section.userCorner-opt.flex.direction-column
-    a.no-link.btn.btn-full-white(href="#filtro-panel" style="margin-bottom: 3px;")
-      Ver Filtros
-    a.no-link.btn.btn-gradient-red-to-purple.btn-background-grey.bg-none(href='#candidatoPainel')
-      | Come&ccedil;ar a buscar
+    a.no-link.btn.btn-gradient-red-to-purple.btn-background-grey.bg-none(href='#filtro-panel')
+      | Nova busca
+    if userData.pilhaCandidatos[0]
+      a.no-link.btn.bg-green.btn-border-green(href="#candidatoPainel" style="margin-top: 5px;") Continuar busca
   header.userCorner-head
     a.no-link(href='#perfil')
       img.roundedImg-big(src='userSamples/neon.jpg' title='Perfil' alt='User Image')

@@ -70,11 +70,14 @@ router.post('/cadastro', async (req, res) => {
 			'favoritos': "",
 			'links': "",
 			'lastVisited': "",
-			'current': "",
+			'currentTarget': "",
 			'accessKey': "",
 			'descricao': req.body.descricao,
 			'preferencias': "",
 			'cursos': "",
+			'areaInteresse': req.body.areaInteresse,
+			'areaInteresse2': req.body.areaInteresse2,
+			'pilhaCandidatos': [],
 			'next': ""
 		}, apikey)
 
@@ -183,25 +186,27 @@ router.get('/user-home', async (req, res) => {
 					}
 				}
 			}
+			if (Array.isArray(favoritos)) {
+				favoritos = favoritos.map((value, idx) => {
+					value = "\"" + value + "\""
+					return value
+				})
+
+				// ternário checa se favArgs tem algum elemento, senão acrescentar aspas
+				let favoritosQuery = `"_id": {"$in": [${favoritos}]}`
+
+				if (favoritos.length > 0)
+					userFavorito =  JSON.parse(await dbQuery(favoritosQuery, apikey))
+			}
 			// FIM DO CÓDIGO DOS FAVORITOS
 
 			let reqQuery = ''
 
-			// se tiver current
-			if (query[0].current)
-				reqQuery = `"_id": "${query[0].current}"`
-			else {
-				reqQuery += `"_id": {"$not": {"$in": ["${query[0]._id}"`
-
-				if (favoritos) {
-					// se o último caracter do query for aspas, adicionar vírgula para não dar erro
-					if (reqQuery.slice(-1) === "\"" && typeof favoritos[0] != "undefined")
-						reqQuery += ","
-
-					reqQuery += `${favoritos.map((like) => "\"" + like + "\"")}`
-				}
-
-				reqQuery += `]}}`
+			if (query[0].pilhaCandidatos) {
+				if (query[0].currentTarget)
+					reqQuery = `"_id": "${query[0].pilhaCandidatos[query[0].currentTarget]}"`
+				else
+					reqQuery = `"_id": "${query[0].pilhaCandidatos[0]}"`
 			}
 
 			let targetUser = JSON.parse(await dbQuery(reqQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
@@ -262,11 +267,13 @@ router.post('/mudar-senha', async (req, res) => {
 		if (req.body.senha1 == req.body.senha2) {
 
 			try {	
-				const query = JSON.parse(await queryThroughCookies(req, res))
+				const _id = req.cookies._id
 			
-				query[0].senha = req.body.senha2
+				let newData = {
+					"senha": req.body.senha2
+				}
 
-				const queryRes = await putQuery(query, apikey)
+				const queryRes = await putQuery(_id, newData, apikey)
 
 				res.redirect('/')
 				
@@ -310,28 +317,80 @@ router.get('/confirmar-reset', async (req, res) => {
 router.post('/reset', async (req, res) => {
 	
 	try {
+
+		const _id = req.cookies._id
 		
-		let query = JSON.parse(await queryThroughCookies(req, res))
+		let newData = {}
 
 		if (req.body.resetType == 'favoritos') {
 			// reseta o valor de favoritos
-			query[0].favoritos = ''
+			newData["favoritos"] = []
 		}
 		if (req.body.resetType == 'lastVisited') {
 			// reseta o valor de lastVisited
-			query[0].lastVisited = ''
+			newData["lastVisited"] = ""
 		}
 
-		console.log(query)
-
 		// salva o novo valor de query no bd
-		const queryRes = await putQuery(query, apikey)
+		const queryRes = JSON.parse(await putQuery(_id, newData, apikey))
 
 	} catch (e) {
 		console.log(e)
 	}
 
 	res.redirect('/user-home')
+
+})
+
+router.post("/novaBusca", async (req, res) => {
+	
+	try {
+
+		const _id = req.cookies._id
+
+		const zerarPilha = {
+			"pilhaCandidatos": []
+		}
+
+		await putQuery(_id, zerarPilha, apikey)
+
+		const interesse1 = req.body.areaInteresse
+		const interesse2 = req.body.areaInteresse2
+
+		const userData = JSON.parse(await dbQuery(`"_id":"${_id}"`, apikey))
+
+		let favoritos = userData[0].favoritos
+		if (favoritos.length === 0) {
+			favoritos = "\"\""
+		}
+		else {
+			favoritos = favoritos.map((value, idx) => {
+				value = "\"" + value + "\""
+				return value
+			})
+		}
+
+		// removendo o _id e os favoritos da query
+		let pilhaData = JSON.parse(await dbQuery(`"areaInteresse":"${interesse1}", "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`, apikey))
+
+		if (!Array.isArray(pilhaData)) {
+			pilhaData = []
+			console.log("Passou aqui")
+		}
+
+		const newPilha = {
+			"pilhaCandidatos": pilhaData,
+			"currentTarget": 0
+		}
+
+		await putQuery(_id, newPilha, apikey)
+
+		res.redirect("https://pi.pedrogxv.repl.co/user-home#candidatoPainel")
+
+	} catch (e) {
+		console.log(e)
+		res.redirect('/logout?error')
+	}
 
 })
 

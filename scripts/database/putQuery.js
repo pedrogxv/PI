@@ -1,35 +1,17 @@
-let putQuery = async (userData, apikey) => {
+let putQuery = async (id, newData, apikey) => {
 	
-	if (userData[0]._id == null) return;
-
-	console
-
 	var request = require("request");
 
 	var options = { 
 		method: 'PUT',
-		url: `https://pisample-250e.restdb.io/rest/userdata/${userData[0]._id}`,
+		url: `https://pisample-250e.restdb.io/rest/userdata/${id}`,
 		headers: 
 		{ 
 			'cache-control': 'no-cache',
 			'x-apikey': apikey,
 			'content-type': 'application/json'
 		},
-		body: {
-			experiencia: userData[0].experiencia,
-			ensino: userData[0].ensino,
-			nome: userData[0].nome,
-			senha: userData[0].senha,
-			email: userData[0].email,
-			idade: userData[0].idade,
-			accessKey: userData[0].accessKey,
-			favoritos: userData[0].favoritos,
-			lastVisited: userData[0].lastVisited,
-			next: userData[0].next,
-			links: userData[0].links,
-			descricao: userData[0].descricao,
-			current: userData[0].current
-		},
+		body: newData,
 		json: true
 	};
 

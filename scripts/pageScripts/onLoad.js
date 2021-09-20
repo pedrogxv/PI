@@ -10,7 +10,6 @@ window.addEventListener("load", () => {
 	xhr.addEventListener("readystatechange", function () {
 		if (this.readyState === 4) {
 			try {
-				console.log(clientCookies)
 				const data = JSON.parse(this.responseText);
 				
 				const dataKeys = Object.keys(data[0])
@@ -23,10 +22,11 @@ window.addEventListener("load", () => {
 						&& dataKeys[key] != "favoritos"
 						&& dataKeys[key] != "lastVisited"
 						&& dataKeys[key] != "next"
-						&& dataKeys[key] != "current"
+						&& dataKeys[key] != "currentTarget"
+						&& dataKeys[key] != "pilhaCandidatos"
 						&& dataKeys[key] != "preferencias"
 					) {
-						
+
 						createFormField(dataKeys[key], data[0][dataKeys[key]])
 
 					}
@@ -130,8 +130,6 @@ const initiatePerfilEditToggle = (oldData) => {
 						}
 					}
 				})
-
-				console.log(newData)
 
 				let data = JSON.stringify(newData);
 
