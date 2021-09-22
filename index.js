@@ -400,7 +400,9 @@ router.post("/novaBusca", async (req, res) => {
 		}
 
 		// removendo o _id e os favoritos da query
-		let pilhaData = JSON.parse(await dbQuery(`"$or": [{"areaInteresse":"${interesse1}"}, {"areaInteresse2":"${interesse2}"}], "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`, apikey))
+		let pilhaData = JSON.parse(await dbQuery(`"$and": [{"$or": [{"areaInteresse":"${interesse1}"}, {"areaInteresse2":"${interesse2}"}]}, {"userMode": "pessoa"}], "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`, apikey))
+
+		console.log(`"$and": [{"$or": [{"areaInteresse":"${interesse1}"}, {"areaInteresse2":"${interesse2}"}]}, {"userMode": "pessoa"}], "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`)
 
 		if (!Array.isArray(pilhaData)) {
 			pilhaData = []

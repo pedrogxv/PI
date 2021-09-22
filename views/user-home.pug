@@ -13,17 +13,18 @@ body.with-panel
   .loading-title
 include user-page-pugs/corner.pug
 
-include user-page-pugs/dashboard.pug
-
-include user-page-pugs/candidato.pug
-
 include user-page-pugs/chat.pug
 
 include user-page-pugs/perfil.pug
 
-include user-page-pugs/filtros.pug
-
 include user-page-pugs/profile.pug
+
+if userData.userMode == "pessoa"
+  include user-page-pugs/dashboard.pug
+
+if userData.userMode == "empresa"
+  include user-page-pugs/candidato.pug
+  include user-page-pugs/filtros.pug
 
 script(src="pageScripts/profileClick.js")
 script(src="pageScripts/chatClick.js")

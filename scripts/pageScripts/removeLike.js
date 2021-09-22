@@ -29,6 +29,8 @@ removeLike.forEach( (like, idx) => {
 				try {
 					const data = JSON.parse(this.responseText)
 
+					console.log(data[0])
+
 					if (!data.length) {
 						throw ""
 					}
@@ -36,6 +38,7 @@ removeLike.forEach( (like, idx) => {
 				} catch (e) {
 					setUserCornerLoading(false)
 					like.disabled = false
+					console.log(e)
 					alert("Erro na remoção. Recarregue a página ou faça login novamente.")
 					return
 				}
@@ -68,11 +71,18 @@ removeLike.forEach( (like, idx) => {
 
 		xhr.addEventListener("readystatechange", function () {
 			if (this.readyState === 4) {
-				// removendo userDiv ao clicar em remover e a requisição der certo
-				setUserCornerLoading(false)
-				like.disabled = false
+				try {
+					let data = JSON.parse(this.responseText)
+					// removendo userDiv ao clicar em remover e a requisição der certo
+					resetarLikeTarget(like.value, data._id)
 
-				userDiv[idx].remove()
+					userDiv[idx].remove()
+				} catch (e) {
+					console.log(e)
+					setUserCornerLoading(false)
+					like.disabled = false
+				}
+
 			}
 		});
 
@@ -84,6 +94,61 @@ removeLike.forEach( (like, idx) => {
 		xhr.send(put);
 
 	}
+
+	const resetarLikeTarget = (targetId, idToRemove) => {
+
+		let xhr = new XMLHttpRequest();
+		xhr.withCredentials = false;
+
+		xhr.addEventListener("readystatechange", function () {
+			if (this.readyState === 4) {
+				const targetData = JSON.parse(this.responseText)
+				
+				console.log(JSON.parse(this.responseText))
+				console.log(idToRemove)
+
+				let favoritos = targetData[0].favoritos
+				if (favoritos.indexOf(idToRemove) > -1) {
+					console.log("Entrou aqui")
+					favoritos.splice(favoritos.indexOf(idToRemove))
+				}
+
+				let put = JSON.stringify({
+					"favoritos": favoritos
+				});
+
+				console.log(put)
+
+				let xhr = new XMLHttpRequest();
+				xhr.withCredentials = false;
+
+				xhr.addEventListener("readystatechange", function () {
+					if (this.readyState === 4) {
+
+						console.log(JSON.parse(this.responseText))
+						setUserCornerLoading(false)
+						like.disabled = false
+
+					}
+				});
+
+				xhr.open("PUT", `https://pisample-250e.restdb.io/rest/userdata/${targetId}`);
+				xhr.setRequestHeader("content-type", "application/json");
+				xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
+				xhr.setRequestHeader("cache-control", "no-cache");
+
+				xhr.send(put);
+			}
+		});
+
+		xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata?q={"_id":"${targetId}"}`);
+		xhr.setRequestHeader("content-type", "application/json");
+		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
+		xhr.setRequestHeader("cache-control", "no-cache");
+
+		xhr.send(null);
+	}
+
 
 })
 
