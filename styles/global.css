@@ -29,6 +29,10 @@ button {
 	text-transform: inherit;
 }
 
+.profile-info {
+	display: none;
+}
+
 .link {
 	width: fit-content;
 

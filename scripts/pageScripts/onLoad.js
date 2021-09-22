@@ -16,8 +16,10 @@ window.addEventListener("load", () => {
 
 				for (let key in dataKeys) {
 					if (!dataKeys[key].startsWith("_") 
+					    && !dataKeys[key].startsWith("areaInteresse") 
 						&& dataKeys[key] != "senha"
 						&& dataKeys[key] != "id"
+						&& dataKeys[key] != "userMode"
 						&& dataKeys[key] != "accessKey"
 						&& dataKeys[key] != "favoritos"
 						&& dataKeys[key] != "lastVisited"

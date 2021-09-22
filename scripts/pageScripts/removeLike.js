@@ -55,12 +55,9 @@ removeLike.forEach( (like, idx) => {
 		
 		let favoritos = data[0].favoritos
 
-		if (typeof favoritos === "string") {
-			favoritos = favoritos.split(";")
-		}
+		favoritos.splice(favoritos.indexOf(like.getAttribute("value")), 1)
 
-		favoritos.splice(favoritos.indexOf(like.value), 1)
-		favoritos = favoritos.join(";")
+		console.log(favoritos)
 
 		let put = JSON.stringify({
 			"favoritos": favoritos

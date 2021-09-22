@@ -5,17 +5,18 @@ section#perfil.panel.panel-flex-column
         path(fill-rule='evenodd' d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z')
     h2.title Perfil
   form.panel-body
-    .flex.align-center.justify-content-between(style="padding: 5vw;" methot="POST")
+    .flex.align-center.justify-content-between(style="padding: 5vw;")
       .flex.direction-column
         h2= userData.nome
-        p.description(style="") #{userData.idade} Anos
+        if userData.userMode == 'pessoa'
+          p.description(style="") #{userData.idade} Anos
       a.no-link(href='#perfil')
       img.roundedImg-bigger(src='userSamples/neon.jpg' title='Perfil' alt='User Image')
     .loading-div#perfilInfo-loading(style="margin: 30px;")
       .loading-rotate
       .loading-title
-    #perfil-form
-      h2(style="color: orange; margin: 30px 0; border-bottom: 2px solid orange") Suas Informações
+    #perfil-form(style="margin: 0 25px")
+      h2(style="background-color: chocolate; color: white;margin: 30px 0; padding: 5px; border-radius: 5px") Suas Informações
     .flex.justify-content-between.align-center(style="padding: 0 10px; align-items: baseline;")
       .form-field
         a.no-link.btn.btn-black(href="/mudar-senha") Mudar Senha

@@ -12,7 +12,7 @@ section#candidatoPainel.panel.panel-grid
           label(for='cursos') Cursos
           p#targetUser-cursos.targetUser-cursos.target-info(name='cursos')= targetUser.curso
     .panel-perfil
-      img.panel-perfil-pic.profileLink(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false' onclick="window.location.replace('https://pi.pedrogxv.repl.co/user-home#candidatoProfile')" value=`${targetUser._id}`)
+      img.panel-perfil-pic.profileLink.targetUser-_id(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false' onclick="window.location.replace('https://pi.pedrogxv.repl.co/user-home#candidatoProfile')" value=`${targetUser._id}`)
       .panel-perfil-actions
         .panel-perfil-actions-info
           h2#targetUser-nome.target-info(name="nome")= targetUser.nome
@@ -23,7 +23,7 @@ section#candidatoPainel.panel.panel-grid
           button.btn.btn-rounded.btn-borderless.btn-shadow#target-action-up(value=`${targetUser._id}`)
             svg.iconBtn-bigger.iconBtn-noradius.icon-green(xmlns='http://www.w3.org/2000/svg'  fill='currentColor' viewbox='0 0 16 16')
               path(d='M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z')
-          button.btn.btn-borderless.btn-rounded#target-star(value=`${targetUser._id}`)
+          button.btn.btn-borderless.btn-rounded.targetUser-_id#target-star(value=`${targetUser._id}`)
             svg.iconBtn-big(xmlns='http://www.w3.org/2000/svg' fill='goldenrod' viewbox='0 0 16 16')
               path(d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z')
           button.btn.btn-rounded.btn-shadow.btn-borderless#target-action-down(value=`${targetUser._id}`)

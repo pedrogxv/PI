@@ -11,6 +11,15 @@ body.with-margin
     p= error || ""
   form.form.flex(action='' method='post')
     .form-field
+      label(for="pessoa") Pessoa
+      input(type="radio" id="pessoa" name="userMode" value="pessoa" checked='')
+    .form-field
+      label(for="empresa") Empresa
+      input(type="radio" id="empresa" name="userMode" value="empresa")
+    .form-field
+      label.field-label(for='cpf_cnpj') CPF / CNPJ
+      input#cpf_cnpj.field-input(type='number' name='cpf_cnpj' required='' data-mask="")
+    .form-field
       label.field-label(for='email')
         | &#x9;&#x9;&#x9;&#x9;Email
       input#email.field-input(type='email' name='email' placeholder='Digite seu email' required='')
@@ -28,11 +37,17 @@ body.with-margin
       input#idade.field-input(type='number' name='idade' required='')
     .form-field
       label.field-label(for='areaInteresse') Area de interesse (Principal)
-      select#idade.field-input(type='text' name='areaInteresse' required='')
-        option(value="Tecnologia") Tecnologia
+      select#areaInteresse.field-input(name='areaInteresse' required='')
+        if areasInteresse.interessePrincipal
+          each val in areasInteresse.interessePrincipal
+            option(value=`${val}`)= val
     .form-field
       label.field-label(for='areaInteresse2') Area de interesse secundária (Opcional)
-      input#idade.field-input(type='text' name='areaInteresse2')
+      select#areaInteresse2.field-input(name='areaInteresse2')
+        option(value="")
+        if areasInteresse.interesseSecundario
+          each val in areasInteresse.interesseSecundario
+            option(value=`${val}`)= val
     .form-field
       label.field-label(for='experiencia') Experi&ecirc;ncia
       input#exp.field-input(type='text' name='experiencia' required='')

@@ -13,6 +13,8 @@ body.with-panel
   .loading-title
 include user-page-pugs/corner.pug
 
+include user-page-pugs/dashboard.pug
+
 include user-page-pugs/candidato.pug
 
 include user-page-pugs/chat.pug
@@ -21,11 +23,13 @@ include user-page-pugs/perfil.pug
 
 include user-page-pugs/filtros.pug
 
-include user-page-pugs/candidatoProfile.pug
+include user-page-pugs/profile.pug
 
 script(src="pageScripts/profileClick.js")
 script(src="pageScripts/chatClick.js")
 script(src="pageScripts/removeLike.js")
-script(src="pageScripts/targetActions.js")
 script(src="pageScripts/onLoad.js")
-script(src="pageScripts/buscaLoad.js")
+if userData.userMode == "empresa"
+  script(src="pageScripts/targetActions.js")
+  script(src="pageScripts/filtroLoad.js")
+  script(src="pageScripts/buscaLoad.js")

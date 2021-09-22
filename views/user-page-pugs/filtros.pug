@@ -1,9 +1,17 @@
-section#filtro-panel.panel.panel-flex.column
-  form.form-field.flex.direction-column(method="POST" action="/novaBusca")
-    label.form-label(for="area-busca") Área de Busca
-    select.field-input(name="areaInteresse")
-      option(value="Tecnologia") Tecnologia
-    label.form-label(for="area-secundaria") Área de Busca Secundária
-    select.field-input(name="areaInteresse2")
-      option(value="")
-    input#buscaInit.btn.btn-green.btn-opacity(type="submit" value="Iniciar Nova Busca")
+if userData.userMode == 'empresa'
+  section#filtro-panel.panel.panel-flex.column
+    .loading-div#loading-filtros
+      .loading-rotate
+      .loading-title
+    #user-help-filtro
+      p Clique em "Nova Busca"
+      br
+      img(src="nova_busca.png")
+    form#filtro-form.form-field.flex.direction-column(method="POST" action="/novaBusca" style='display: none')
+      label.form-label(for="area-busca") Área de Busca
+      select#areaInteresse1.field-input(name="areaInteresse")
+        option(value="")
+      label.form-label(for="area-secundaria") Área de Busca Secundária
+      select#areaInteresse2.field-input(name="areaInteresse2")
+        option(value="")
+      input#buscaInit.btn.btn-green.btn-opacity(type="submit" value="Iniciar Nova Busca")

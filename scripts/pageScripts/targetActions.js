@@ -73,12 +73,19 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 
 				newData["favoritos"] = favoritos
 
+				salvarEmpresaNoCandidato(data[0]._id, _id)
+
 				// removendo da pilha
 				if (Array.isArray(pilhaCandidatos)) {
 					const index = pilhaCandidatos.indexOf(_id)
 					if (index > -1)
 						pilhaCandidatos.splice(index, 1)
 				}
+				currentTarget--
+				if (currentTarget < 0)
+					currentTarget = 0
+				if (currentTarget > pilhaCandidatos.length - 1)
+					currentTarget = pilhaCandidatos.length - 1
 				break
 			case 'down':
 				if (pilhaCandidatos.length > 1) {
@@ -134,6 +141,40 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 	xhr.send(JSON.stringify(newData));
 }
 
+const salvarEmpresaNoCandidato = (empresaId, _id) => {
+
+	let xhr = reqHead(
+		"GET", 	`https://pisample-250e.restdb.io/rest/userdata/${_id}`
+	)
+
+	xhr.addEventListener("readystatechange", function () {
+		if (this.readyState === 4) {
+
+			const data = JSON.parse(this.responseText)
+
+			data.favoritos.push(empresaId)
+			
+			let saveFavoritos = data.favoritos
+
+			console.log(saveFavoritos)
+
+			const favoritoToCandidato = {
+				"favoritos": saveFavoritos
+			}
+
+			let xhr = reqHead(
+				"PUT", 	`https://pisample-250e.restdb.io/rest/userdata/${_id}`
+			)
+
+			xhr.send(JSON.stringify(favoritoToCandidato));			
+
+		}
+	});
+
+	xhr.send(null)
+
+}
+
 const setActionLoading = (state) => {
 	const loading = document.querySelector("#candidatoLoading")
 	const panels = document.querySelectorAll("#candidatoPainel > *:not(.loading-div)")
@@ -163,30 +204,20 @@ const updateCandidatoPanelInfo = (targetId, actionMode) => {
 			try {
 				const newData = JSON.parse(this.responseText)
 
-				console.log(newData)
-
 				const dataKeys = Object.keys(newData[0])
 
 				for (let key in dataKeys) {
-					if (!dataKeys[key].startsWith("_") 
-						&& dataKeys[key] != "senha"
-						&& dataKeys[key] != "id"
-						&& dataKeys[key] != "accessKey"
-						&& dataKeys[key] != "favoritos"
-						&& dataKeys[key] != "lastVisited"
-						&& dataKeys[key] != "next"
-						&& dataKeys[key] != "current"
-						&& dataKeys[key] != "pilhaCandidatos"
-						&& dataKeys[key] != "preferencias"
-					) {
-						
-						let userValue = document.querySelector(`#targetUser-${dataKeys[key]}`)
+				
+					let userValue = document.querySelector(`#targetUser-${dataKeys[key]}, .targetUser-${dataKeys[key]}`)
 
-						if (userValue)
-							userValue.innerHTML = newData[0][dataKeys[key]]
-						if (dataKeys[key] === "idade")
-							userValue.innerHTML += " Anos"
-					}
+					if (dataKeys[key] === "_id")
+						userValue.setAttribute("value", `${newData[0][dataKeys[key]]}`)
+
+					if (userValue)
+						userValue.innerHTML = newData[0][dataKeys[key]]
+					if (dataKeys[key] === "idade")
+						userValue.innerHTML += " Anos"
+				
 				}
 				setActionLoading(false)
 			} catch (e) {

@@ -41,58 +41,87 @@ router.get('/', async (req, res) => {
 });
 app.use('/', router);
 
-app.get('/cadastro', (req, res) => {
-  	res.render(path.join(__dirname, 'views/cadastro.pug'));
+app.get('/cadastro', async (req, res) => {
+
+	const getInteresses = require("./scripts/database/getInteresses.js")
+
+	const areasInteresse = JSON.parse(await getInteresses(apikey))
+
+  	res.render(path.join(__dirname, 'views/cadastro.pug'), {
+		'areasInteresse': areasInteresse[0]
+	});
 });
 
 // POST CADASTRO
 router.post('/cadastro', async (req, res) => {
 
-	// checando se email já existe no servidor
-	const query = JSON.parse(await dbQuery(`"email": "${req.body.email}"`,apikey))
-	
-	// se sim, não deixar cadastrar
-	if (query.length > 0)
-		res.render(path.join(__dirname, '/views/cadastro.pug'), {
-			"error": "Email existente, tente usar outro!"
-		});
-	
-	// senão, cadastrar
-	else {
+	try {
 
-		const postQuery = await post({
-			'nome': req.body.name,
-			'email': req.body.email,
-			'idade': req.body.idade,
-			'ensino': req.body.ensino,
-			'senha': req.body.senha,
-			'experiencia': req.body.experiencia,
-			'favoritos': "",
-			'links': "",
-			'lastVisited': "",
-			'currentTarget': "",
-			'accessKey': "",
-			'descricao': req.body.descricao,
-			'preferencias': "",
-			'cursos': "",
-			'areaInteresse': req.body.areaInteresse,
-			'areaInteresse2': req.body.areaInteresse2,
-			'pilhaCandidatos': [],
-			'next': ""
-		}, apikey)
+		const getInteresses = require("./scripts/database/getInteresses.js")
 
-		// tentar "ler" o json retornado
-		try {
-			
-			res.redirect('/login');
-		// se retornar erro
-		} catch (e) {
-			console.log(e)
+		const areasInteresse = JSON.parse(await getInteresses(apikey))
+
+		// checando se email já existe no servidor
+		const query = JSON.parse(await dbQuery(`"email": "${req.body.email}"`,apikey))
+		
+		// se sim, não deixar cadastrar
+		if (query.length > 0)
 			res.render(path.join(__dirname, '/views/cadastro.pug'), {
-				"error": "Falha no cadastro, tente novamente."
+				"areasInteresse": areasInteresse[0],
+				"error": "Email existente, tente usar outro!"
 			});
+		
+		// senão, cadastrar
+		else {
+
+			const userMode = req.body.userMode
+
+			if (userMode === "empresa") {
+				const postQuery = await post({
+					'userMode': userMode,
+					'nome': req.body.name,
+					'email': req.body.email,
+					'senha': req.body.senha,
+					'favoritos': [],
+					'links': "",
+					'currentTarget': "",
+					'descricao': req.body.descricao,
+					'preferencias': [],
+					'cnpj': req.body.cpf_cnpj,
+					'areaInteresse': req.body.areaInteresse,
+					'areaInteresse2': req.body.areaInteresse2,
+					'pilhaCandidatos': []
+				}, apikey)
+			}
+			else if (userMode === "pessoa") {
+				const postQuery = await post({
+					'userMode': userMode,
+					'nome': req.body.name,
+					'email': req.body.email,
+					'idade': req.body.idade,
+					'ensino': req.body.ensino,
+					'senha': req.body.senha,
+					'experiencia': req.body.experiencia,
+					'favoritos': [],
+					'links': "",
+					'descricao': req.body.descricao,
+					'preferencias': [],
+					'cursos': "",
+					'cpf': req.body.cpf_cnpj,
+					'areaInteresse': req.body.areaInteresse,
+					'areaInteresse2': req.body.areaInteresse2
+				}, apikey)
+			}
+			else
+				throw "User Mode não definido (index.js L.154)"
+
+			res.redirect("/login")
+
 		}
 
+	} catch (e) {
+		console.log(e)
+		res.redirect("/");
 	}
 
 })
@@ -371,7 +400,7 @@ router.post("/novaBusca", async (req, res) => {
 		}
 
 		// removendo o _id e os favoritos da query
-		let pilhaData = JSON.parse(await dbQuery(`"areaInteresse":"${interesse1}", "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`, apikey))
+		let pilhaData = JSON.parse(await dbQuery(`"$or": [{"areaInteresse":"${interesse1}"}, {"areaInteresse2":"${interesse2}"}], "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`, apikey))
 
 		if (!Array.isArray(pilhaData)) {
 			pilhaData = []

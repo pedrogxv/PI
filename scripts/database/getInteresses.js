@@ -1,12 +1,6 @@
-// usando request para requisição ao Restdb JS API
-
-let dbQuery = async (query, apikey, ext) => {
+const getInteresses = (apikey) => {
 	let request = require("request");
-
-	let url = "https://pisample-250e.restdb.io/rest/userdata?"
-	if (query) url += "q={" + query + "}"
-
-	if (ext) url += "&" + ext;
+	let url = "https://pisample-250e.restdb.io/rest/areasInteresse"
 
 	let options = { 
 		method: 'GET',
@@ -15,8 +9,9 @@ let dbQuery = async (query, apikey, ext) => {
 		{ 
 			'cache-control': 'no-cache',
 			'x-apikey': apikey 
-		} 
+		}
 	};
+
 
 	return new Promise ( 
 		(resolve, reject) => {
@@ -41,7 +36,6 @@ let dbQuery = async (query, apikey, ext) => {
 			})
 		}
 	)
-
 }
 
-module.exports = dbQuery
+module.exports = getInteresses

@@ -1,4 +1,4 @@
-let post = async (data, apikey, callback) => {
+let post = async (data, apikey) => {
 	if (data == null) return;
 	if (typeof data != "object") return;
 
@@ -13,26 +13,7 @@ let post = async (data, apikey, callback) => {
 			'x-apikey': apikey,
 			'content-type': 'application/json'
 		},
-		body: {
-			nome: data.nome,
-			email: data.email,
-			idade: data.idade,
-			ensino: data.ensino,
-			senha: data.senha,
-			experiencia: data.experiencia,
-			links: data.links,
-			next: data.next,
-			currentTarget: data.currentTarget,
-			favoritos: data.favoritos,
-			lastVisited: data.lastVisited,
-			accessKey: data.accessKey,
-			descricao: data.descricao,
-			preferencias: data.preferencias,
-			areaInteresse: data.areaInteresse,
-			areaInteresse2: data.areaInteresse2,
-			pilhaCandidatos: data.pilhaCandidatos,
-			cursos: data.cursos
-		},
+		body: data,
 		json: true
 	};
 
