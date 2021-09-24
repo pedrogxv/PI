@@ -30,92 +30,101 @@ app.use(express.static(path.join(__dirname, '/scripts')));
 // user-home images
 app.use(express.static(path.join(__dirname, '/imgs')));
 app.use(express.static(path.join(__dirname, '/favicon')));
+app.use(express.static(path.join(__dirname, '/styles')));
 
 //Set up the Express router
 router.get('/', async (req, res) => {
 
 	cookieCheck(req, res, () => {
-		res.sendFile(path.join(__dirname, 'index.html'));
+		res.render(path.join(__dirname, 'views/cadastro-login.pug'));
 	})
 
 });
 app.use('/', router);
-
-app.get('/cadastro', async (req, res) => {
-
-	const getInteresses = require("./scripts/database/getInteresses.js")
-
-	const areasInteresse = JSON.parse(await getInteresses(apikey))
-
-  	res.render(path.join(__dirname, 'views/cadastro.pug'), {
-		'areasInteresse': areasInteresse[0]
-	});
-});
 
 // POST CADASTRO
 router.post('/cadastro', async (req, res) => {
 
 	try {
 
-		const getInteresses = require("./scripts/database/getInteresses.js")
+		// const getInteresses = require("./scripts/database/getInteresses.js")
 
-		const areasInteresse = JSON.parse(await getInteresses(apikey))
-
-		// checando se email já existe no servidor
-		const query = JSON.parse(await dbQuery(`"email": "${req.body.email}"`,apikey))
+		// const areasInteresse = JSON.parse(await getInteresses(apikey))
 		
-		// se sim, não deixar cadastrar
-		if (query.length > 0)
-			res.render(path.join(__dirname, '/views/cadastro.pug'), {
-				"areasInteresse": areasInteresse[0],
-				"error": "Email existente, tente usar outro!"
+		const userMode = req.body.cpf ? "pessoa" : "empresa"
+		const cpf = req.body.cpf || " "
+		const cnpj = req.body.cnpj || " "
+
+		if (userMode == "empresa" && cnpj.length != 14) {
+			res.render(path.join(__dirname, '/views/cadastro-login.pug'), {
+				"error": "CNPJ deve ter 14 dígitos!"
 			});
+			return
+		}
+		if (userMode == "pessoa" && cpf.length != 11) {
+			res.render(path.join(__dirname, '/views/cadastro-login.pug'), {
+				"error": "CPF deve ter 11 dígitos!"
+			});
+			return
+		}
+
+		// checando se email já existe no servidor "User Data"
+		const pessoaQuery = JSON.parse(await dbQuery(`"$or":[{"email": "${req.body.email}"}, {"cpf": ${cpf}}]`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
 		
+		// checando se email já existe no servidor "Empresa Data"
+		const empresaQuery = JSON.parse(await dbQuery(`"$or": [{"email": "${req.body.email}"}, {"cnpj": ${cnpj}}]`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
+
+		// se sim, não deixar cadastrar
+		if (pessoaQuery.length > 0 || empresaQuery.length > 0) {
+			res.render(path.join(__dirname, '/views/cadastro-login.pug'), {
+				"error": "Email ou CPF/CNPJ já cadastrado, tente usar outro!"
+			});
+		}
 		// senão, cadastrar
 		else {
 
-			const userMode = req.body.userMode
-
 			if (userMode === "empresa") {
 				const postQuery = await post({
-					'userMode': userMode,
-					'nome': req.body.name,
+					'nome': req.body.nome,
 					'email': req.body.email,
 					'senha': req.body.senha,
 					'favoritos': [],
-					'links': "",
+					'links': [],
 					'currentTarget': "",
 					'descricao': req.body.descricao,
 					'preferencias': [],
-					'cnpj': req.body.cpf_cnpj,
+					'cnpj': req.body.cnpj,
 					'areaInteresse': req.body.areaInteresse,
 					'areaInteresse2': req.body.areaInteresse2,
 					'pilhaCandidatos': []
-				}, apikey)
+				}, apikey, "https://pisample-250e.restdb.io/rest/empresadata")
 			}
 			else if (userMode === "pessoa") {
 				const postQuery = await post({
-					'userMode': userMode,
-					'nome': req.body.name,
+					'nome': req.body.nome,
 					'email': req.body.email,
 					'idade': req.body.idade,
 					'ensino': req.body.ensino,
 					'senha': req.body.senha,
 					'experiencia': req.body.experiencia,
 					'favoritos': [],
-					'links': "",
+					'links': [],
 					'descricao': req.body.descricao,
 					'preferencias': [],
 					'cursos': "",
-					'cpf': req.body.cpf_cnpj,
+					'empresasViews': [],
+					'contatoCount': [],
+					'cpf': req.body.cpf,
 					'areaInteresse': req.body.areaInteresse,
 					'areaInteresse2': req.body.areaInteresse2
-				}, apikey)
+				}, apikey, 'https://pisample-250e.restdb.io/rest/userdata')
 			}
 			else
-				throw "User Mode não definido (index.js L.154)"
+				throw "User Mode não definido (index.js L.138)"
 
-			res.redirect("/login")
+			res.render(path.join(__dirname, 'views/cadastro-login.pug'), {
+				'success': "Usuário cadastrado! Faça o login para continuar."
+			})
 
 		}
 
@@ -141,94 +150,85 @@ router.post('/login', async (req, res) => {
 		if (!req.body.email || !req.body.senha)
 			throw "Campos de email e/ou senha vazios."
 
-		let query = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey))
+		let pessoaQuery = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
 
-		if (!query[0])
-			throw "Nenhum usuário encontrado!"
+		let empresaQuery = JSON.parse(await dbQuery(`"email":"${req.body.email}","senha":"${req.body.senha}"`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
 
-		// gravando o novo accesskey no bd e no cookie
+		if (!pessoaQuery[0] && !empresaQuery[0]) {
+			throw "Verifique seu email e senha. Nenhum usuário encontrado!"
+		}
+			
+		let query = pessoaQuery[0] ? pessoaQuery : empresaQuery
+
+		let userMode = pessoaQuery[0] ? "pessoa" : "empresa"
+
+		// gravando cookies
 		res.cookie(`_id`,`${query[0]._id}`);
 		res.cookie(`email`,`${query[0].email}`);
 		res.cookie(`senha`,`${query[0].senha}`);
+		res.cookie(`userMode`,`${userMode}`);
 
 		res.redirect("/user-home")
 
 	} catch (e) {
 		console.log(e)
-		res.render(path.join(__dirname, '/views/login.pug'), {
+		res.render(path.join(__dirname, '/views/cadastro-login.pug'), {
 			"error": e
 		})
 	}
 
 });
 
-router.get('/logout', async (req, res) => {
+router.get('/logout', (req, res) => {
 
-	res.clearCookie("accessKey")
+	res.clearCookie("_id")
 	res.clearCookie("email")
 	res.clearCookie("senha")
-	res.sendFile(path.join(__dirname, 'index.html'));
+	res.clearCookie("userMode")
+	res.render(path.join(__dirname, 'views/cadastro-login.pug'), {
+		"error": req.body.error
+	});
 
 });
 
 router.get('/user-home', async (req, res) => {
 		
-	// login with cookies
-	if (req.cookies.senha && req.cookies.email) {
-		
-		try {
+	try {
+		if (!req.cookies.senha || !req.cookies.email || !req.cookies.userMode)
+			throw "No cookies!"
 
-			let query = JSON.parse(await queryThroughCookies(req, res))
+		let url = req.cookies.userMode == "pessoa" ? "https://pisample-250e.restdb.io/rest/userdata?" : "https://pisample-250e.restdb.io/rest/empresadata?"
 
-			// se não encontrar um objeto na query
-			// retornar e fazer logout (para excluir os cookies)
-			if (typeof query[0] != 'object') {
-				res.redirect("/logout")
-				return
-			}
+		let query = JSON.parse(await queryThroughCookies(req, res))
 
-			// código para pegar os usuários com favorito do usuário
-			let userFavorito = null
+		// se não encontrar um objeto na query
+		// retornar e fazer logout (para excluir os cookies)
+		if (!query[0])
+			throw "Não foi encontrado nenhum usuário"
 
-			let favoritos = query[0].favoritos
+		// código para pegar os usuários com favorito do usuário
+		let userFavorito = null
 
-			if (typeof favoritos != "undefined" && !Array.isArray(favoritos)) {
-				if (favoritos.length > 0) {
+		let favoritos = query[0].favoritos
 
-					// pegando os usuário que o usuário principal deu 'like'
-					favoritos = query[0].favoritos.split(";")
-					// // removendo último elemento do array (que é vazio)
-					favoritos.pop()
+		if (Array.isArray(favoritos)) {
+			favoritos = favoritos.map((value, idx) => {
+				value = "\"" + value + "\""
+				return value
+			})
 
-					if (favoritos != null) {
+			// ternário checa se favArgs tem algum elemento, senão acrescentar aspas
+			let favoritosQuery = `"_id": {"$in": [${favoritos}]}`
 
-						let favArgs = favoritos.map((value, idx) => {
-							value = "\"" + value + "\""
-							return value
-						})
+			let reversedUrl = req.cookies.userMode == "empresa" ? "https://pisample-250e.restdb.io/rest/userdata?" : "https://pisample-250e.restdb.io/rest/empresadata?"
 
-						// ternário checa se favArgs tem algum elemento, senão acrescentar aspas
-						let favoritosQuery = `"_id": {"$in": [${favArgs.length > 0 ? favArgs : '\"\"'}]}`
+			if (favoritos.length > 0)
+				userFavorito =  JSON.parse(await dbQuery(favoritosQuery, apikey, reversedUrl))
+		}
+		// FIM DO CÓDIGO DOS FAVORITOS
 
-						userFavorito =  JSON.parse(await dbQuery(favoritosQuery, apikey))
-
-					}
-				}
-			}
-			if (Array.isArray(favoritos)) {
-				favoritos = favoritos.map((value, idx) => {
-					value = "\"" + value + "\""
-					return value
-				})
-
-				// ternário checa se favArgs tem algum elemento, senão acrescentar aspas
-				let favoritosQuery = `"_id": {"$in": [${favoritos}]}`
-
-				if (favoritos.length > 0)
-					userFavorito =  JSON.parse(await dbQuery(favoritosQuery, apikey))
-			}
-			// FIM DO CÓDIGO DOS FAVORITOS
-
+		let targetUser = []
+		if (req.cookies.userMode == "empresa") {
 			let reqQuery = ''
 
 			if (query[0].pilhaCandidatos) {
@@ -238,48 +238,26 @@ router.get('/user-home', async (req, res) => {
 					reqQuery = `"_id": "${query[0].pilhaCandidatos[0]}"`
 			}
 
-			let targetUser = JSON.parse(await dbQuery(reqQuery, apikey, 'max=1')) /* max=1 é para limitar um result */
-
-			// Fim do código para pegar o candidato user
-
-			try {
-				if (targetUser[0].links)
-					targetUser[0].links = targetUser[0].links.split(";")
-				else {
-					links = targetUser[0].links
-					targetUser[0].links = [links]
-				}
-
-				if (targetUser[0].cursos)
-					targetUser[0].cursos = targetUser[0].cursos.split(";")
-				else {
-					cursos = targetUser[0].cursos
-					targetUser[0].cursos = [cursos]
-				}
-			} catch (e) {
-				console.log(e)
-			}
-			
-			const userData = query
-
-			res.render(path.join(__dirname, '/views/user-home.pug'), {
-				'userData': userData[0],
-				'userFavorito': userFavorito,
-				'targetUser': targetUser[0]
-			});
-			return
-
-		} catch (e) {
-			console.log(e)
-			
-			res.redirect("/logout");
-			return
+			targetUser = JSON.parse(await dbQuery(reqQuery, apikey, "https://pisample-250e.restdb.io/rest/userdata?", 'max=1')) /* max=1 é para limitar um result */
 		}
 
-	} else {
-		res.redirect("/login?loginError=true")
+		// Fim do código para pegar o candidato user
+		
+		const userData = query
+		
+		res.render(path.join(__dirname, '/views/user-home.pug'), {
+			'userData': userData ? userData[0] : null,
+			'userFavorito': userFavorito,
+			'targetUser': targetUser ? targetUser[0] : null,
+			'userMode': req.cookies.userMode
+		});
 		return
 
+	} catch (e) {
+		console.log(e)
+		
+		res.redirect(`/logout?"error":"${e}"`);
+		return
 	}
 
 });
@@ -292,35 +270,29 @@ router.get('/mudar-senha', (req, res) => {
 
 router.post('/mudar-senha', async (req, res) => {
 
-	if (req.body.senha1 && req.body.senha2) {
-		if (req.body.senha1 == req.body.senha2) {
-
-			try {	
-				const _id = req.cookies._id
+	try {
+		if (!req.body.senha1 || !req.body.senha2)
+			throw "Preencha todos os campos!"
 			
-				let newData = {
-					"senha": req.body.senha2
-				}
+		if (req.body.senha1 != req.body.senha2)
+			throw "Senhas não coincidem!"
 
-				const queryRes = await putQuery(_id, newData, apikey)
+		const _id = req.cookies._id
+		const url = req.cookies.userMode == "pessoa" ? "https://pisample-250e.restdb.io/rest/userdata/" :
+		"https://pisample-250e.restdb.io/rest/empresadata/"
 
-				res.redirect('/')
-				
-			} catch (e) {
-				console.log(e)
-				res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
-					"error": `Ocorreu um erro, tente novamente!`
-				})
-			}
-
-		} else {
-			res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
-				"error": `Senhas não coincidem!`
-			})
+		let newData = {
+			"senha": req.body.senha2
 		}
-	} else {
+
+		const queryRes = await putQuery(_id, newData, apikey, url)
+
+		res.redirect('/')
+		
+	} catch (e) {
+		console.log(e)
 		res.render(path.join(__dirname, 'views/mudar-senha.pug'), {
-				"error": `Campos não preenchidos.`
+			"error": e
 		})
 	}
 
@@ -348,6 +320,8 @@ router.post('/reset', async (req, res) => {
 	try {
 
 		const _id = req.cookies._id
+		const url = req.cookies.userMode == "pessoa" ? "https://pisample-250e.restdb.io/rest/userdata/" :
+		"https://pisample-250e.restdb.io/rest/empresadata/"
 		
 		let newData = {}
 
@@ -355,13 +329,9 @@ router.post('/reset', async (req, res) => {
 			// reseta o valor de favoritos
 			newData["favoritos"] = []
 		}
-		if (req.body.resetType == 'lastVisited') {
-			// reseta o valor de lastVisited
-			newData["lastVisited"] = ""
-		}
 
 		// salva o novo valor de query no bd
-		const queryRes = JSON.parse(await putQuery(_id, newData, apikey))
+		await putQuery(_id, newData, apikey, url)
 
 	} catch (e) {
 		console.log(e)
@@ -381,12 +351,12 @@ router.post("/novaBusca", async (req, res) => {
 			"pilhaCandidatos": []
 		}
 
-		await putQuery(_id, zerarPilha, apikey)
+		await putQuery(_id, zerarPilha, apikey, "https://pisample-250e.restdb.io/rest/empresadata/")
 
 		const interesse1 = req.body.areaInteresse
 		const interesse2 = req.body.areaInteresse2
 
-		const userData = JSON.parse(await dbQuery(`"_id":"${_id}"`, apikey))
+		const userData = JSON.parse(await dbQuery(`"_id":"${_id}"`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
 
 		let favoritos = userData[0].favoritos
 		if (favoritos.length === 0) {
@@ -399,14 +369,11 @@ router.post("/novaBusca", async (req, res) => {
 			})
 		}
 
-		// removendo o _id e os favoritos da query
-		let pilhaData = JSON.parse(await dbQuery(`"$and": [{"$or": [{"areaInteresse":"${interesse1}"}, {"areaInteresse2":"${interesse2}"}]}, {"userMode": "pessoa"}], "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`, apikey))
-
-		console.log(`"$and": [{"$or": [{"areaInteresse":"${interesse1}"}, {"areaInteresse2":"${interesse2}"}]}, {"userMode": "pessoa"}], "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`)
+		// removendo o _id e os favoritos da query, além de adicionado operador de or para pesquisa de interesses
+		let pilhaData = JSON.parse(await dbQuery(`"$or": [{"areaInteresse":"${interesse1}"}, {"areaInteresse2":"${interesse2}"}], "_id": {"$not": "${_id}", "$nin": [${favoritos}]},"$distinct":"_id"`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
 
 		if (!Array.isArray(pilhaData)) {
 			pilhaData = []
-			console.log("Passou aqui")
 		}
 
 		const newPilha = {
@@ -414,7 +381,25 @@ router.post("/novaBusca", async (req, res) => {
 			"currentTarget": 0
 		}
 
-		await putQuery(_id, newPilha, apikey)
+		await putQuery(_id, newPilha, apikey, "https://pisample-250e.restdb.io/rest/empresadata/")
+
+		if (pilhaData[0]) {
+			let primeiroPilhaCandidato = JSON.parse(await dbQuery(`"_id":"${pilhaData[0]}"`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
+
+			// adicionando na empresasViews
+			if (primeiroPilhaCandidato[0].empresasViews.indexOf(userData[0]._id) == -1) {
+
+				primeiroPilhaCandidato[0].empresasViews.push(userData[0]._id)
+
+				const newEmpresasViews = primeiroPilhaCandidato[0].empresasViews
+
+				let newView = {
+					"empresasViews": newEmpresasViews
+				}
+
+				await putQuery(primeiroPilhaCandidato[0]._id, newView, apikey, "https://pisample-250e.restdb.io/rest/userdata/")
+			}
+		}
 
 		res.redirect("https://pi.pedrogxv.repl.co/user-home#candidatoPainel")
 

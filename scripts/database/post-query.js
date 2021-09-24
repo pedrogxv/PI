@@ -1,12 +1,11 @@
-let post = async (data, apikey) => {
+let post = async (data, apikey, url) => {
 	if (data == null) return;
 	if (typeof data != "object") return;
 
 	var request = require("request");
-
 	var options = { 
 		method: 'POST',
-		url: 'https://pisample-250e.restdb.io/rest/userdata',
+		url: url,
 		headers: 
 		{ 
 			'cache-control': 'no-cache',
@@ -22,7 +21,7 @@ let post = async (data, apikey) => {
 
 			request(options, (error, response, body) => {
 				if (error) {
-					alert("Erro ao cadastrar: " + error)
+					console.log("Erro ao cadastrar: " + error)
 					reject(error)
 					throw new Error(error);
                 }

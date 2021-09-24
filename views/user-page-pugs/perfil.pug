@@ -8,7 +8,7 @@ section#perfil.panel.panel-flex-column
     .flex.align-center.justify-content-between(style="padding: 5vw;")
       .flex.direction-column
         h2= userData.nome
-        if userData.userMode == 'pessoa'
+        if userData.cpf
           p.description(style="") #{userData.idade} Anos
       a.no-link(href='#perfil')
       img.roundedImg-bigger(src='userSamples/neon.jpg' title='Perfil' alt='User Image')

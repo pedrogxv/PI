@@ -6,6 +6,7 @@ const cookieCheck = (req, res, callback) => {
 
 	} else {
 
+		// callback se refere ao que é pra fazer se NÃO houver cookies
 		callback()
 
 	}

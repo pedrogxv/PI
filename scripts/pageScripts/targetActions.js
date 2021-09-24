@@ -24,11 +24,12 @@ let browserCookies = document.cookie
 browserCookies = browserCookies.split(/[=, ;]+/)
 
 const makeActionRequest = (actionModeVal, _id) => {
+	console.log(browserCookies)
 	setActionLoading(true)
 
 	const xhr = reqHead(
 		"GET", 
-		`https://pisample-250e.restdb.io/rest/userdata?q={"email": "${browserCookies[3]}", "senha": "${browserCookies[5]}"}`
+		`https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${browserCookies[3]}", "senha": "${browserCookies[5]}"}`
 	)
 
 	xhr.addEventListener("readystatechange", function () {
@@ -36,7 +37,7 @@ const makeActionRequest = (actionModeVal, _id) => {
 
 			try {
 				const data = JSON.parse(this.responseText)
-
+				console.log(data)
 				atualizarCampos(data, actionModeVal, _id)			
 			} catch (e) {
 				setActionLoading(false)
@@ -73,8 +74,6 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 
 				newData["favoritos"] = favoritos
 
-				salvarEmpresaNoCandidato(data[0]._id, _id)
-
 				// removendo da pilha
 				if (Array.isArray(pilhaCandidatos)) {
 					const index = pilhaCandidatos.indexOf(_id)
@@ -91,11 +90,11 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 				if (pilhaCandidatos.length > 1) {
 					currentTarget--
 					if (currentTarget < 0)
-						currentTarget = pilhaCandidatos.length - 1	
-					console.log(currentTarget)
+						currentTarget = pilhaCandidatos.length - 1
 				} else {
 					currentTarget = 0
 				}
+				adicionarEmpresaView(pilhaCandidatos[currentTarget], data[0]._id)
 				break
 			case 'up':
 				if (pilhaCandidatos.length > 1) {
@@ -105,6 +104,7 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 				} else {
 					currentTarget = 0
 				}
+				adicionarEmpresaView(pilhaCandidatos[currentTarget], data[0]._id)
 				break
 		}
 	}
@@ -114,7 +114,7 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 	
 
 	let xhr = reqHead(
-		"PUT", 	`https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`
+		"PUT", 	`https://pisample-250e.restdb.io/rest/empresadata/${data[0]._id}`
 	)
 
 	xhr.addEventListener("readystatechange", function () {
@@ -122,10 +122,9 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 
 			try {
 				const updatedData = JSON.parse(this.responseText)
-				console.log(updatedData)
-
-				if (actionModeVal === "star")
-					window.location.reload(true)
+				if (actionModeVal === "star") {
+					salvarEmpresaNoCandidato(data[0]._id, _id)
+				}
 				else
 					updateCandidatoPanelInfo(updatedData.pilhaCandidatos[updatedData.currentTarget], actionMode)
 
@@ -139,6 +138,38 @@ const atualizarCampos = (data, actionModeVal, _id) => {
 	});
 
 	xhr.send(JSON.stringify(newData));
+}
+
+const adicionarEmpresaView = (targetId, empresaId) => {
+	console.log(targetId)
+	console.log(empresaId)
+	let xhr = reqHead(
+		"GET", 	`https://pisample-250e.restdb.io/rest/userdata/${targetId}`
+	)
+
+	xhr.addEventListener("readystatechange", function () {
+		if (this.readyState === 4) {
+
+			const getData = JSON.parse(this.responseText)
+
+			let newxhr = reqHead(
+				"PUT", 	`https://pisample-250e.restdb.io/rest/userdata/${targetId}`
+			)
+
+			if (getData.empresasViews.indexOf(empresaId) == -1)
+				getData.empresasViews.push(empresaId)
+
+			let empresasViews = getData.empresasViews
+
+			let newData = {
+				"empresasViews": empresasViews
+			}
+
+			newxhr.send(JSON.stringify(newData))
+		}
+	});
+	
+	xhr.send(null)
 }
 
 const salvarEmpresaNoCandidato = (empresaId, _id) => {
@@ -165,6 +196,15 @@ const salvarEmpresaNoCandidato = (empresaId, _id) => {
 			let xhr = reqHead(
 				"PUT", 	`https://pisample-250e.restdb.io/rest/userdata/${_id}`
 			)
+
+			xhr.addEventListener("readystatechange", function () {
+				if (this.readyState === 4) {
+
+					console.log(this.responseText)
+					window.location.reload(false)
+					
+				}
+			});
 
 			xhr.send(JSON.stringify(favoritoToCandidato));			
 

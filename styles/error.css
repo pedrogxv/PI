@@ -1,0 +1,42 @@
+.error {
+	color: white;
+	font-size: 1.4rem;
+	width: fit-content;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 1rem;
+	display: none;
+	border: 2px solid red;
+	border-radius: 10px;
+	background-color: darkred;
+	padding: 2rem;
+}
+.warning {
+	color: white;
+	font-size: 1.4rem;
+	width: fit-content;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 1rem;
+	display: none;
+	border: 2px solid darkorange;
+	border-radius: 10px;
+	background-color: orange;
+	padding: 2rem;
+}
+.success {
+	color: white;
+	font-size: 1.4rem;
+	width: fit-content;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 1rem;
+	display: none;
+	border: 2px solid green;
+	border-radius: 10px;
+	background-color: lightgreen;
+	padding: 2rem;
+}

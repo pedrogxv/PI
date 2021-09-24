@@ -1,7 +1,7 @@
 let clientCookies = document.cookie
 clientCookies = clientCookies.split(/[=, ;]+/)
 
-window.addEventListener("load", () => {
+window.addEventListener("load", () => {	
 	setPerfilInfoLoading(true)
 
 	let xhr = new XMLHttpRequest();
@@ -45,7 +45,8 @@ window.addEventListener("load", () => {
 		}
 	});
 
-	xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`);
+	xhr.open("GET", clientCookies[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`
+	: `https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`);
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 	xhr.setRequestHeader("cache-control", "no-cache");
@@ -118,7 +119,6 @@ const initiatePerfilEditToggle = (oldData) => {
 					// se a data antiga tiver o campo name do field
 					// isso é feito para prevenir novas datas no bd
 					if (typeof oldData[field.getAttribute("name")] != "undefined") {
-						console.log(oldData[field.getAttribute("name")])
 						// se for um campo de email
 						if (field.getAttribute("name") === "email") {
 							// se o valor não for nulo ou vazio
@@ -144,7 +144,8 @@ const initiatePerfilEditToggle = (oldData) => {
 					}
 				});
 
-				xhr.open("PUT", `https://pisample-250e.restdb.io/rest/userdata/${clientCookies[1]}`);
+				xhr.open("PUT", clientCookies[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/userdata/${clientCookies[1]}`
+				: `https://pisample-250e.restdb.io/rest/empresadata/${clientCookies[1]}`);
 				xhr.setRequestHeader("content-type", "application/json");
 				xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 				xhr.setRequestHeader("cache-control", "no-cache");

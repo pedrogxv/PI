@@ -19,10 +19,10 @@ include user-page-pugs/perfil.pug
 
 include user-page-pugs/profile.pug
 
-if userData.userMode == "pessoa"
+if userData.cpf
   include user-page-pugs/dashboard.pug
 
-if userData.userMode == "empresa"
+if userData.cnpj
   include user-page-pugs/candidato.pug
   include user-page-pugs/filtros.pug
 
@@ -30,7 +30,10 @@ script(src="pageScripts/profileClick.js")
 script(src="pageScripts/chatClick.js")
 script(src="pageScripts/removeLike.js")
 script(src="pageScripts/onLoad.js")
-if userData.userMode == "empresa"
+if userData.cnpj
   script(src="pageScripts/targetActions.js")
   script(src="pageScripts/filtroLoad.js")
   script(src="pageScripts/buscaLoad.js")
+if userData.cpf
+  script(src="pageScripts/contatoCount.js")
+  script(src="pageScripts/getCreated.js")

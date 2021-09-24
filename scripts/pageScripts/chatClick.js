@@ -1,6 +1,9 @@
 const chatBtns = document.querySelectorAll(".btn-chat")
 const avisoNoDataChat = document.querySelector("#aviso-no-data-chat")
 
+let browserCookiesForChat = document.cookie
+browserCookiesForChat = browserCookiesForChat.split(/[=, ;]+/)
+
 chatBtns.forEach((btn) => {
 	btn.addEventListener("click", () => {
 		avisoNoDataChat.style.display = "none"
@@ -27,7 +30,7 @@ chatBtns.forEach((btn) => {
 
 		let targetId = btn.getAttribute("value")
 
-		xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
+		xhr.open("GET", browserCookiesForChat[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 		xhr.setRequestHeader("cache-control", "no-cache");
@@ -43,6 +46,16 @@ const aplicarDadosDoUsuarioNoChat = (data) => {
 
 	const userPerfil = document.querySelectorAll(".chat-userPerfil")
 	userPerfil.forEach((perfil) => perfil.setAttribute("value", data["_id"]))
+
+	const userContato = document.querySelector(".chat-whatsapp")
+	if (userContato) {
+		userContato.href = `https://wa.me/${data["contato"]}`
+		const userEmail = document.querySelector(".chat-email")
+		userEmail.href = `mailto:${data["email"]}`
+	} else {
+		const contatoCountDom = document.querySelector("#contato-sim")
+		contatoCountDom.setAttribute("value", data["_id"])
+	}
 
 	setChatLoading(false)
 }

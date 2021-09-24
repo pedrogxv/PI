@@ -90,6 +90,11 @@ button:hover:disabled {
     border-bottom-color: green;
 }
 
+.btn-green-dark {
+	background-color: forestgreen;
+	border-bottom-color: darkgreen;
+}
+
 .btn-gold {
     background-color: goldenrod;
     color: white;
@@ -143,6 +148,10 @@ button:hover:disabled {
 
 .btn-remover::after {
     content: "Remover";
+}
+
+.btn-whatsapp::before {
+	content: url("whats.png");
 }
 
 /* btn-hover */

@@ -1,0 +1,68 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Login/Cadastrar
+  link(rel='stylesheet' type='text/css' href='styles/cad-login.css')
+.error(style=error?"display:flex": "")
+  p= error || ""
+.success(style=success?"display:flex": "")
+  p= success || ""
+.warning
+main
+  header.headerBanner
+    //   img(src='/baner.png' alt='')
+    img(src="logo_pi_nobg.png")
+  .mainContext
+    form#login.login(method='POST' action='/login')
+      h2 Login
+      p Email
+      input(type='email' name='email')
+      p Senha
+      input(type='password' name='senha')
+      br
+      input(type='submit' value='ENTRAR')
+      br
+      br
+      a#toggleCadastro(href='#' style='color: white; font-size: 1.3rem') Quero me cadastrar
+    #cadastro.register(style='display: none')
+      a#toggleLogin(href='#' style='color: white; font-size: 1.3rem') Quero fazer login
+      br
+      .wrapper
+        form.wrapperContext(action='/cadastro' method='POST')
+          h2 Candidato
+          p CPF
+          input(type='number' name='cpf')
+          p Nome
+          input(type='text' name='nome')
+          p E-mail
+          input(type='email' name='email')
+          p Senha
+          input(type='password' name='senha')
+          br
+          input(type='submit' value='CADASTRAR')
+        form.wrapperContext2(action='/cadastro' method='POST')
+          h2 Empresa
+          p CNPJ
+          input(type='number' name='cnpj')
+          p Nome
+          input(type='text' name='nome')
+          p E-mail
+          input(type='email' name='email')
+          p Senha
+          input(type='password' name='senha')
+          br
+          input(type='submit' value='CADASTRAR')
+script.
+  const cadastroDiv = document.querySelector("#cadastro")
+  const loginDiv = document.querySelector("#login")
+  document.querySelector("#toggleCadastro").addEventListener("click", () => {
+  cadastroDiv.style.display = "flex"
+  loginDiv.style.display = "none"
+  })
+  document.querySelector("#toggleLogin").addEventListener("click", () => {
+  cadastroDiv.style.display = "none"
+  loginDiv.style.display = "block"
+  })
+  console.log("cadastroDiv")

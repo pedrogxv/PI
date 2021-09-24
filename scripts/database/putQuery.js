@@ -1,10 +1,10 @@
-let putQuery = async (id, newData, apikey) => {
+let putQuery = async (id, newData, apikey, url) => {
 	
-	var request = require("request");
+	let request = require("request");
 
-	var options = { 
+	let options = { 
 		method: 'PUT',
-		url: `https://pisample-250e.restdb.io/rest/userdata/${id}`,
+		url: url + id,
 		headers: 
 		{ 
 			'cache-control': 'no-cache',
@@ -20,7 +20,7 @@ let putQuery = async (id, newData, apikey) => {
 
 			request(options, (error, response, body) => {
 				if (error) {
-					alert("Erro ao cadastrar: " + error)
+					console.log("Erro no put query: " + error)
 					reject(error)
 					throw new Error(error);
                 }

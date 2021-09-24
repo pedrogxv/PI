@@ -4,6 +4,9 @@ const avisoNoData = document.querySelector("#aviso-no-data")
 
 const loadingTarget = document.querySelector("#perfilCandidatoLoading")
 
+let browserCookiesForProfile = document.cookie
+browserCookiesForProfile = browserCookiesForProfile.split(/[=, ;]+/)
+
 profileLinks.forEach((profileLink) => {
 
 	profileLink.addEventListener('click', () => {
@@ -33,7 +36,7 @@ profileLinks.forEach((profileLink) => {
 
 		let targetId = profileLink.getAttribute("value")
 
-		xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
+		xhr.open("GET", browserCookiesForProfile[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 		xhr.setRequestHeader("cache-control", "no-cache");
@@ -130,18 +133,6 @@ const aplicarDataAosCampos = (data) => {
 		}
 
 	}
-
-	// profileInfo.forEach((info) => {
-	// 	const targetData = data[info.getAttribute("name")]
-	// 	if (typeof targetData == "undefined") {
-	// 		info.innerHTML = ""
-	// 	} else {
-	// 		info.innerHTML = targetData
-	// 	}
-
-	// 	if (info.getAttribute("name") === "idade")
-	// 		info.innerHTML += " Anos"
-	// })
 
 	setLoading(false)
 }
