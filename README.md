@@ -23,4 +23,4 @@ _JavaScript_
 _Node.js_
 _Express - Para conexão com o banco de dados._\
 _CSS - Para estilização_\
-_PUG (template engine)_\
+_PUG (template engine)_
