@@ -1,0 +1,68 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU' crossorigin='anonymous')
+  title PI - Complemento de Informa&ccedil;&otilde;es
+  style.
+    body {
+    background-color: rgb(241, 240, 237);
+    }
+    .img-wrapper {
+    border-radius: 100%;
+    overflow: hidden;
+    }
+    .img-wrapper > img {
+    height: 150px;
+    width: 150px;
+    }
+.error
+  p= error || ""
+header.m-3
+  h1
+    | Complemento de Informa&ccedil;&otilde;es 
+    if userData.cpf
+      i.text-info 1 / 3
+    else
+      i.text-info 1 / 1
+form.px-3.w-75(action='/complemento-info1' method="POST")
+  .d-flex.align-items-center.py-5.m-4
+    .img-wrapper
+      img(src='https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1' alt='')
+    .mx-5
+      label.form-label(for='imagem') Insira o link de uma imagem sua
+      input#exampleFormControlInput1.form-control(type='text' placeholder='link' name="imagem" value=userData.imagem ? `${userData.imagem}` : "" required='')
+  .d-flex.m-4
+    .px-3.w-50
+      label.form-label(for='contato') Contato
+      input#exampleFormControlInput2.form-control(type='text' placeholder='21 98327 3233' name="contato" value=userData.contato ? `${userData.contato}` : "" required='')
+    .px-3.w-50
+      label.form-label(for='endereco') Endere&ccedil;o
+      input#exampleFormControlInput3.form-control(type='text' placeholder='Rua Paes Leme 875, Londrina' name="endereco" value=userData.endereco ? `${userData.endereco}` : "" required='')
+  .d-flex.m-4
+    .w-50.px-3
+      label.form-label(for='areaInteresse1') &Aacute;rea de Interesse
+      input#exampleDataList.form-control(list='datalistOptions' placeholder='Escreva para pesquisar...' name="areaInteresse1" value=userData.areaInteresse ? `${userData.areaInteresse}` : "" required='')
+      datalist#datalistOptions
+        if areasInteresse.interessePrincipal
+          each val in areasInteresse.interessePrincipal
+            option(value=`${val}`)
+    .w-50.px-3
+      label.form-label(for='areaInteresse2') &Aacute;rea de Interesse Secund&aacute;ria
+      input#exampleDataList2.form-control(list='datalistOptions2' placeholder='Escreva para pesquisar...' name="areaInteresse2" value=userData.areaInteresse2 ? `${userData.areaInteresse2}` : "" required='')
+      datalist#datalistOptions2
+        if areasInteresse.interesseSecundario
+          each valSec in areasInteresse.interesseSecundario
+            option(value=`${valSec}`)
+  if userData
+    if userData.cnpj
+      .m-4.px-3.w-50.empresa-only
+        label.form-label(for='links') Qual o link do site da sua empresa?
+        input#exampleFormControlInput4.form-control(type='text' placeholder='Insira o link de sua empresa aqui' name="links" value=userData.links ? `${userData.links}` : "")
+  .float-end.mx-5
+    if userData
+      if userData.cnpj
+        button.btn.btn-primary.mb-3(type='submit') Finalizar
+      else
+        button.btn.btn-primary.mb-3(type='submit') Continuar        

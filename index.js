@@ -13,6 +13,7 @@ const post = require('./scripts/database/post-query')
 const putQuery = require('./scripts/database/putQuery')
 const cookieCheck = require('./scripts/cookieCheck')
 const queryThroughCookies = require('./scripts/database/queryThroughCookies')
+const getInteresses = require("./scripts/database/getInteresses")
 
 // class
 const UserData = require('./scripts/model/UserData')
@@ -35,21 +36,129 @@ app.use(express.static(path.join(__dirname, '/styles')));
 //Set up the Express router
 router.get('/', async (req, res) => {
 
-	cookieCheck(req, res, () => {
+	let query = null
+
+	if (req.cookies.senha && req.cookies.email) {
+
+		const email = req.cookies.email
+		const senha = req.cookies.senha
+
+		// checando se email já existe no servidor "User Data"
+		const pessoaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
+		
+		// checando se email já existe no servidor "Empresa Data"
+		const empresaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
+
+		if (pessoaQuery != null)
+			query = pessoaQuery
+		if (empresaQuery != null)
+			query = empresaQuery
+
+		if (!query[0].imagem || !query[0].endereco || !query[0].contato || !query[0].areaInteresse || !query[0].areaInteresse2) {
+			res.redirect("/complemento-info1")
+		}
+		else
+			res.redirect("/user-home")
+
+		if (!query)
+			res.render(path.join(__dirname, 'views/cadastro-login.pug'));		
+
+	} else {
+
+		// callback se refere ao que é pra fazer se NÃO houver cookies
 		res.render(path.join(__dirname, 'views/cadastro-login.pug'));
-	})
+
+	}
 
 });
 app.use('/', router);
+
+router.get("/complemento-info1", async (req, res) => {
+	const email = req.cookies.email
+	const senha = req.cookies.senha
+	let query = null
+
+	if (email && senha) {
+		// checando se email já existe no servidor "User Data"
+		const pessoaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
+		
+		// checando se email já existe no servidor "Empresa Data"
+		const empresaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
+
+
+		if (pessoaQuery != null) {
+			if (pessoaQuery.length > 0)
+				query = pessoaQuery[0]
+		}
+		if (empresaQuery != null) {
+			if (empresaQuery.length > 0)
+				query = empresaQuery
+		}
+		
+	} else {
+		res.redirect("/")
+	}
+
+	const areasInteresse = JSON.parse(await getInteresses(apikey))
+	
+	res.render(path.join(__dirname, 'views/complemento-info.pug'), {
+		"userData": query,
+		"areasInteresse": areasInteresse[0]
+	})
+})
+
+router.post("/complemento-info1", async (req, res) => {
+	const userMode = req.cookies.userMode
+	const url = userMode == "empresa" ? "https://pisample-250e.restdb.io/rest/empresadata/": "https://pisample-250e.restdb.io/rest/userdata/"
+	if (req.cookies._id) {
+		const parsed = await putQuery(req.cookies._id, {
+			"imagem": req.body.imagem,
+			"contato": req.body.contato,
+			"endereco": req.body.endereco,
+			"areaInteresse": req.body.areaInteresse1,
+			"areaInteresse2": req.body.areaInteresse2,
+			"links": req.body.links ? [req.body.links] : [],
+		}, apikey, url)
+		if (req.cookies.userMode == "empresa") {
+			res.redirect("/user-home")
+		}
+		if (req.cookies.userMode == "pessoa") {
+			res.redirect("/complemento-info2")
+		}
+	} else {
+		res.redirect("/")
+	}
+})
+
+router.get("/complemento-info2", async (req, res) => {
+	const email = req.cookies.email
+	const senha = req.cookies.senha
+
+	try {
+		// checando se email já existe no servidor "User Data"
+		const pessoaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
+		
+
+		if (pessoaQuery == null) 
+			throw "pessoaQuery null"
+		if (pessoaQuery.length > 0)
+			throw "nenhum usuário encontrado"
+
+		res.render(path.join(__dirname, 'views/complemento-info.pug'), {
+			"userData": pessoaQuery[0]
+		})
+	} catch (e) {
+		console.log(e)
+		res.redirect("/logout")
+	}
+
+
+})
 
 // POST CADASTRO
 router.post('/cadastro', async (req, res) => {
 
 	try {
-
-		// const getInteresses = require("./scripts/database/getInteresses.js")
-
-		// const areasInteresse = JSON.parse(await getInteresses(apikey))
 		
 		const userMode = req.body.cpf ? "pessoa" : "empresa"
 		const cpf = req.body.cpf || " "
@@ -88,14 +197,14 @@ router.post('/cadastro', async (req, res) => {
 					'nome': req.body.nome,
 					'email': req.body.email,
 					'senha': req.body.senha,
+					'cnpj': req.body.cnpj,
 					'favoritos': [],
 					'links': [],
 					'currentTarget': "",
-					'descricao': req.body.descricao,
+					'descricao': "",
 					'preferencias': [],
-					'cnpj': req.body.cnpj,
-					'areaInteresse': req.body.areaInteresse,
-					'areaInteresse2': req.body.areaInteresse2,
+					'areaInteresse': "",
+					'areaInteresse2': "",
 					'pilhaCandidatos': []
 				}, apikey, "https://pisample-250e.restdb.io/rest/empresadata")
 			}
@@ -104,19 +213,19 @@ router.post('/cadastro', async (req, res) => {
 					'nome': req.body.nome,
 					'email': req.body.email,
 					'idade': req.body.idade,
-					'ensino': req.body.ensino,
+					'cpf': req.body.cpf,
 					'senha': req.body.senha,
-					'experiencia': req.body.experiencia,
+					'ensino': "",
+					'experiencia': "",
 					'favoritos': [],
 					'links': [],
-					'descricao': req.body.descricao,
+					'descricao': "",
 					'preferencias': [],
 					'cursos': "",
 					'empresasViews': [],
 					'contatoCount': [],
-					'cpf': req.body.cpf,
-					'areaInteresse': req.body.areaInteresse,
-					'areaInteresse2': req.body.areaInteresse2
+					'areaInteresse': "",
+					'areaInteresse2': ""
 				}, apikey, 'https://pisample-250e.restdb.io/rest/userdata')
 			}
 			else
@@ -168,7 +277,11 @@ router.post('/login', async (req, res) => {
 		res.cookie(`senha`,`${query[0].senha}`);
 		res.cookie(`userMode`,`${userMode}`);
 
-		res.redirect("/user-home")
+		if (!query[0].imagem || !query[0].endereco || !query[0].contato || !query[0].areaInteresse || !query[0].areaInteresse2) {
+			res.redirect("/complemento-info1")
+		}
+		else
+			res.redirect("/user-home")
 
 	} catch (e) {
 		console.log(e)
