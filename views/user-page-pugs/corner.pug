@@ -7,7 +7,7 @@ aside.userCorner
         a.no-link.btn.bg-green.btn-border-green(href="#candidatoPainel" style="margin-top: 5px;") Continuar busca
   header.userCorner-head
     a.no-link(href='#perfil')
-      img.roundedImg-big(src='userSamples/neon.jpg' title='Perfil' alt='User Image')
+      img.roundedImg-big(src=`${userData.imagem}` title='Perfil' alt='User Image')
     .userCorner-head-userText
       h2= userData.nome
       a(href='' title='Sair da conta')
@@ -36,7 +36,7 @@ aside.userCorner
         if val
           .userCorner-userList-user
             a.profileLink.no-link(href="#candidatoProfile" value=`${val._id}`)
-              img(src='/userSamples/felipao.jpg' alt='User image')
+              img(src=`${val.imagem}` alt='User image')
             .userInfo
               h4= val.nome
               if val.idade

@@ -11,12 +11,8 @@ const pug = require('pug');
 const dbQuery = require('./scripts/database/get-query')
 const post = require('./scripts/database/post-query')
 const putQuery = require('./scripts/database/putQuery')
-const cookieCheck = require('./scripts/cookieCheck')
 const queryThroughCookies = require('./scripts/database/queryThroughCookies')
 const getInteresses = require("./scripts/database/getInteresses")
-
-// class
-const UserData = require('./scripts/model/UserData')
 
 const apikey = process.env['apikey']
 
@@ -36,9 +32,11 @@ app.use(express.static(path.join(__dirname, '/styles')));
 //Set up the Express router
 router.get('/', async (req, res) => {
 
-	let query = null
+	try {
+		if (!req.cookies.senha || !req.cookies.email)
+			throw ""
 
-	if (req.cookies.senha && req.cookies.email) {
+		let query = null
 
 		const email = req.cookies.email
 		const senha = req.cookies.senha
@@ -49,110 +47,78 @@ router.get('/', async (req, res) => {
 		// checando se email já existe no servidor "Empresa Data"
 		const empresaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
 
-		if (pessoaQuery != null)
+		if (pessoaQuery.length > 0)
 			query = pessoaQuery
-		if (empresaQuery != null)
+		if (empresaQuery.length > 0)
 			query = empresaQuery
 
+		console.log(query)	
+
+		if (!query)
+			throw "Nenhum usuário encontrado. Faça login novamente."
+			
 		if (!query[0].imagem || !query[0].endereco || !query[0].contato || !query[0].areaInteresse || !query[0].areaInteresse2) {
+			res.redirect("/complemento-info1")
+		}
+		else if (req.cookies.userMode == "candidato" && !query[0].idade) {
 			res.redirect("/complemento-info1")
 		}
 		else
 			res.redirect("/user-home")
 
-		if (!query)
-			res.render(path.join(__dirname, 'views/cadastro-login.pug'));		
+	} catch (e) {
 
-	} else {
-
-		// callback se refere ao que é pra fazer se NÃO houver cookies
-		res.render(path.join(__dirname, 'views/cadastro-login.pug'));
-
+		res.render(path.join(__dirname, 'views/cadastro-login.pug'), {
+			"error": `${e}`
+		});
 	}
+	
 
 });
 app.use('/', router);
 
 router.get("/complemento-info1", async (req, res) => {
-	const email = req.cookies.email
-	const senha = req.cookies.senha
-	let query = null
 
-	if (email && senha) {
-		// checando se email já existe no servidor "User Data"
-		const pessoaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
+	try {
+		const areasInteresse = JSON.parse(await getInteresses(apikey))
+
+		const userMode = req.cookies.userMode
 		
-		// checando se email já existe no servidor "Empresa Data"
-		const empresaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
-
-
-		if (pessoaQuery != null) {
-			if (pessoaQuery.length > 0)
-				query = pessoaQuery[0]
-		}
-		if (empresaQuery != null) {
-			if (empresaQuery.length > 0)
-				query = empresaQuery
-		}
-		
-	} else {
+		res.render(path.join(__dirname, 'views/complemento-info.pug'), {
+			"userMode": userMode,
+			"areasInteresse": areasInteresse[0]
+		})
+	} catch (e) {
+		console.log(e)
 		res.redirect("/")
 	}
 
-	const areasInteresse = JSON.parse(await getInteresses(apikey))
-	
-	res.render(path.join(__dirname, 'views/complemento-info.pug'), {
-		"userData": query,
-		"areasInteresse": areasInteresse[0]
-	})
+
 })
 
 router.post("/complemento-info1", async (req, res) => {
 	const userMode = req.cookies.userMode
-	const url = userMode == "empresa" ? "https://pisample-250e.restdb.io/rest/empresadata/": "https://pisample-250e.restdb.io/rest/userdata/"
+	const url = userMode == "empresa" 
+		? "https://pisample-250e.restdb.io/rest/empresadata/"
+		: "https://pisample-250e.restdb.io/rest/userdata/"
+
 	if (req.cookies._id) {
-		const parsed = await putQuery(req.cookies._id, {
+		const newData = {
 			"imagem": req.body.imagem,
 			"contato": req.body.contato,
 			"endereco": req.body.endereco,
 			"areaInteresse": req.body.areaInteresse1,
 			"areaInteresse2": req.body.areaInteresse2,
 			"links": req.body.links ? [req.body.links] : [],
-		}, apikey, url)
-		if (req.cookies.userMode == "empresa") {
-			res.redirect("/user-home")
 		}
-		if (req.cookies.userMode == "pessoa") {
-			res.redirect("/complemento-info2")
-		}
+		if (req.cookies.userMode === "candidato")
+			newData["idade"] = req.body.idade
+		await putQuery(req.cookies._id, newData, apikey, url)
+
+		res.redirect("/user-home")
 	} else {
 		res.redirect("/")
 	}
-})
-
-router.get("/complemento-info2", async (req, res) => {
-	const email = req.cookies.email
-	const senha = req.cookies.senha
-
-	try {
-		// checando se email já existe no servidor "User Data"
-		const pessoaQuery = JSON.parse(await dbQuery(`"$and": [{"email": "${email}"}, {"senha": "${senha}"}]`, apikey, "https://pisample-250e.restdb.io/rest/userdata?"))
-		
-
-		if (pessoaQuery == null) 
-			throw "pessoaQuery null"
-		if (pessoaQuery.length > 0)
-			throw "nenhum usuário encontrado"
-
-		res.render(path.join(__dirname, 'views/complemento-info.pug'), {
-			"userData": pessoaQuery[0]
-		})
-	} catch (e) {
-		console.log(e)
-		res.redirect("/logout")
-	}
-
-
 })
 
 // POST CADASTRO
@@ -160,7 +126,7 @@ router.post('/cadastro', async (req, res) => {
 
 	try {
 		
-		const userMode = req.body.cpf ? "pessoa" : "empresa"
+		const userMode = req.body.cpf ? "candidato" : "empresa"
 		const cpf = req.body.cpf || " "
 		const cnpj = req.body.cnpj || " "
 
@@ -170,7 +136,7 @@ router.post('/cadastro', async (req, res) => {
 			});
 			return
 		}
-		if (userMode == "pessoa" && cpf.length != 11) {
+		if (userMode == "candidato" && cpf.length != 11) {
 			res.render(path.join(__dirname, '/views/cadastro-login.pug'), {
 				"error": "CPF deve ter 11 dígitos!"
 			});
@@ -208,7 +174,7 @@ router.post('/cadastro', async (req, res) => {
 					'pilhaCandidatos': []
 				}, apikey, "https://pisample-250e.restdb.io/rest/empresadata")
 			}
-			else if (userMode === "pessoa") {
+			else if (userMode === "candidato") {
 				const postQuery = await post({
 					'nome': req.body.nome,
 					'email': req.body.email,
@@ -244,14 +210,6 @@ router.post('/cadastro', async (req, res) => {
 
 })
 
-router.get('/login', (req, res) => {
-	
-	cookieCheck(req, res, () => {
-		res.render(path.join(__dirname, 'views/login.pug'))
-	})
-
-})
-
 router.post('/login', async (req, res) => {
 
 	try {
@@ -269,7 +227,7 @@ router.post('/login', async (req, res) => {
 			
 		let query = pessoaQuery[0] ? pessoaQuery : empresaQuery
 
-		let userMode = pessoaQuery[0] ? "pessoa" : "empresa"
+		let userMode = pessoaQuery[0] ? "candidato" : "empresa"
 
 		// gravando cookies
 		res.cookie(`_id`,`${query[0]._id}`);
@@ -310,9 +268,11 @@ router.get('/user-home', async (req, res) => {
 		if (!req.cookies.senha || !req.cookies.email || !req.cookies.userMode)
 			throw "No cookies!"
 
-		let url = req.cookies.userMode == "pessoa" ? "https://pisample-250e.restdb.io/rest/userdata?" : "https://pisample-250e.restdb.io/rest/empresadata?"
+		let url = req.cookies.userMode == "candidato" ? "https://pisample-250e.restdb.io/rest/userdata?" : "https://pisample-250e.restdb.io/rest/empresadata?"
 
 		let query = JSON.parse(await queryThroughCookies(req, res))
+
+		console.log(query)
 
 		// se não encontrar um objeto na query
 		// retornar e fazer logout (para excluir os cookies)
@@ -391,7 +351,7 @@ router.post('/mudar-senha', async (req, res) => {
 			throw "Senhas não coincidem!"
 
 		const _id = req.cookies._id
-		const url = req.cookies.userMode == "pessoa" ? "https://pisample-250e.restdb.io/rest/userdata/" :
+		const url = req.cookies.userMode == "candidato" ? "https://pisample-250e.restdb.io/rest/userdata/" :
 		"https://pisample-250e.restdb.io/rest/empresadata/"
 
 		let newData = {
@@ -433,7 +393,7 @@ router.post('/reset', async (req, res) => {
 	try {
 
 		const _id = req.cookies._id
-		const url = req.cookies.userMode == "pessoa" ? "https://pisample-250e.restdb.io/rest/userdata/" :
+		const url = req.cookies.userMode == "candidato" ? "https://pisample-250e.restdb.io/rest/userdata/" :
 		"https://pisample-250e.restdb.io/rest/empresadata/"
 		
 		let newData = {}

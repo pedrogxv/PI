@@ -46,7 +46,7 @@ removeLike.forEach( (like, idx) => {
 			}
 		});
 
-		xhr.open("GET", cookies[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email":"${cookies[3]}","senha":"${cookies[5]}"}`
+		xhr.open("GET", cookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email":"${cookies[3]}","senha":"${cookies[5]}"}`
 		: `https://pisample-250e.restdb.io/rest/empresadata?q={"email":"${cookies[3]}","senha":"${cookies[5]}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
@@ -87,7 +87,7 @@ removeLike.forEach( (like, idx) => {
 			}
 		});
 
-		xhr.open("PUT", cookies[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`
+		xhr.open("PUT", cookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`
 		: `https://pisample-250e.restdb.io/rest/empresadata/${data[0]._id}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
@@ -134,7 +134,7 @@ removeLike.forEach( (like, idx) => {
 					}
 				});
 
-				xhr.open("PUT", cookies[7] == "pessoa" ?`https://pisample-250e.restdb.io/rest/empresadata/${targetId}`
+				xhr.open("PUT", cookies[7] == "candidato" ?`https://pisample-250e.restdb.io/rest/empresadata/${targetId}`
 				: `https://pisample-250e.restdb.io/rest/userdata/${targetId}`);
 				xhr.setRequestHeader("content-type", "application/json");
 				xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
@@ -144,7 +144,7 @@ removeLike.forEach( (like, idx) => {
 			}
 		});
 
-		xhr.open("GET", cookies[7] == "pessoa" ? 
+		xhr.open("GET", cookies[7] == "candidato" ? 
 		`https://pisample-250e.restdb.io/rest/empresadata?q={"_id":"${targetId}"}`
 		: `https://pisample-250e.restdb.io/rest/userdata?q={"_id":"${targetId}"}`);
 		xhr.setRequestHeader("content-type", "application/json");

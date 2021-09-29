@@ -36,7 +36,7 @@ profileLinks.forEach((profileLink) => {
 
 		let targetId = profileLink.getAttribute("value")
 
-		xhr.open("GET", browserCookiesForProfile[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
+		xhr.open("GET", browserCookiesForProfile[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 		xhr.setRequestHeader("cache-control", "no-cache");
@@ -86,6 +86,7 @@ const aplicarDataAosCampos = (data) => {
 			&& dataKeys[key] != "lastVisited"
 			&& dataKeys[key] != "next"
 			&& dataKeys[key] != "currentTarget"
+			&& dataKeys[key] != "empresasViews"
 			&& dataKeys[key] != "pilhaCandidatos"
 			&& dataKeys[key] != "preferencias"
 		) {
@@ -96,6 +97,10 @@ const aplicarDataAosCampos = (data) => {
 			}
 			if (dataKeys[key] == "idade") {
 				document.querySelector(".profileInfo[name='idade']").innerHTML = data[dataKeys[key]] + " Anos"
+				continue
+			}
+			if (dataKeys[key] == "imagem") {
+				document.querySelector(".profileInfo[name='imagem']").src = data[dataKeys[key]]
 				continue
 			}
 

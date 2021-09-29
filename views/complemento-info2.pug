@@ -15,29 +15,49 @@ header.m-3
     i.text-info 2 / 3
 form.w-50(action='')
   .d-flex.flex-column.w-75.m-5
-    label.form-label(for='exampleFormControlInput1') Link do seu Curr&iacute;culo
-    input#exampleFormControlInput1.form-control(type='text' placeholder='Insira o link aqui')
+    label.form-label(for='curriculo') Link do seu Curr&iacute;culo
+    input#curriculo.form-control(type='text' name='curriculo' placeholder='Insira o link aqui' value=userData.curriculo ? `${userData.curriculo}` : "" required='')
     p.py-3.fw-light
       | Caso n&atilde;o tenha um curr&iacute;culo, voc&ecirc; pode montar um gratuitamente em sites como Venngage.
   .d-flex.flex-column.w-75.m-5
-    label.form-label(for='exampleFormControlInput1') Gostaria de se apresentar?
-    input#exampleFormControlInput1.form-control(type='text' placeholder='Insira o link de sua apresentação aqui')
+    label.form-label(for='apresentacao') Gostaria de se apresentar?
+    input#apresentacao.form-control(type='text' name='apresentacao' placeholder='Insira o link de sua apresentação aqui' value=userData.apresentacao ? `${userData.apresentacao}` : "")
   .d-flex.flex-column.w-75.m-5
     label.form-label(for='cursos') Cursos
-    #cursos.d-flex.cursos
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Curso 1')
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Curso 2')
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Curso 3')
-    #cursos.d-flex.cursos.py-1
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Curso 4')
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Curso 5')
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Curso 6')
+    if (userData.cursos)
+      #cursos.d-flex.cursos
+      - var n = 0
+      while n < 6
+        if (n = 3)
+          #cursos.d-flex.cursos.py-1
+        if (userData.cursos[n])
+          input#exampleFormControlInput3.form-control.mx-1(type='text' placeholder=`Curso ${n + 1}` name=`curso${n + 1}` value=`${userData.cursos[n]}`)
+        else
+          input#exampleFormControlInput3.form-control.mx-1(type='text' placeholder=`Curso ${n + 1}` name=`curso${n + 1}`)
+    else
+      #cursos.d-flex.cursos    
+        input#exampleFormControlInput3.form-control.mx-1(type='text' placeholder='Curso 1' name='curso1')
+        input#exampleFormControlInput4.form-control.mx-1(type='text' placeholder='Curso 2' name='curso2')
+        input#exampleFormControlInput5.form-control.mx-1(type='text' placeholder='Curso 3' name='curso3')
+      #cursos.d-flex.cursos.py-1
+        input#exampleFormControlInput6.form-control.mx-1(type='text' placeholder='Curso 4' name='curso4')
+        input#exampleFormControlInput7.form-control.mx-1(type='text' placeholder='Curso 5' name='curso5')
+        input#exampleFormControlInput8.form-control.mx-1(type='text' placeholder='Curso 6' name='curso6')
   .d-flex.flex-column.w-75.m-5
     label.form-label(for='cursos') Tem alguma rede social?
-    #cursos.d-flex.cursos.py-1
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Insira o link aqui')
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Insira o link aqui')
-      input#exampleFormControlInput1.form-control.mx-1(type='text' placeholder='Insira o link aqui')
+    if (userData.links)
+      - var n = 0
+      while (n < 3)
+        #cursos.d-flex.cursos.py-1
+        if (userData.links[n])
+          input.form-control.mx-1(type='text' placeholder='Insira o link aqui' name=`links${n + 1}` value=`${userData.links[n]}`)
+        else
+          input.form-control.mx-1(type='text' placeholder='Insira o link aqui' name=`links${n + 1}`)
+    else
+      #cursos.d-flex.cursos.py-1
+        input#exampleFormControlInput9.form-control.mx-1(type='text' placeholder='Insira o link aqui' name='links1')
+        input#exampleFormControlInput10.form-control.mx-1(type='text' placeholder='Insira o link aqui' name='links2')
+        input#exampleFormControlInput11.form-control.mx-1(type='text' placeholder='Insira o link aqui' name='links3')
   .d-flex.justify-content-between.mx-5
-    a(href='') Voltar
+    a(href='/complemento-info1') Voltar
     button.btn.btn-primary.mb-3(type='submit') Continuar

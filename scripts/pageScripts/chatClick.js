@@ -16,7 +16,7 @@ chatBtns.forEach((btn) => {
 			if (this.readyState === 4) {
 				try {
 					const data = JSON.parse(this.responseText);
-					console.log(data)
+
 					if (data[0])
 						aplicarDadosDoUsuarioNoChat(data[0])
 					else
@@ -30,7 +30,7 @@ chatBtns.forEach((btn) => {
 
 		let targetId = btn.getAttribute("value")
 
-		xhr.open("GET", browserCookiesForChat[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
+		xhr.open("GET", browserCookiesForChat[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 		xhr.setRequestHeader("cache-control", "no-cache");
@@ -41,6 +41,19 @@ chatBtns.forEach((btn) => {
 })
 
 const aplicarDadosDoUsuarioNoChat = (data) => {
+	const userInfo = document.querySelectorAll(".chatInfo")
+	userInfo.forEach((info) => {
+		if (data[`${info.name}`]) {
+			if (info.name == "nome")
+				info.innerHTML = data[info.name]
+			if (info.name == "_id")
+				info.setAttribute("value", data[info.name])
+			if (info.name == "imagem")
+				info.setAttribute("src", data[info.name])
+			console.log(info.name)
+		}
+	})
+	
 	const userName = document.querySelectorAll(".chat-userName")
 	userName.forEach((user) => user.innerHTML = data["nome"])
 

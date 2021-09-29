@@ -16,7 +16,6 @@ window.addEventListener("load", () => {
 
 				for (let key in dataKeys) {
 					if (!dataKeys[key].startsWith("_") 
-					    && !dataKeys[key].startsWith("areaInteresse") 
 						&& dataKeys[key] != "senha"
 						&& dataKeys[key] != "id"
 						&& dataKeys[key] != "userMode"
@@ -25,8 +24,15 @@ window.addEventListener("load", () => {
 						&& dataKeys[key] != "lastVisited"
 						&& dataKeys[key] != "next"
 						&& dataKeys[key] != "currentTarget"
+						&& dataKeys[key] != "empresasViews"
+						&& dataKeys[key] != "empresasViews"
 						&& dataKeys[key] != "pilhaCandidatos"
+						&& dataKeys[key] != "contatoCount"
 						&& dataKeys[key] != "preferencias"
+
+						&& dataKeys[key] != "links"
+						&& dataKeys[key] != "cursos"
+						&& dataKeys[key] != "experiencia"
 					) {
 
 						createFormField(dataKeys[key], data[0][dataKeys[key]])
@@ -45,7 +51,7 @@ window.addEventListener("load", () => {
 		}
 	});
 
-	xhr.open("GET", clientCookies[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`
+	xhr.open("GET", clientCookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`
 	: `https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`);
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
@@ -106,51 +112,55 @@ const initiatePerfilEditToggle = (oldData) => {
 			saveInfo.style.display = 'none'
 		} else {
 			// exibindo botão de salvar
-			saveInfo.style.display = 'block'
+			saveInfo.style.display = 'flex'
 			saveInfo.addEventListener("click", () => {
+				try {
+					toggleHandler.click()
+					setPerfilInfoLoading(true)
+					saveInfo.style.display = 'none'
+					
+					let newData = {}
 
-				toggleHandler.click()
-				setPerfilInfoLoading(true)
-				saveInfo.style.display = 'none'
-				
-				let newData = {}
+					fieldToggles.forEach((field) => {
 
-				fieldToggles.forEach((field) => {
-					// se a data antiga tiver o campo name do field
-					// isso é feito para prevenir novas datas no bd
-					if (typeof oldData[field.getAttribute("name")] != "undefined") {
-						// se for um campo de email
-						if (field.getAttribute("name") === "email") {
-							// se o valor não for nulo ou vazio
+						// se a data antiga tiver o campo name do field
+						// isso é feito para prevenir novas datas no bd
+						const nome_do_campo = field.getAttribute("name")
+						if (oldData[nome_do_campo]) {
+							
+							if (!field.value)
+								throw (`Campo < ${nome_do_campo} > não pode ser nulo`)
+							
 							if (field.value)
-								newData[field.getAttribute("name")] = field.value
-							else {
-								alert("Seu email não pode ser nulo / vazio.")
-							}
-						} else {
-							newData[field.getAttribute("name")] = field.value
+								newData[nome_do_campo] = field.value
+
 						}
-					}
-				})
+					})
 
-				let data = JSON.stringify(newData);
+					let data = JSON.stringify(newData);
 
-				let xhr = new XMLHttpRequest();
-				xhr.withCredentials = false;
+					console.log(data)
 
-				xhr.addEventListener("readystatechange", function () {
-					if (this.readyState === 4) {
-						window.location.reload()
-					}
-				});
+					let xhr = new XMLHttpRequest();
+					xhr.withCredentials = false;
 
-				xhr.open("PUT", clientCookies[7] == "pessoa" ? `https://pisample-250e.restdb.io/rest/userdata/${clientCookies[1]}`
-				: `https://pisample-250e.restdb.io/rest/empresadata/${clientCookies[1]}`);
-				xhr.setRequestHeader("content-type", "application/json");
-				xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
-				xhr.setRequestHeader("cache-control", "no-cache");
+					xhr.addEventListener("readystatechange", function () {
+						if (this.readyState === 4) {
+							window.location.reload()
+						}
+					});
 
-				xhr.send(data);
+					xhr.open("PUT", clientCookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata/${clientCookies[1]}`
+					: `https://pisample-250e.restdb.io/rest/empresadata/${clientCookies[1]}`);
+					xhr.setRequestHeader("content-type", "application/json");
+					xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
+					xhr.setRequestHeader("cache-control", "no-cache");
+
+					xhr.send(data);
+				} catch (e) {
+					console.log(e)
+					alert(e)
+				}
 
 			})
 		}

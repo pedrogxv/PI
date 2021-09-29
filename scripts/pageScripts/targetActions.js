@@ -250,8 +250,15 @@ const updateCandidatoPanelInfo = (targetId, actionMode) => {
 				
 					let userValue = document.querySelector(`#targetUser-${dataKeys[key]}, .targetUser-${dataKeys[key]}`)
 
-					if (dataKeys[key] === "_id")
+					if (dataKeys[key] === "_id") {
 						userValue.setAttribute("value", `${newData[0][dataKeys[key]]}`)
+						continue
+					}
+					if (dataKeys[key] === "imagem") {
+						userValue.setAttribute("src", `${newData[0][dataKeys[key]]}`)
+						console.log(userValue)
+						continue
+					}
 
 					if (userValue)
 						userValue.innerHTML = newData[0][dataKeys[key]]

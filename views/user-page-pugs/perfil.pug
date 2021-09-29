@@ -11,7 +11,7 @@ section#perfil.panel.panel-flex-column
         if userData.cpf
           p.description(style="") #{userData.idade} Anos
       a.no-link(href='#perfil')
-      img.roundedImg-bigger(src='userSamples/neon.jpg' title='Perfil' alt='User Image')
+      img.roundedImg-bigger(src=`${userData.imagem}` title='Perfil' alt='User Image')
     .loading-div#perfilInfo-loading(style="margin: 30px;")
       .loading-rotate
       .loading-title

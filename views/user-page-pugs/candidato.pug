@@ -12,7 +12,7 @@ section#candidatoPainel.panel.panel-grid
           label(for='cursos') Cursos
           p#targetUser-cursos.targetUser-cursos.target-info(name='cursos')= targetUser.curso
     .panel-perfil
-      img.panel-perfil-pic.profileLink.targetUser-_id(src='/userSamples/italo.jpg' alt='foto de perfil' draggable='false' onclick="window.location.replace('https://pi.pedrogxv.repl.co/user-home#candidatoProfile')" value=`${targetUser._id}`)
+      img.panel-perfil-pic.profileLink.targetUser-_id.targetUser-imagem(src=`${targetUser.imagem}` alt='foto de perfil' draggable='false' onclick="window.location.replace('https://pi.pedrogxv.repl.co/user-home#candidatoProfile')" value=`${targetUser._id}`)
       .panel-perfil-actions
         .panel-perfil-actions-info
           h2#targetUser-nome.target-info(name="nome")= targetUser.nome
