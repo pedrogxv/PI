@@ -20,8 +20,11 @@ downIcon.addEventListener('click', () => {
 	makeActionRequest(actionMode.DOWN, downIcon.value)
 })
 
-let browserCookies = document.cookie
-browserCookies = browserCookies.split(/[=, ;]+/)
+let browserCookies = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, ...value] = current.split('=');
+    prev[name] = value.join('=');
+    return prev;
+}, {});
 
 const makeActionRequest = (actionModeVal, _id) => {
 	console.log(browserCookies)
@@ -29,7 +32,7 @@ const makeActionRequest = (actionModeVal, _id) => {
 
 	const xhr = reqHead(
 		"GET", 
-		`https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${browserCookies[3]}", "senha": "${browserCookies[5]}"}`
+		`https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${browserCookies.email}", "senha": "${browserCookies.senha}"}`
 	)
 
 	xhr.addEventListener("readystatechange", function () {

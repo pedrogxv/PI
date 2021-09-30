@@ -1,1 +1,0 @@
-const accCreationDate = document.querySelector("#accountCreationDate")

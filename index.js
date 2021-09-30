@@ -159,7 +159,7 @@ router.post('/cadastro', async (req, res) => {
 		else {
 
 			if (userMode === "empresa") {
-				const postQuery = await post({
+				JSON.parse(await post({
 					'nome': req.body.nome,
 					'email': req.body.email,
 					'senha': req.body.senha,
@@ -172,10 +172,11 @@ router.post('/cadastro', async (req, res) => {
 					'areaInteresse': "",
 					'areaInteresse2': "",
 					'pilhaCandidatos': []
-				}, apikey, "https://pisample-250e.restdb.io/rest/empresadata")
+				}, apikey, "https://pisample-250e.restdb.io/rest/empresadata"))
+				console.log(postQuery)
 			}
 			else if (userMode === "candidato") {
-				const postQuery = await post({
+				JSON.parse(await post({
 					'nome': req.body.nome,
 					'email': req.body.email,
 					'idade': req.body.idade,
@@ -192,7 +193,8 @@ router.post('/cadastro', async (req, res) => {
 					'contatoCount': [],
 					'areaInteresse': "",
 					'areaInteresse2': ""
-				}, apikey, 'https://pisample-250e.restdb.io/rest/userdata')
+				}, apikey, 'https://pisample-250e.restdb.io/rest/userdata'))
+
 			}
 			else
 				throw "User Mode não definido (index.js L.138)"
@@ -205,7 +207,9 @@ router.post('/cadastro', async (req, res) => {
 
 	} catch (e) {
 		console.log(e)
-		res.redirect("/");
+		res.render(path.join(__dirname, 'views/cadastro-login.pug'), {
+			'error': e
+		})
 	}
 
 })
@@ -360,7 +364,7 @@ router.post('/mudar-senha', async (req, res) => {
 
 		const queryRes = await putQuery(_id, newData, apikey, url)
 
-		res.redirect('/')
+		res.redirect('/logout')
 		
 	} catch (e) {
 		console.log(e)

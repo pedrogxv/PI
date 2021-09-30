@@ -1,7 +1,10 @@
 const contatoCount = document.querySelector("#contato-sim")
 
-let contatoCookies = document.cookie
-contatoCookies = contatoCookies.split(/[=, ;]+/)
+let contatoCookies = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, ...value] = current.split('=');
+    prev[name] = value.join('=');
+    return prev;
+}, {});
 
 contatoCount.addEventListener("click", () => {
 
@@ -20,7 +23,7 @@ contatoCount.addEventListener("click", () => {
 			let xhr = new XMLHttpRequest();
 			xhr.withCredentials = false;
 
-			xhr.open("PUT", `https://pisample-250e.restdb.io/rest/userdata/${contatoCookies[1]}`);
+			xhr.open("PUT", `https://pisample-250e.restdb.io/rest/userdata/${contatoCookies._id}`);
 			xhr.setRequestHeader("content-type", "application/json");
 			xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 			xhr.setRequestHeader("cache-control", "no-cache");
@@ -31,7 +34,7 @@ contatoCount.addEventListener("click", () => {
 		}
 	});
 
-	xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata/${contatoCookies[1]}`);
+	xhr.open("GET", `https://pisample-250e.restdb.io/rest/userdata/${contatoCookies._id}`);
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 	xhr.setRequestHeader("cache-control", "no-cache");

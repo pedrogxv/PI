@@ -1,8 +1,11 @@
 const removeLike = document.querySelectorAll(".removeLike")
 const userDiv = document.querySelectorAll(".userCorner-userList-user")
 
-let cookies = document.cookie
-cookies = cookies.split(/[=, ;]+/)
+let cookies = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, ...value] = current.split('=');
+    prev[name] = value.join('=');
+    return prev;
+}, {});
 
 removeLike.forEach( (like, idx) => {
 
@@ -46,8 +49,8 @@ removeLike.forEach( (like, idx) => {
 			}
 		});
 
-		xhr.open("GET", cookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email":"${cookies[3]}","senha":"${cookies[5]}"}`
-		: `https://pisample-250e.restdb.io/rest/empresadata?q={"email":"${cookies[3]}","senha":"${cookies[5]}"}`);
+		xhr.open("GET", cookies.userMode == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email":"${cookies.email}","senha":"${cookies.senha}"}`
+		: `https://pisample-250e.restdb.io/rest/empresadata?q={"email":"${cookies.email}","senha":"${cookies.senha}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 		xhr.setRequestHeader("cache-control", "no-cache");
@@ -87,7 +90,7 @@ removeLike.forEach( (like, idx) => {
 			}
 		});
 
-		xhr.open("PUT", cookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`
+		xhr.open("PUT", cookies.userMode == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata/${data[0]._id}`
 		: `https://pisample-250e.restdb.io/rest/empresadata/${data[0]._id}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
@@ -134,7 +137,7 @@ removeLike.forEach( (like, idx) => {
 					}
 				});
 
-				xhr.open("PUT", cookies[7] == "candidato" ?`https://pisample-250e.restdb.io/rest/empresadata/${targetId}`
+				xhr.open("PUT", cookies.userMode == "candidato" ?`https://pisample-250e.restdb.io/rest/empresadata/${targetId}`
 				: `https://pisample-250e.restdb.io/rest/userdata/${targetId}`);
 				xhr.setRequestHeader("content-type", "application/json");
 				xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
@@ -144,7 +147,7 @@ removeLike.forEach( (like, idx) => {
 			}
 		});
 
-		xhr.open("GET", cookies[7] == "candidato" ? 
+		xhr.open("GET", cookies.userMode == "candidato" ? 
 		`https://pisample-250e.restdb.io/rest/empresadata?q={"_id":"${targetId}"}`
 		: `https://pisample-250e.restdb.io/rest/userdata?q={"_id":"${targetId}"}`);
 		xhr.setRequestHeader("content-type", "application/json");

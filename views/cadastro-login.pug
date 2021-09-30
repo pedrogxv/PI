@@ -19,9 +19,9 @@ main
     form#login.login(method='POST' action='/login')
       h2 Login
       p Email
-      input(type='email' name='email')
+      input(type='email' name='email' required='')
       p Senha
-      input(type='password' name='senha')
+      input(type='password' name='senha' required='')
       br
       input(type='submit' value='ENTRAR')
       br
@@ -34,25 +34,25 @@ main
         form.wrapperContext(action='/cadastro' method='POST')
           h2 Candidato
           p CPF
-          input(type='number' name='cpf')
+          input(type='number' name='cpf' required='')
           p Nome
-          input(type='text' name='nome')
+          input(type='text' name='nome' required='')
           p E-mail
-          input(type='email' name='email')
+          input(type='email' name='email' required='')
           p Senha
-          input(type='password' name='senha')
+          input(type='password' name='senha' required='')
           br
           input(type='submit' value='CADASTRAR')
         form.wrapperContext2(action='/cadastro' method='POST')
           h2 Empresa
           p CNPJ
-          input(type='number' name='cnpj')
+          input(type='number' name='cnpj' required='')
           p Nome
-          input(type='text' name='nome')
+          input(type='text' name='nome' required='')
           p E-mail
-          input(type='email' name='email')
+          input(type='email' name='email' required='')
           p Senha
-          input(type='password' name='senha')
+          input(type='password' name='senha' required='')
           br
           input(type='submit' value='CADASTRAR')
 script.

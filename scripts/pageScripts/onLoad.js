@@ -1,16 +1,23 @@
-let clientCookies = document.cookie
-clientCookies = clientCookies.split(/[=, ;]+/)
+let clientCookies = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, ...value] = current.split('=');
+    prev[name] = value.join('=');
+    return prev;
+}, {});
 
 window.addEventListener("load", () => {	
 	setPerfilInfoLoading(true)
 
 	let xhr = new XMLHttpRequest();
 	xhr.withCredentials = false;
+	console.log(clientCookies.userMode == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email": "${clientCookies.email}", "senha": "${clientCookies.senha}"}`
+	: `https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${clientCookies.email}", "senha": "${clientCookies.senha}"}`)
 
 	xhr.addEventListener("readystatechange", function () {
 		if (this.readyState === 4) {
 			try {
 				const data = JSON.parse(this.responseText);
+				console.log(data)
+				console.log(this.responseText)
 				
 				const dataKeys = Object.keys(data[0])
 
@@ -51,8 +58,8 @@ window.addEventListener("load", () => {
 		}
 	});
 
-	xhr.open("GET", clientCookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`
-	: `https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${clientCookies[3]}", "senha": "${clientCookies[5]}"}`);
+	xhr.open("GET", clientCookies.userMode == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata?q={"email": "${clientCookies.email}", "senha": "${clientCookies.senha}"}`
+	: `https://pisample-250e.restdb.io/rest/empresadata?q={"email": "${clientCookies.email}", "senha": "${clientCookies.senha}"}`);
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 	xhr.setRequestHeader("cache-control", "no-cache");
@@ -150,7 +157,7 @@ const initiatePerfilEditToggle = (oldData) => {
 						}
 					});
 
-					xhr.open("PUT", clientCookies[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata/${clientCookies[1]}`
+					xhr.open("PUT", clientCookies.userMode == "candidato" ? `https://pisample-250e.restdb.io/rest/userdata/${clientCookies[1]}`
 					: `https://pisample-250e.restdb.io/rest/empresadata/${clientCookies[1]}`);
 					xhr.setRequestHeader("content-type", "application/json");
 					xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");

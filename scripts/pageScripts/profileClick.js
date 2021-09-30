@@ -4,8 +4,11 @@ const avisoNoData = document.querySelector("#aviso-no-data")
 
 const loadingTarget = document.querySelector("#perfilCandidatoLoading")
 
-let browserCookiesForProfile = document.cookie
-browserCookiesForProfile = browserCookiesForProfile.split(/[=, ;]+/)
+let browserCookiesForProfile = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, ...value] = current.split('=');
+    prev[name] = value.join('=');
+    return prev;
+}, {});
 
 profileLinks.forEach((profileLink) => {
 
@@ -36,7 +39,7 @@ profileLinks.forEach((profileLink) => {
 
 		let targetId = profileLink.getAttribute("value")
 
-		xhr.open("GET", browserCookiesForProfile[7] == "candidato" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
+		xhr.open("GET", browserCookiesForProfile.userMode == "candidato" ? `https://pisample-250e.restdb.io/rest/empresadata?q={"_id": "${targetId}"}` : `https://pisample-250e.restdb.io/rest/userdata?q={"_id": "${targetId}"}`);
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 		xhr.setRequestHeader("cache-control", "no-cache");
