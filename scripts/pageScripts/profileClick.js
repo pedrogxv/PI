@@ -90,6 +90,7 @@ const aplicarDataAosCampos = (data) => {
 			&& dataKeys[key] != "next"
 			&& dataKeys[key] != "currentTarget"
 			&& dataKeys[key] != "empresasViews"
+			&& dataKeys[key] != "contatoCount"
 			&& dataKeys[key] != "pilhaCandidatos"
 			&& dataKeys[key] != "preferencias"
 		) {

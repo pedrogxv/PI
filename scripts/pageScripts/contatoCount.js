@@ -17,6 +17,7 @@ contatoCount.addEventListener("click", () => {
 		if (this.readyState === 4) {
 			const data = JSON.parse(this.responseText);
 
+			console.log(data)
 			if (data.contatoCount.indexOf(value) == -1)
 				data.contatoCount.push(value)
 
@@ -28,7 +29,7 @@ contatoCount.addEventListener("click", () => {
 			xhr.setRequestHeader("x-apikey", "6112d0b769fac573b50a540e");
 			xhr.setRequestHeader("cache-control", "no-cache");
 
-			xhr.send(JSON.stringfy({
+			xhr.send(JSON.stringify({
 				"contatoCount": data.contatoCount
 			}));
 		}

@@ -260,9 +260,15 @@ router.get('/logout', (req, res) => {
 	res.clearCookie("email")
 	res.clearCookie("senha")
 	res.clearCookie("userMode")
-	res.render(path.join(__dirname, 'views/cadastro-login.pug'), {
-		"error": req.body.error
-	});
+
+	if (req.query.novaSenha)
+		res.render(path.join(__dirname, 'views/cadastro-login.pug'), {
+			"success": "Senha alterada. Faça login novamente!"
+		});
+	else
+		res.render(path.join(__dirname, 'views/cadastro-login.pug'), {
+			"error": req.body.error
+		});
 
 });
 
@@ -364,7 +370,7 @@ router.post('/mudar-senha', async (req, res) => {
 
 		const queryRes = await putQuery(_id, newData, apikey, url)
 
-		res.redirect('/logout')
+		res.redirect('/logout?novaSenha=true')
 		
 	} catch (e) {
 		console.log(e)
@@ -392,32 +398,6 @@ router.get('/confirmar-reset', async (req, res) => {
 
 })
 
-router.post('/reset', async (req, res) => {
-	
-	try {
-
-		const _id = req.cookies._id
-		const url = req.cookies.userMode == "candidato" ? "https://pisample-250e.restdb.io/rest/userdata/" :
-		"https://pisample-250e.restdb.io/rest/empresadata/"
-		
-		let newData = {}
-
-		if (req.body.resetType == 'favoritos') {
-			// reseta o valor de favoritos
-			newData["favoritos"] = []
-		}
-
-		// salva o novo valor de query no bd
-		await putQuery(_id, newData, apikey, url)
-
-	} catch (e) {
-		console.log(e)
-	}
-
-	res.redirect('/user-home')
-
-})
-
 router.post("/novaBusca", async (req, res) => {
 	
 	try {
@@ -430,8 +410,14 @@ router.post("/novaBusca", async (req, res) => {
 
 		await putQuery(_id, zerarPilha, apikey, "https://pisample-250e.restdb.io/rest/empresadata/")
 
-		const interesse1 = req.body.areaInteresse
-		const interesse2 = req.body.areaInteresse2
+		let interesse1 = req.body.areaInteresse
+		let interesse2 = req.body.areaInteresse2
+
+		// atribuindo "/" para q n pesquise por campos nulos
+		if (interesse1 == "" || !interesse1)
+			interesse1 = "/"
+		if (interesse2 == "" || !interesse2)
+			interesse2 = "/"
 
 		const userData = JSON.parse(await dbQuery(`"_id":"${_id}"`, apikey, "https://pisample-250e.restdb.io/rest/empresadata?"))
 
